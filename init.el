@@ -23,10 +23,10 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;;fill-column       ; a `fill-column' indicator
+       fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       ;;hydra
-       ;;indent-guides     ; highlighted indent columns
+       hydra
+       indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
        ;;neotree           ; a project drawer, like NERDTree for vim
@@ -34,8 +34,8 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       ;;pretty-code       ; replace bits of code with pretty symbols
-       ;;tabs              ; an tab bar for Emacs
+       pretty-code       ; replace bits of code with pretty symbols
+       tabs              ; an tab bar for Emacs
        ;;treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
@@ -53,7 +53,7 @@
        multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
-       rotate-text       ; cycle region at point between text candidates
+       ;;rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
        ;;word-wrap         ; soft wrapping with language-aware indent
 
@@ -64,7 +64,7 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;;eshell            ; a consistent, cross-platform shell (WIP)
+       eshell            ; a consistent, cross-platform shell (WIP)
        ;;shell             ; a terminal REPL for Emacs
        ;;term              ; terminals in Emacs
        ;;vterm             ; another terminals in Emacs
@@ -96,8 +96,8 @@
 
        :lang
        ;;agda              ; types of types of types of types...
-       ;;assembly          ; assembly for fun or debugging
-       ;;cc                ; C/C++/Obj-C madness
+       assembly          ; assembly for fun or debugging
+       cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -112,7 +112,7 @@
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp           ; ML stands for Microsoft's Language
        ;;go                ; the hipster dialect
-       ;;(haskell +dante)  ; a language that's lazier than I am
+       (haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
@@ -130,7 +130,7 @@
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; drag & drop files/images into org buffers
-        ;;+hugo            ; use Emacs for hugo blogging
+        +hugo            ; use Emacs for hugo blogging
         +ipython         ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
         ;;+pomodoro        ; be fruitful with the tomato technique
@@ -139,7 +139,7 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       ;;python            ; beautiful is better than ugly
+       python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
