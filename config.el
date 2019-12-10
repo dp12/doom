@@ -39,6 +39,7 @@
       :desc "evil-mc-mode" "mc" #'evil-mc-mode
       :desc "magit-find-file" "mf" #'magit-find-file
       :desc "mu4e-jump-to-mail" "mj" #'mu4e-jump-to-mail
+      :desc "imenu-list" "ml" #'imenu-list-smart-toggle
       :desc "magit-file-popup" "mp" #'magit-file-popup
       :desc "mu4e-update-mail" "mu" #'mu4e-update-mail-and-index-wrapper
       :desc "toggle-org-checkbox" "oc" #'toggle-org-checkbox
@@ -48,3 +49,38 @@
       :desc "counsel-yank-pop" "ry" #'counsel-yank-pop
       :desc "sort-lines" "sl" #'sort-lines
       )
+
+;; Spacemacs keybindings
+(map! :leader
+      :desc "magit-status" "gs" #'magit-status)
+
+(define-key! "C-c g" #'counsel-git)
+
+(use-package! key-chord
+  :config
+  (key-chord-mode 1)
+  (key-chord-define-global "qf" 'source-peek)
+  (key-chord-define-global "qr" 'query-replace)
+  (key-chord-define-global "qw" 'pop-tag-mark)
+  (key-chord-define-global "vv" 'other-window)
+  (key-chord-define evil-insert-state-map "kj" 'evil-normal-state))
+
+(use-package! parrot
+  :config
+  (add-hook 'parrot-click-hook 'mu4e-update-mail-and-index-wrapper))
+
+(use-package! double-saber
+  :config
+  (with-eval-after-load "ggtags"
+    (add-hook 'ggtags-global-mode-hook
+              (lambda ()
+                (double-saber-mode)
+                (setq-local double-saber-start-line 5)
+                (setq-local double-saber-end-text "Global found")))
+    (define-key ggtags-global-mode-map (kbd "o") 'ggtags-navigation-visible-mode))
+  (with-eval-after-load "ripgrep"
+    (add-hook 'ripgrep-search-mode-hook
+              (lambda ()
+                (double-saber-mode)
+                (setq-local double-saber-start-line 5)
+                (setq-local double-saber-end-text "Ripgrep finished")))))
