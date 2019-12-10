@@ -23,6 +23,7 @@
       :desc "ediff-buffers" "ed" #'ediff-buffers
       :desc "evil-show-marks" "em" #'evil-show-marks
       :desc "evil-show-registers" "er" #'evil-show-registers
+      :desc "dired-jump" "fj" #'dired-jump
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
       :desc "projectile-ripgrep-filename" "fN" #'projectile-ripgrep-filename
       :desc "frog-jump-buffer" "fb" #'frog-jump-buffer
