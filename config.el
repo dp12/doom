@@ -73,6 +73,7 @@
       :desc "narrow-to-defun" "nf" #'narrow-to-defun
       :desc "narrow-to-page" "np" #'narrow-to-page
       :desc "narrow-to-region" "nr" #'narrow-to-region
+      :desc "narrow-widen" "nw" #'widen
       :desc "evil-iedit" "se" #'evil-iedit-state/iedit-mode
       :desc "truncate-lines" "tl" #'toggle-truncate-lines
       :desc "toggle-line-numbers" "tn" #'doom/toggle-line-numbers
