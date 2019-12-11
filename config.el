@@ -82,7 +82,9 @@
 ;;; Non-leader keybindings
 ;; TODO: get mu4e working
 ;; TODO: add git-gutter hydra
-(define-key! "C-c g" #'counsel-git)
+(map!
+  :nvi "C-c g" #'counsel-git
+  :nvi "M-." #'ggtags-find-tag-dwim)
 
 ;;; Package configuration
 (use-package! corral
