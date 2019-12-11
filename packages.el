@@ -13,7 +13,6 @@
 (package! frog-jump-buffer)
 (package! company-try-hard)
 (package! shell-pop)
-(package! winum)
 (package! quickrun)
 
 (package! symbol-overlay)

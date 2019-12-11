@@ -121,20 +121,6 @@
   (key-chord-define-global "vv" 'other-window)
   (key-chord-define evil-insert-state-map "kj" 'evil-normal-state))
 
-(use-package! winum
-  :config
-  (map! :leader
-        :desc "switch to window 1" "1" #'winum-select-window-1
-        :desc "switch to window 2" "2" #'winum-select-window-2
-        :desc "switch to window 3" "3" #'winum-select-window-3
-        :desc "switch to window 4" "4" #'winum-select-window-4
-        :desc "switch to window 5" "5" #'winum-select-window-5
-        :desc "switch to window 6" "6" #'winum-select-window-6
-        :desc "switch to window 7" "7" #'winum-select-window-7
-        :desc "switch to window 8" "8" #'winum-select-window-8
-        :desc "switch to window 9" "9" #'winum-select-window-9)
-  )
-
 (use-package! parrot
   :init
   (parrot-mode)
