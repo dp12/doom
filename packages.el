@@ -13,8 +13,12 @@
 (package! frog-jump-buffer)
 (package! company-try-hard)
 (package! shell-pop)
+(package! winum)
 (package! quickrun)
 
+(package! symbol-overlay)
+(package! evil-iedit-state)
+(package! imenu-list)
 (package! elsa)
 (package! flycheck-elsa)
 (package! flycheck-package)
@@ -25,6 +29,7 @@
 
 (package! corral)
 (package! key-chord)
+(package! nyan-mode)
 (package! parrot)
 (package! double-saber)
 
