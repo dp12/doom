@@ -23,6 +23,7 @@
 (package! dired-git-info)
 (package! source-peek :recipe (:host github :repo "iqbalansari/emacs-source-peek"))
 
+(package! corral)
 (package! key-chord)
 (package! parrot)
 (package! double-saber)
