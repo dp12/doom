@@ -325,6 +325,7 @@
   (define-key ripgrep-search-mode-map (kbd "M-<down>") 'compilation-next-error))
 
 (after! evil-snipe
+  (setq evil-snipe-repeat-keys t)
   (setq evil-snipe-scope 'buffer)
   (setq evil-snipe-repeat-scope 'buffer))
 
