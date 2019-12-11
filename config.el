@@ -19,7 +19,8 @@
       :desc "bookmark jump" "bj" #'counsel-bookmark
       :desc "list bookmarks" "bl" #'list-bookmarks
       :desc "swap windows" "bx" #'ace-swap-window
-      :desc "copy and comment" "ck" #'evilnc-comment-and-kill-ring-save
+      :desc "save and comment" "ck" #'evilnc-comment-and-kill-ring-save
+      :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
       :desc "dumb jump other" "dG" #'dumb-jump-go-other-window
       :desc "dumb jump" "dg" #'dumb-jump-go
@@ -63,9 +64,17 @@
 (map! :leader
       :desc "magit-status" "gs" #'magit-status
       :desc "magit-blame" "gb" #'magit-blame
-      :desc "jump to line" "jl" #'evil-avy-goto-line)
+      :desc "jump to line" "jl" #'evil-avy-goto-line
+      :desc "narrow-to-defun" "nf" #'narrow-to-defun
+      :desc "narrow-to-page" "np" #'narrow-to-page
+      :desc "narrow-to-region" "nr" #'narrow-to-region
+      :desc "evil-iedit" "se" #'evil-iedit-state/iedit-mode
+      :desc "truncate-lines" "tl" #'toggle-truncate-lines
+      )
 
 ;;; Non-leader keybindings
+;; TODO: add highlighting for TODO
+;; TODO: add C-n/C-p bindings for evil-mc mode
 (define-key! "C-c g" #'counsel-git)
 
 ;;; Package configuration
@@ -103,15 +112,32 @@
                                     (corral-at-point 'corral-single-quotes-forward)))))
 
 (use-package! key-chord
-  :config
+  :init
   (key-chord-mode 1)
+  :config
   (key-chord-define-global "qf" 'source-peek)
   (key-chord-define-global "qr" 'query-replace)
   (key-chord-define-global "qw" 'pop-tag-mark)
   (key-chord-define-global "vv" 'other-window)
   (key-chord-define evil-insert-state-map "kj" 'evil-normal-state))
 
+(use-package! winum
+  :config
+  (map! :leader
+        :desc "switch to window 1" "1" #'winum-select-window-1
+        :desc "switch to window 2" "2" #'winum-select-window-2
+        :desc "switch to window 3" "3" #'winum-select-window-3
+        :desc "switch to window 4" "4" #'winum-select-window-4
+        :desc "switch to window 5" "5" #'winum-select-window-5
+        :desc "switch to window 6" "6" #'winum-select-window-6
+        :desc "switch to window 7" "7" #'winum-select-window-7
+        :desc "switch to window 8" "8" #'winum-select-window-8
+        :desc "switch to window 9" "9" #'winum-select-window-9)
+  )
+
 (use-package! parrot
+  :init
+  (parrot-mode)
   :config
   (add-hook 'parrot-click-hook 'mu4e-update-mail-and-index-wrapper)
   (define-key evil-normal-state-map (kbd "[r") 'parrot-rotate-prev-word-at-point)
@@ -148,15 +174,12 @@
             ;; ggtags breaks iedit unless the below is nil
             (setq ggtags-highlight-tag nil)
             (ggtags-mode t)
-            (spacemacs|diminish ggtags-mode ⓖ)
             (setq semantic-stickyfunc-show-only-functions-p t)
             (local-set-key (kbd "C-M-.") 'insert-period)
             (local-set-key (kbd "C-M-,") 'cthulhu-summon-comma)
             (local-set-key (kbd "C-M-;") 'cthulhu-summon-c-terminator)
             (local-set-key (kbd "C-M-:") 'cthulhu-summon-function-call)
-            ;; (spacemacs/toggle-fill-column-indicator-on)
             (dtrt-indent-mode t)
-            (spacemacs|diminish dtrt-indent-mode "ⓓ")
             (with-eval-after-load "evil-surround"
               ;; Use 7 to /* wrap */ a word
               (push '(?7 . ("/* " . " */")) evil-surround-pairs-alist))
@@ -275,6 +298,16 @@
     (call-interactively #'projectile-ripgrep)))
 
 ;;; eval-after-load configuration
+(after! dired
+  (define-key dired-mode-map "a" 'ripgrep-regexp)
+  (define-key dired-mode-map "A" 'helm-ag)
+  (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
+  (define-key dired-mode-map (kbd "M-n") 'dired-narrow)
+  (setq diff-hl-dired-mode t)
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
+  (setq dired-listing-switches "--group-directories-first -alh")
+  ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  )
 
 (after! ivy
   (global-set-key "\C-s" 'counsel-grep-or-swiper)
@@ -308,3 +341,14 @@
 (after! evil-snipe
   (setq evil-snipe-scope 'buffer)
   (setq evil-snipe-repeat-scope 'buffer))
+
+;; FIXME: need this to get parrot working
+(after! doom-modeline
+  (doom-modeline-def-modeline 'my/modeline
+    '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+    '(misc-info minor-modes checker input-method buffer-encoding major-mode process vcs))
+  (defun setup-custom-doom-modeline ()
+    (doom-modeline-set-modeline 'my/modeline 'default))
+  (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline))
+
+;; (load-file "~/.irobot/custom/doom-config.el")
