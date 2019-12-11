@@ -59,6 +59,10 @@
       :desc "counsel-yank-pop" "ry" #'counsel-yank-pop
       :desc "sort-lines" "sl" #'sort-lines
       )
+(map!
+ (:when (featurep! :editor multiple-cursors)
+   :nv "C-n" #'evil-mc-make-and-goto-next-match
+   :nv "C-p" #'evil-mc-make-and-goto-prev-match))
 
 ;;; Spacemacs keybindings
 (map! :leader
@@ -70,11 +74,12 @@
       :desc "narrow-to-region" "nr" #'narrow-to-region
       :desc "evil-iedit" "se" #'evil-iedit-state/iedit-mode
       :desc "truncate-lines" "tl" #'toggle-truncate-lines
+      :desc "toggle-line-numbers" "tn" #'doom/toggle-line-numbers
       )
 
 ;;; Non-leader keybindings
-;; TODO: add highlighting for TODO
-;; TODO: add C-n/C-p bindings for evil-mc mode
+;; TODO: get mu4e working
+;; TODO: add git-gutter hydra
 (define-key! "C-c g" #'counsel-git)
 
 ;;; Package configuration
@@ -131,6 +136,15 @@
 
 (use-package! double-saber
   :config
+  (map!
+   (:after double-saber
+     :map double-saber-mode-map
+     :nv "d" #'double-saber-delete
+     :nv "x" #'double-saber-narrow
+     :nv "s" #'double-saber-sort-lines
+     :nv "u" #'double-saber-undo
+     :nv "C-r" #'double-saber-redo
+     :nv "C-_" #'double-saber-redo))
   (with-eval-after-load "ggtags"
     (add-hook 'ggtags-global-mode-hook
               (lambda ()
@@ -284,16 +298,20 @@
     (call-interactively #'projectile-ripgrep)))
 
 ;;; eval-after-load configuration
-(after! dired
-  (define-key dired-mode-map "a" 'ripgrep-regexp)
-  (define-key dired-mode-map "A" 'helm-ag)
-  (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
-  (define-key dired-mode-map (kbd "M-n") 'dired-narrow)
-  (setq diff-hl-dired-mode t)
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
-  (setq dired-listing-switches "--group-directories-first -alh")
-  ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-  )
+(map! :map dired-mode-map
+  :n "a" #'ripgrep-regexp
+  :n "W" #'wdired-change-to-wdired-mode
+     "M-n" #'dired-narrow)
+;; (after! dired
+  ;; (define-key dired-mode-map "a" 'ripgrep-regexp)
+  ;; (define-key dired-mode-map "A" 'helm-ag)
+  ;; (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
+  ;; (define-key dired-mode-map (kbd "M-n") 'dired-narrow)
+  ;; (setq diff-hl-dired-mode t)
+  ;; (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
+  ;; (setq dired-listing-switches "--group-directories-first -alh")
+  ;; ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  ;; )
 
 (after! ivy
   (global-set-key "\C-s" 'counsel-grep-or-swiper)
