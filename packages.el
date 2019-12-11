@@ -6,6 +6,7 @@
 ;; (package! another-package :recipe (:host github :repo "username/repo"))
 ;; (package! builtin-package :disable t)
 
+(package! ggtags)
 (package! projectile-ripgrep)
 (package! deadgrep)
 (package! fzf)
