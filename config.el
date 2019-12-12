@@ -87,6 +87,15 @@
       "7" #'winum-select-window-7
       "8" #'winum-select-window-8
       "9" #'winum-select-window-9
+      "l1" #'+workspace/switch-to-0
+      "l2" #'+workspace/switch-to-1
+      "l3" #'+workspace/switch-to-2
+      "l4" #'+workspace/switch-to-3
+      "l5" #'+workspace/switch-to-4
+      "l6" #'+workspace/switch-to-5
+      "l7" #'+workspace/switch-to-6
+      "l8" #'+workspace/switch-to-7
+      "l9" #'+workspace/switch-to-7
       )
 
 ;;; Non-leader keybindings
