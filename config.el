@@ -86,6 +86,34 @@
   :nvi "C-c g" #'counsel-git
   :nvi "M-." #'ggtags-find-tag-dwim)
 
+(map! :map dired-mode-map
+  :n "a" #'ripgrep-regexp
+  :n "W" #'wdired-change-to-wdired-mode
+     "M-n" #'dired-narrow)
+;; (after! dired
+  ;; (define-key dired-mode-map "a" 'ripgrep-regexp)
+  ;; (define-key dired-mode-map "A" 'helm-ag)
+  ;; (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
+  ;; (define-key dired-mode-map (kbd "M-n") 'dired-narrow)
+  ;; (setq diff-hl-dired-mode t)
+  ;; (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
+  ;; (setq dired-listing-switches "--group-directories-first -alh")
+  ;; ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  ;; )
+
+(map! :map magit-file-section-map
+  :nv [S-return] (lambda ()
+                     (interactive)
+                     (let ((current-prefix-arg '(4)))
+                       (call-interactively 'magit-diff-visit-file))))
+
+(map! :map magit-file-section-map
+  :nv [S-return] (lambda ()
+                     (interactive)
+                     (let ((current-prefix-arg '(4)))
+                       (call-interactively 'magit-diff-visit-file))))
+
+
 ;;; Package configuration
 (use-package! corral
   :defer t
@@ -302,21 +330,6 @@
     (call-interactively #'projectile-ripgrep)))
 
 ;;; eval-after-load configuration
-(map! :map dired-mode-map
-  :n "a" #'ripgrep-regexp
-  :n "W" #'wdired-change-to-wdired-mode
-     "M-n" #'dired-narrow)
-;; (after! dired
-  ;; (define-key dired-mode-map "a" 'ripgrep-regexp)
-  ;; (define-key dired-mode-map "A" 'helm-ag)
-  ;; (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
-  ;; (define-key dired-mode-map (kbd "M-n") 'dired-narrow)
-  ;; (setq diff-hl-dired-mode t)
-  ;; (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
-  ;; (setq dired-listing-switches "--group-directories-first -alh")
-  ;; ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-  ;; )
-
 (after! ivy
   (global-set-key "\C-s" 'counsel-grep-or-swiper)
   (global-set-key (kbd "C-S-s") 'isearch-forward)
@@ -331,6 +344,32 @@
   (define-key ivy-minibuffer-map (kbd "C-c p") (lambda () (interactive) (minibuffer-insert " \\.py$" t)))
   (define-key ivy-minibuffer-map (kbd "C-c k") (lambda () (interactive) (minibuffer-munch)))
   (define-key ivy-minibuffer-map (kbd "C-c K") (lambda () (interactive) (minibuffer-crunch))))
+
+(after! hydra
+  (defhydra hydra-git-gutter+ (global-map "C-c")
+    "git-gutter+"
+    ("n" git-gutter+-next-hunk "next")
+    ("p" git-gutter+-previous-hunk "prev")
+    ("v" git-gutter+-revert-hunk "revert")
+    ("r" git-gutter+-revert-hunk "revert")
+    ("=" git-gutter+-show-hunk "show")
+    ("i" git-gutter+-show-hunk-inline-at-point "show inline")
+    ("m" git-messenger:popup-message "msgr")
+    ("s" git-gutter+-stage-hunks "stage")
+    ("S" magit-status "magit")
+    ("c" git-gutter+-stage-and-commit "stage/commit" :color blue)
+    ("C" git-gutter+-stage-and-commit-whole-buffer "stage/commit buffer" :color blue)
+    ("l" recenter-top-bottom "recenter window")
+    ("q" nil "quit"))
+
+  (defhydra hydra-kill-buffer (global-map "C-x")
+    "Kill Buffer"
+    ("k" (lambda () (interactive) (kill-buffer nil)) "assassinate buffer" :color red)
+    ("K" kill-buffer "kill buffer")
+    ("d" kill-dired-buffers "kill dired buffers")
+    ("x" (lambda () (interactive) (kill-buffer nil)) "assassinate buffer" :color blue)
+    ("q" nil "quit"))
+  )
 
 (after! ggtags
   (define-key ggtags-navigation-map (kbd "M-<up>") 'ggtags-navigation-previous-file)
@@ -353,6 +392,7 @@
 
 ;; FIXME: need this to get parrot working
 (after! doom-modeline
+  (nyan-mode)
   (doom-modeline-def-modeline 'my/modeline
     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
     '(misc-info minor-modes checker input-method buffer-encoding major-mode process vcs))
