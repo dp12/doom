@@ -148,6 +148,7 @@
     (global-set-key (kbd "C-M-'") (lambda () (interactive)
                                     (corral-at-point 'corral-single-quotes-forward)))))
 
+(use-package! evil-iedit-state)
 (use-package! key-chord
   :init
   (key-chord-mode 1)

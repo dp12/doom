@@ -31,6 +31,7 @@
 (package! company-try-hard)
 (package! corral)
 (package! evil-iedit-state)
+(package! iedit)
 (package! imenu-list)
 (package! quickrun)
 (package! source-peek :recipe (:host github :repo "iqbalansari/emacs-source-peek"))
