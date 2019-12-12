@@ -94,7 +94,11 @@
 ;; TODO: add git-gutter hydra
 (map!
   :nvi "C-c g" #'counsel-git
-  :nvi "M-." #'ggtags-find-tag-dwim)
+  :nvi "M-." #'ggtags-find-tag-dwim
+  :nvi (kbd "C-c <left>") #'windmove-left
+  :nvi (kbd "C-c <right>") #'windmove-right
+  :nvi (kbd "C-c <down>") #'windmove-down
+  :nvi (kbd "C-c <up>") #'windmove-up)
 
 (after! dired
   (map! :map dired-mode-map
