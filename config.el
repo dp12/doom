@@ -293,6 +293,27 @@
     (shell-command
      (format insert-br-cmd (gdb-get-breakpoint-str breakpoint-type)))))
 
+(defun toggle-org-checkbox ()
+  (interactive)
+  (save-excursion
+    (back-to-indentation)
+    (let ((cur-string nil)
+          (start-point (point))
+          (end-point nil))
+      (end-of-line)
+      (setq end-point (point))
+      (while (looking-at-p "[[:blank:]]")
+        (blank-char))
+      (delete-trailing-whitespace (line-beginning-position) (line-end-position))
+      (setq cur-string (buffer-substring-no-properties start-point end-point))
+      (cond ((string-match-p (regexp-quote "- [ ]") cur-string) (replace-regexp (regexp-quote "- [ ]") "" nil start-point end-point))
+            ((string-match-p (regexp-quote "- [X]") cur-string) (replace-regexp (regexp-quote "- [X]") "- [ ]" nil start-point end-point))
+            ((string-match-p (regexp-quote "- [") cur-string) (replace-regexp (regexp-quote "- [") "- [ ]" nil start-point end-point))
+            ((string-match-p (regexp-quote "-") cur-string) (replace-regexp (regexp-quote "-") "- [ ]" nil start-point end-point))
+            (t (progn
+                 (goto-char start-point)
+                 (insert "- [ ] ")))))))
+
 (defun minibuffer-toggle (string &optional eol)
   (save-excursion
     (let ((found nil))
