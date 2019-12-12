@@ -278,12 +278,6 @@
     (shell-command
      (format insert-br-cmd (gdb-get-breakpoint-str breakpoint-type)))))
 
-(defun add-minibuffer-ripgrep-keymap ()
-  (define-key minibuffer-local-map (kbd "C-c C-p") (lambda ()
-                                                     (interactive)
-                                                     (minibuffer-insert "PRODUCE_")
-                                                     (end-of-line))))
-
 (defun minibuffer-toggle (string &optional eol)
   (save-excursion
     (let ((found nil))
@@ -323,6 +317,27 @@
   (require 'ffap)
   (let ((ivy-auto-select-single-candidate t))
     (counsel-git (ffap-string-at-point))))
+
+  (defun copy-file-basename-to-clipboard ()
+    "Copy the current buffer file name to the clipboard."
+    (interactive)
+    (let ((filename (if (equal major-mode 'dired-mode)
+                        default-directory
+                      (uniquify-buffer-base-name))))
+      (when filename
+        (kill-new filename)
+        (message "%s" filename))))
+
+  (defun projectile-ripgrep-filename ()
+    "Search for the current filename"
+    (interactive)
+    (projectile-ripgrep (uniquify-buffer-base-name)))
+
+(defun add-minibuffer-ripgrep-keymap ()
+  (define-key minibuffer-local-map (kbd "C-c C-p") (lambda ()
+                                                     (interactive)
+                                                     (minibuffer-insert "PRODUCE_")
+                                                     (end-of-line))))
 
 (defun projectile-ripgrep-custom ()
   (interactive)
