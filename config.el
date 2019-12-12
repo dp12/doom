@@ -96,6 +96,7 @@
       "l7" #'+workspace/switch-to-6
       "l8" #'+workspace/switch-to-7
       "l9" #'+workspace/switch-to-7
+      "Tm" #'menu-bar-mode
       )
 
 ;;; Non-leader keybindings
