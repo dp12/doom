@@ -86,10 +86,11 @@
   :nvi "C-c g" #'counsel-git
   :nvi "M-." #'ggtags-find-tag-dwim)
 
-(map! :map dired-mode-map
-  :n "a" #'ripgrep-regexp
-  :n "W" #'wdired-change-to-wdired-mode
-     "M-n" #'dired-narrow)
+(after! dired
+  (map! :map dired-mode-map
+        :n "a" #'ripgrep-regexp
+        :n "W" #'wdired-change-to-wdired-mode
+        "M-n" #'dired-narrow))
 ;; (after! dired
   ;; (define-key dired-mode-map "a" 'ripgrep-regexp)
   ;; (define-key dired-mode-map "A" 'helm-ag)
