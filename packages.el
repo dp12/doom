@@ -19,6 +19,7 @@
 (package! double-saber)
 (package! fzf)
 (package! ggtags)
+(package! git-gutter+)
 (package! projectile-ripgrep)
 
 ;;; Emacs lisp development
