@@ -100,7 +100,6 @@
 
 ;;; Non-leader keybindings
 ;; TODO: get mu4e working
-;; TODO: add git-gutter hydra
 (map!
   :nvi "C-c g" #'counsel-git
   :nvi "M-." #'ggtags-find-tag-dwim
