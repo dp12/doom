@@ -324,7 +324,9 @@
     (interactive)
     (let ((filename (if (equal major-mode 'dired-mode)
                         default-directory
-                      (uniquify-buffer-base-name))))
+                      (if (uniquify-buffer-base-name)
+                          (uniquify-buffer-base-name)
+                        (buffer-name)))))
       (when filename
         (kill-new filename)
         (message "%s" filename))))
@@ -332,7 +334,9 @@
   (defun projectile-ripgrep-filename ()
     "Search for the current filename"
     (interactive)
-    (projectile-ripgrep (uniquify-buffer-base-name)))
+    (projectile-ripgrep (if (uniquify-buffer-base-name)
+                            (uniquify-buffer-base-name)
+                          (buffer-name))))
 
 (defun add-minibuffer-ripgrep-keymap ()
   (define-key minibuffer-local-map (kbd "C-c C-p") (lambda ()
