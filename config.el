@@ -70,6 +70,7 @@
 
 ;;; Spacemacs keybindings
 (map! :leader
+      :desc "fill column" "tf" #'fci-mode
       :desc "magit-status" "gs" #'magit-status
       :desc "magit-blame" "gb" #'magit-blame
       :desc "jump to line" "jl" #'evil-avy-goto-line

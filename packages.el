@@ -36,8 +36,9 @@
 (package! imenu-list)
 (package! quickrun)
 (package! source-peek :recipe (:host github :repo "iqbalansari/emacs-source-peek"))
-(package! symbol-overlay)
 
-;;; Appearance
+;;; Visual
+(package! fill-column-indicator)
 (package! nyan-mode)
 (package! parrot)
+(package! symbol-overlay)
