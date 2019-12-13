@@ -10,6 +10,7 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (toggle-truncate-lines -1) ;; wrap long lines
+(global-git-gutter+-mode)
 
 ;;; Leader keybindings
 (map! :leader
