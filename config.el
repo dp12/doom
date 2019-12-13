@@ -475,6 +475,9 @@
   (setq evil-snipe-scope 'buffer)
   (setq evil-snipe-repeat-scope 'buffer))
 
+(after! nyan-mode
+  (setq nyan-bar-length 8))
+
 ;; FIXME: need this to get parrot working
 (after! doom-modeline
   (nyan-mode)
