@@ -191,6 +191,7 @@
   (key-chord-define-global "qr" 'query-replace)
   (key-chord-define-global "qw" 'pop-tag-mark)
   (key-chord-define-global "vv" 'other-window)
+  (key-chord-define evil-normal-state-map "kj" 'doom/escape)
   (key-chord-define evil-insert-state-map "kj" 'evil-normal-state))
 
 (use-package! parrot
