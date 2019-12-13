@@ -10,7 +10,10 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (toggle-truncate-lines -1) ;; wrap long lines
+
+;;; Package configuration
 (global-git-gutter+-mode)
+(setq dumb-jump-force-searcher 'rg)
 
 ;;; Leader keybindings
 (map! :leader
