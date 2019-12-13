@@ -114,7 +114,10 @@
   :nvi (kbd "C-c <left>") #'windmove-left
   :nvi (kbd "C-c <right>") #'windmove-right
   :nvi (kbd "C-c <down>") #'windmove-down
-  :nvi (kbd "C-c <up>") #'windmove-up)
+  :nvi (kbd "C-c <up>") #'windmove-up
+  :nv "+" #'evil-numbers/inc-at-pt
+  :nv "-" #'evil-numbers/dec-at-pt
+  )
 
 (after! dired
   (map! :map dired-mode-map
