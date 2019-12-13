@@ -59,6 +59,8 @@
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
       :desc "counsel-yank-pop" "ry" #'counsel-yank-pop
       :desc "sort-lines" "sl" #'sort-lines
+      :desc "symbol overlay" "so" #'hydra-symbol-overlay/symbol-overlay-put
+      :desc "search online" "sO" #'+lookup/online
       )
 (map!
  (:when (featurep! :editor multiple-cursors)
@@ -434,7 +436,25 @@
     ("d" kill-dired-buffers "kill dired buffers")
     ("x" (lambda () (interactive) (kill-buffer nil)) "assassinate buffer" :color blue)
     ("q" nil "quit"))
-  )
+
+  (defhydra hydra-symbol-overlay ()
+    "symbol-overlay"
+    ("b" symbol-overlay-switch-backward "switch")
+    ("c" symbol-overlay-save-symbol "copy")
+    ("d" symbol-overlay-jump-to-definition "def")
+    ("e" symbol-overlay-echo-mark "echo")
+    ("f" symbol-overlay-switch-forward "switch")
+    ("n" symbol-overlay-jump-next "next")
+    ("N" symbol-overlay-jump-prev "prev")
+    ("o" symbol-overlay-put "overlay")
+    ("O" symbol-overlay-remove-all "unoverlay all")
+    ("p" symbol-overlay-jump-prev "prev")
+    ("r" symbol-overlay-query-replace "replace")
+    ("R" symbol-overlay-rename "rename")
+    ("s" symbol-overlay-isearch-literally "search")
+    ("t" symbol-overlay-toggle-in-scope "scope")
+    ("z" recenter-top-bottom "recenter")
+    ("q" nil "quit" :color blue)))
 
 (after! ggtags
   (define-key ggtags-navigation-map (kbd "M-<up>") 'ggtags-navigation-previous-file)
