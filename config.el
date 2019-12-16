@@ -406,6 +406,45 @@
     (call-interactively #'projectile-ripgrep)))
 
 ;;; eval-after-load configuration
+(after! mu4e
+  (setq mu4e-maildir "~/Maildir"
+        mu4e-attachment-dir "~/Maildir/.attachments"
+        mu4e-get-mail-command "mbsync -a"
+        mu4e-update-interval 60
+        mu4e-change-filenames-when-moving t
+        mu4e-compose-signature-auto-include nil
+        mu4e-compose-dont-reply-to-self t
+        mu4e-mu-binary "/usr/local/bin/mu"
+        mu4e-maildirs-extension-count-command-format "/usr/local/bin/mu find %s --fields 'i' | wc -l")
+
+  (setq message-send-mail-function 'message-send-mail-with-sendmail
+        sendmail-program "/usr/bin/msmtp")
+
+  (add-to-list 'mu4e-view-actions
+               '("browser" . mu4e-action-view-in-browser) t)
+
+  (defun mu4e-alert-update-mail-count-interactive ()
+    (interactive)
+    (mu4e-alert-update-mail-count-modeline))
+
+  (defun mu4e-update-mail-and-index-wrapper (&optional prefix)
+    (interactive "P")
+    (if prefix
+        (mu4e-update-mail-and-index)
+      (mu4e-update-mail-and-index t)))
+
+  (defun mu4e-jump-to-mail ()
+    (interactive)
+    (+workspace/new "mail")
+    (if (member "mail" (+workspace-list-names))
+        (progn
+          (+workspace/switch-to "mail")
+          ;; (mu4e-alert-view-unread-mails)
+          )
+      (+workspace/new "mail")
+      (mu4e)
+      (delete-other-windows))))
+
 (after! ivy
   (global-set-key "\C-s" 'counsel-grep-or-swiper)
   (global-set-key (kbd "C-S-s") 'isearch-forward)
