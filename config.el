@@ -119,6 +119,7 @@
   :nvi (kbd "C-c <up>") #'windmove-up
   :nv "+" #'evil-numbers/inc-at-pt
   :nv "-" #'evil-numbers/dec-at-pt
+  :v "s" #'evil-surround-region
   )
 
 (after! dired
