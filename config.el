@@ -104,7 +104,8 @@
       "l8" #'+workspace/switch-to-7
       "l9" #'+workspace/switch-to-7
       "Tm" #'menu-bar-mode
-      )
+      "w|" #'split-window-horizontally
+      "w-" #'split-window-vertically)
 
 ;;; Non-leader keybindings
 ;; TODO: get mu4e working
