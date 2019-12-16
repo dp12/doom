@@ -14,6 +14,7 @@
 ;;; Package configuration
 (global-git-gutter+-mode)
 (setq dumb-jump-force-searcher 'rg)
+(setq company-show-numbers t)
 
 ;;; Leader keybindings
 (map! :leader
