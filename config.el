@@ -139,6 +139,8 @@
   :nvi (kbd "C-c <right>") #'windmove-right
   :nvi (kbd "C-c <down>") #'windmove-down
   :nvi (kbd "C-c <up>") #'windmove-up
+  :nv "gt" #'centaur-tabs-forward
+  :nv "gT" #'centaur-tabs-backward
   )
 
 (after! dired
