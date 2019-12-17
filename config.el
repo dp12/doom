@@ -10,7 +10,7 @@
 (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
 
 ;;; System configuration
-;; (push '(menu-bar-lines . 0) default-frame-alist)
+(menu-bar-mode 0)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (toggle-truncate-lines -1) ;; wrap long lines
