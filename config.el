@@ -3,7 +3,10 @@
 ;; Place your private configuration here
 
 ;;; Doom configuration
-(setq doom-font (font-spec :family "Fixedsys Excelsior 301" :size 20))
+(if (not (string-equal system-type "windows-nt"))
+    (setq doom-font (font-spec :family "Fixedsys Excelsior 301" :size 20))
+  (setq doom-font (font-spec :family "Consolas" :size 20))
+  (setq doom-theme 'gruvbox-light-soft))
 
 ;;; System configuration
 (push '(menu-bar-lines . 0) default-frame-alist)
