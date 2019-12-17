@@ -413,6 +413,31 @@
     (call-interactively #'projectile-ripgrep)))
 
 ;;; eval-after-load configuration
+(after! org
+  (require 'org-mouse)
+  (setq org-startup-indented t)
+  (setq org-bullets-bullet-list '("◎" "◉" "○" "✎" "†" "■"))
+  (setq org-todo-keywords
+        (quote ((sequence "☛ TODO(t)" "↻ PENDING(p)" "|" "✔ DONE(d!)")
+                (sequence "⚑ WAITING(w@/!)" "⚁ MAYBE(m)" "PROJECT(P@)" "|" "✘ CANCELLED(c@/!)"))))
+  (setq org-fontify-whole-heading-line t)
+  (setq org-todo-keyword-faces
+        '(
+          ("☛ TODO"  . (:inherit org-todo :foreground "red"))
+          ("⚑ WAITING"  . (:inherit org-todo :foreground "purple"))
+          ("⚁ MAYBE"  . (:inherit org-todo :foreground "chocolate"))
+          ("↻ PENDING"  . (:inherit org-todo :foreground "orange"))
+          ("PROJECT"  . (:inherit org-todo :foreground "steelblue"))
+          ("✔ DONE"  . (:inherit org-todo :foreground "green2"))
+          ("✘ CANCELED"  . shadow)
+          ))
+  (setq org-src-fontify-natively t)
+  ;; Use middle dot instead of "-" list markers
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+  (add-hook 'text-mode-hook 'turn-on-visual-line-mode))
+
 (after! mu4e
   (setq mu4e-maildir "~/Maildir"
         mu4e-attachment-dir "~/Maildir/.attachments"
