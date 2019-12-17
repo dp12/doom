@@ -9,10 +9,13 @@
   (setq doom-theme 'gruvbox-light-soft))
 
 ;;; System configuration
-(push '(menu-bar-lines . 0) default-frame-alist)
+;; (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (toggle-truncate-lines -1) ;; wrap long lines
+(add-to-list 'auto-mode-alist '("\\.bin\\'" . hexl-mode))
+(defadvice async-shell-command (around hide-async-windows activate)
+  (save-window-excursion ad-do-it))
 
 ;;; Package configuration
 (global-git-gutter+-mode)
