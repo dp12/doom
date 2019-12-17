@@ -66,6 +66,7 @@
       :desc "mu4e-update-mail" "mu" #'mu4e-update-mail-and-index-wrapper
       :desc "toggle-org-checkbox" "oc" #'toggle-org-checkbox
       :desc "counsel-org-goto" "og" #'counsel-org-goto
+      :desc "quick calc" "qc" #'quick-calc
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
       :desc "counsel-yank-pop" "ry" #'counsel-yank-pop
@@ -84,6 +85,7 @@
       :desc "magit-status" "gs" #'magit-status
       :desc "magit-blame" "gb" #'magit-blame
       :desc "jump to line" "jl" #'evil-avy-goto-line
+      :desc "open link" "ol" #'link-hint-open-link ;; xo is illegal
       :desc "narrow-to-defun" "nf" #'narrow-to-defun
       :desc "narrow-to-page" "np" #'narrow-to-page
       :desc "narrow-to-region" "nr" #'narrow-to-region
@@ -117,15 +119,25 @@
 ;;; Non-leader keybindings
 ;; TODO: get mu4e working
 (map!
+  :nvi "M-D" #'company-dabbrev
+  :nvi "M-F" #'company-dabbrev-code
+  :nvi "M-?" #'company-complete
+  :nvi "M-H" #'company-try-hard
   :nvi "C-c g" #'counsel-git
+  :nvi "M-U" #'downcase-word
+  :nv "+" #'evil-numbers/inc-at-pt
+  :nv "-" #'evil-numbers/dec-at-pt
+  :v "s" #'evil-surround-region
   :nvi "M-." #'ggtags-find-tag-dwim
+  :nvi "C-M-S-<right>" #'sp-slurp-hybrid-sexp
+  :nvi "C-M-S-<left>" #'sp-forward-barf-sexp
+  :nvi "C-M-S-<down>" #'sp-push-hybrid-sexp
+  :nvi "C-M-S-<up>" #'sp-transpose-hybrid-sexp
+  :nvi "C-M-S-k" #'sp-kill-hybrid-sexp
   :nvi (kbd "C-c <left>") #'windmove-left
   :nvi (kbd "C-c <right>") #'windmove-right
   :nvi (kbd "C-c <down>") #'windmove-down
   :nvi (kbd "C-c <up>") #'windmove-up
-  :nv "+" #'evil-numbers/inc-at-pt
-  :nv "-" #'evil-numbers/dec-at-pt
-  :v "s" #'evil-surround-region
   )
 
 (after! dired
