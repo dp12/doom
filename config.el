@@ -146,6 +146,7 @@
         :n "W" #'wdired-change-to-wdired-mode
         "M-n" #'dired-narrow)
   (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t))))
+
 ;; (after! dired
   ;; (define-key dired-mode-map "a" 'ripgrep-regexp)
   ;; (define-key dired-mode-map "A" 'helm-ag)
@@ -465,7 +466,23 @@
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-  (add-hook 'text-mode-hook 'turn-on-visual-line-mode))
+  (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+  (add-to-list 'org-structure-template-alist
+               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+  (add-to-list 'org-structure-template-alist
+               '("cs" "#+BEGIN_SRC c\n?\n#+END_SRC"))
+  (add-to-list 'org-structure-template-alist
+               '("cpp" "#+BEGIN_SRC c++\n?\n#+END_SRC"))
+  (add-to-list 'org-structure-template-alist
+               '("py" "#+BEGIN_SRC python\n?\n#+END_SRC"))
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (setq display-line-numbers nil)
+              (evil-org-set-key-theme '(textobjects navigation additional todo))
+              (evil-define-key 'normal evil-org-mode-map
+                (kbd "M-o") (evil-org-define-eol-command org-insert-subheading))
+              (evil-define-key 'normal evil-org-mode-map
+                (kbd "M-S-<return>") (evil-org-define-eol-command org-insert-todo-heading)))))
 
 (after! mu4e
   (setq mu4e-maildir "~/Maildir"
@@ -584,5 +601,3 @@
   (defun setup-custom-doom-modeline ()
     (doom-modeline-set-modeline 'my/modeline 'default))
   (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline))
-
-;; (load-file "~/.irobot/custom/doom-config.el")
