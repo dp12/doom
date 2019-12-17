@@ -129,7 +129,8 @@
   (map! :map dired-mode-map
         :n "a" #'ripgrep-regexp
         :n "W" #'wdired-change-to-wdired-mode
-        "M-n" #'dired-narrow))
+        "M-n" #'dired-narrow)
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t))))
 ;; (after! dired
   ;; (define-key dired-mode-map "a" 'ripgrep-regexp)
   ;; (define-key dired-mode-map "A" 'helm-ag)
