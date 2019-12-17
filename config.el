@@ -390,6 +390,20 @@
     (delete-region (save-excursion (backward-word-strictly) (point)) (point))
     (delete-horizontal-space)))
 
+(defun mu4e-jump-to-mail ()
+  (interactive)
+  (+workspace/new "mail")
+  (if (member "mail" (+workspace-list-names))
+      (progn
+        (+workspace/switch-to "mail")
+        (unless (derived-mode-p 'mu4e-main-mode 'mu4e-headers-mode)
+          (mu4e))
+        ;; (mu4e-alert-view-unread-mails)
+        )
+    (+workspace/new "mail")
+    (mu4e)
+    (delete-other-windows)))
+
 (defun counsel-ffap-git ()
   (interactive)
   (require 'ffap)
@@ -478,19 +492,7 @@
     (interactive "P")
     (if prefix
         (mu4e-update-mail-and-index)
-      (mu4e-update-mail-and-index t)))
-
-  (defun mu4e-jump-to-mail ()
-    (interactive)
-    (+workspace/new "mail")
-    (if (member "mail" (+workspace-list-names))
-        (progn
-          (+workspace/switch-to "mail")
-          ;; (mu4e-alert-view-unread-mails)
-          )
-      (+workspace/new "mail")
-      (mu4e)
-      (delete-other-windows))))
+      (mu4e-update-mail-and-index t))))
 
 (after! ivy
   (global-set-key "\C-s" 'counsel-grep-or-swiper)
