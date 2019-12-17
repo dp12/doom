@@ -7,6 +7,7 @@
     (setq doom-font (font-spec :family "Fixedsys Excelsior 301" :size 20))
   (setq doom-font (font-spec :family "Consolas" :size 20))
   (setq doom-theme 'gruvbox-light-soft))
+(setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
 
 ;;; System configuration
 ;; (push '(menu-bar-lines . 0) default-frame-alist)
