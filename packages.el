@@ -20,6 +20,7 @@
 (package! fzf)
 (package! ggtags)
 (package! git-gutter+)
+(package! link-hint)
 (package! projectile-ripgrep)
 
 ;;; Emacs lisp development
