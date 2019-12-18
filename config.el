@@ -63,7 +63,7 @@
       :desc "magit-find-file" "mf" #'magit-find-file
       :desc "mu4e-jump-to-mail" "mj" #'mu4e-jump-to-mail
       :desc "imenu-list" "ml" #'imenu-list-smart-toggle
-      :desc "magit-file-popup" "mp" #'magit-file-popup
+      :desc "magit-file-popup" "mp" #'magit-file-dispatch
       :desc "mu4e-update-mail" "mu" #'mu4e-update-mail-and-index-wrapper
       :desc "toggle-org-checkbox" "oc" #'toggle-org-checkbox
       :desc "counsel-org-goto" "og" #'counsel-org-goto
@@ -85,7 +85,7 @@
       :desc "open link" "al" #'link-hint-open-link ;; xo is illegal
       :desc "fill column" "tf" #'fci-mode
       :desc "magit-status" "gs" #'magit-status
-      :desc "magit-blame" "gb" #'magit-blame
+      :desc "magit-blame" "gb" #'magit-blame-addition
       :desc "jump to line" "jl" #'evil-avy-goto-line
       :desc "narrow-to-defun" "nf" #'narrow-to-defun
       :desc "narrow-to-page" "np" #'narrow-to-page
