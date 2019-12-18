@@ -40,6 +40,9 @@
 
 ;;; Visual
 (package! fill-column-indicator)
+(package! symbol-overlay)
+
+;;; Fun
 (package! nyan-mode)
 (package! parrot)
-(package! symbol-overlay)
+(package! typing)
