@@ -148,7 +148,7 @@
         :n "a" #'ripgrep-regexp
         :n "W" #'wdired-change-to-wdired-mode
         "M-n" #'dired-narrow)
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t))))
+  (add-hook! 'dired-mode-hook (lambda () (dired-hide-details-mode t))))
 
 ;; (after! dired
   ;; (define-key dired-mode-map "a" 'ripgrep-regexp)
@@ -156,9 +156,9 @@
   ;; (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
   ;; (define-key dired-mode-map (kbd "M-n") 'dired-narrow)
   ;; (setq diff-hl-dired-mode t)
-  ;; (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
+  ;; (add-hook! 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
   ;; (setq dired-listing-switches "--group-directories-first -alh")
-  ;; ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  ;; ;; (add-hook! 'dired-mode-hook 'all-the-icons-dired-mode)
   ;; )
 
 (map! :map magit-file-section-map
@@ -224,7 +224,7 @@
   :init
   (parrot-mode)
   :config
-  (add-hook 'parrot-click-hook 'mu4e-update-mail-and-index-wrapper)
+  (add-hook! 'parrot-click-hook 'mu4e-update-mail-and-index-wrapper)
   (define-key evil-normal-state-map (kbd "[r") 'parrot-rotate-prev-word-at-point)
   (define-key evil-normal-state-map (kbd "]r") 'parrot-rotate-next-word-at-point))
 
@@ -240,14 +240,14 @@
      :nv "C-r" #'double-saber-redo
      :nv "C-_" #'double-saber-redo))
   (with-eval-after-load "ggtags"
-    (add-hook 'ggtags-global-mode-hook
+    (add-hook! 'ggtags-global-mode-hook
               (lambda ()
                 (double-saber-mode)
                 (setq-local double-saber-start-line 5)
                 (setq-local double-saber-end-text "Global found")))
     (define-key ggtags-global-mode-map (kbd "o") 'ggtags-navigation-visible-mode))
   (with-eval-after-load "ripgrep"
-    (add-hook 'ripgrep-search-mode-hook
+    (add-hook! 'ripgrep-search-mode-hook
               (lambda ()
                 (double-saber-mode)
                 (setq-local double-saber-start-line 5)
@@ -255,7 +255,7 @@
 
 ;;; Hooks
 ;; Python
-(add-hook 'python-mode-hook
+(add-hook! 'python-mode-hook
           (lambda ()
             (setq indent-tabs-mode nil)
             (setq tab-width 4)
@@ -263,7 +263,7 @@
             ))
 
 ;; C-like languages (e.g. C, C++, Java, Python)
-(add-hook 'prog-mode-hook
+(add-hook! 'prog-mode-hook
           (lambda ()
             ;; ggtags breaks iedit unless the below is nil
             (setq ggtags-highlight-tag nil)
@@ -469,7 +469,7 @@
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-  (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+  (add-hook! 'text-mode-hook 'turn-on-visual-line-mode)
   (add-to-list 'org-structure-template-alist
                '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
   (add-to-list 'org-structure-template-alist
@@ -478,7 +478,7 @@
                '("cpp" "#+BEGIN_SRC c++\n?\n#+END_SRC"))
   (add-to-list 'org-structure-template-alist
                '("py" "#+BEGIN_SRC python\n?\n#+END_SRC"))
-  (add-hook 'evil-org-mode-hook
+  (add-hook! 'evil-org-mode-hook
             (lambda ()
               (setq display-line-numbers nil)
               (evil-org-set-key-theme '(textobjects navigation additional todo))
@@ -578,7 +578,7 @@
   (define-key ggtags-navigation-map (kbd "M-<down>") 'ggtags-navigation-next-file)
   (define-key evil-normal-state-map (kbd "M-<left>") 'ggtags-prev-mark)
   (define-key evil-normal-state-map (kbd "M-<right>") 'ggtags-next-mark)
-  (add-hook 'ggtags-global-mode-hook (lambda ()
+  (add-hook! 'ggtags-global-mode-hook (lambda ()
                                        (when (and (buffer-live-p ggtags-global-last-buffer)
                                                   (with-current-buffer ggtags-global-last-buffer
                                                     (derived-mode-p 'ggtags-global-mode)))
@@ -603,4 +603,4 @@
     '(misc-info minor-modes checker input-method buffer-encoding major-mode process vcs))
   (defun setup-custom-doom-modeline ()
     (doom-modeline-set-modeline 'my/modeline 'default))
-  (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline))
+  (add-hook! 'doom-modeline-mode-hook 'setup-custom-doom-modeline))
