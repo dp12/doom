@@ -82,11 +82,11 @@
 
 ;;; Spacemacs keybindings
 (map! :leader
+      :desc "open link" "al" #'link-hint-open-link ;; xo is illegal
       :desc "fill column" "tf" #'fci-mode
       :desc "magit-status" "gs" #'magit-status
       :desc "magit-blame" "gb" #'magit-blame
       :desc "jump to line" "jl" #'evil-avy-goto-line
-      :desc "open link" "ol" #'link-hint-open-link ;; xo is illegal
       :desc "narrow-to-defun" "nf" #'narrow-to-defun
       :desc "narrow-to-page" "np" #'narrow-to-page
       :desc "narrow-to-region" "nr" #'narrow-to-region
