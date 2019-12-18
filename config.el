@@ -67,6 +67,7 @@
       :desc "mu4e-update-mail" "mu" #'mu4e-update-mail-and-index-wrapper
       :desc "toggle-org-checkbox" "oc" #'toggle-org-checkbox
       :desc "counsel-org-goto" "og" #'counsel-org-goto
+      :desc "org-toggle-heading" "oh" #'org-toggle-heading
       :desc "quick calc" "qc" #'quick-calc
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
