@@ -33,6 +33,7 @@
       :desc "list bookmarks" "bl" #'list-bookmarks
       :desc "swap windows" "bx" #'ace-swap-window
       :desc "save and comment" "ck" #'evilnc-comment-and-kill-ring-save
+      :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
       :desc "dumb jump other" "dG" #'dumb-jump-go-other-window
@@ -42,6 +43,7 @@
       :desc "delete-matching-lines" "dm" #'delete-matching-lines
       :desc "dumb jump quick look" "dl" #'dumb-jump-quick-look
       :desc "dired jump other" "do" #'dired-jump-other-window
+      :desc "double-saber" "ds" #'double-saber-mode
       :desc "ediff-buffers" "ed" #'ediff-buffers
       :desc "evil-show-marks" "em" #'evil-show-marks
       :desc "evil-show-registers" "er" #'evil-show-registers
@@ -69,6 +71,7 @@
       :desc "counsel-org-goto" "og" #'counsel-org-goto
       :desc "org-toggle-heading" "oh" #'org-toggle-heading
       :desc "quick calc" "qc" #'quick-calc
+      :desc "counsel-rg" "rc" #'counsel-rg
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
       :desc "counsel-yank-pop" "ry" #'counsel-yank-pop
