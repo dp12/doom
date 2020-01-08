@@ -599,6 +599,21 @@
 (after! nyan-mode
   (setq nyan-bar-length 8))
 
+(after! yasnippet
+  (defun do-yas-expand ()
+    (let ((yas/fallback-behavior 'return-nil))
+      (yas/expand)))
+
+  (defun tab-indent-or-complete ()
+    (interactive)
+    (if (minibufferp)
+        (minibuffer-complete)
+      (if (or (not yas/minor-mode)
+              (null (do-yas-expand)))
+          (if (check-expansion)
+              (company-complete-common)
+            (indent-for-tab-command))))))
+
 ;; FIXME: need this to get parrot working
 (after! doom-modeline
   (nyan-mode)
