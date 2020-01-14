@@ -152,18 +152,7 @@
         :n "a" #'ripgrep-regexp
         :n "W" #'wdired-change-to-wdired-mode
         "M-n" #'dired-narrow)
-  (add-hook! 'dired-mode-hook (lambda () (dired-hide-details-mode t))))
-
-;; (after! dired
-  ;; (define-key dired-mode-map "a" 'ripgrep-regexp)
-  ;; (define-key dired-mode-map "A" 'helm-ag)
-  ;; (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
-  ;; (define-key dired-mode-map (kbd "M-n") 'dired-narrow)
-  ;; (setq diff-hl-dired-mode t)
-  ;; (add-hook! 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
-  ;; (setq dired-listing-switches "--group-directories-first -alh")
-  ;; ;; (add-hook! 'dired-mode-hook 'all-the-icons-dired-mode)
-  ;; )
+  (add-hook! 'dired-mode (lambda () (dired-hide-details-mode t))))
 
 (map! :map magit-file-section-map
   :nv [S-return] (lambda ()
@@ -250,60 +239,44 @@
      :nv "s" #'double-saber-sort-lines
      :nv "u" #'double-saber-undo
      :nv "C-r" #'double-saber-redo
-     :nv "C-_" #'double-saber-redo))
-  (with-eval-after-load "ggtags"
-    (add-hook! 'ggtags-global-mode-hook
-              (lambda ()
-                (double-saber-mode)
-                (setq-local double-saber-start-line 5)
-                (setq-local double-saber-end-text "Global found")))
-    (define-key ggtags-global-mode-map (kbd "o") 'ggtags-navigation-visible-mode))
-  (with-eval-after-load "ripgrep"
-    (add-hook! 'ripgrep-search-mode-hook
-              (lambda ()
-                (double-saber-mode)
-                (setq-local double-saber-start-line 5)
-                (setq-local double-saber-end-text "Ripgrep finished")))))
+     :nv "C-_" #'double-saber-redo)))
 
 ;;; Hooks
 ;; Python
 (add-hook! 'python-mode-hook
-          (lambda ()
-            (setq indent-tabs-mode nil)
-            (setq tab-width 4)
-            (setq python-indent 4)
-            ))
+  (setq indent-tabs-mode nil)
+  (setq tab-width 4)
+  (setq python-indent 4))
 
 ;; C-like languages (e.g. C, C++, Java, Python)
 (add-hook! 'prog-mode-hook
-          (lambda ()
-            ;; ggtags breaks iedit unless the below is nil
-            (setq ggtags-highlight-tag nil)
-            (ggtags-mode t)
-            (setq semantic-stickyfunc-show-only-functions-p t)
-            (local-set-key (kbd "C-M-.") 'insert-period)
-            (local-set-key (kbd "C-M-,") 'cthulhu-summon-comma)
-            (local-set-key (kbd "C-M-;") 'cthulhu-summon-c-terminator)
-            (local-set-key (kbd "C-M-:") 'cthulhu-summon-function-call)
-            (dtrt-indent-mode t)
-            (with-eval-after-load "evil-surround"
-              ;; Use 7 to /* wrap */ a word
-              (push '(?7 . ("/* " . " */")) evil-surround-pairs-alist))
+           ;; ggtags breaks iedit unless the below is nil
+           (setq ggtags-highlight-tag nil)
+           (ggtags-mode t)
+           (setq semantic-stickyfunc-show-only-functions-p t)
+           (local-set-key (kbd "C-M-.") 'insert-period)
+           (local-set-key (kbd "C-M-,") 'cthulhu-summon-comma)
+           (local-set-key (kbd "C-M-;") 'cthulhu-summon-c-terminator)
+           (local-set-key (kbd "C-M-:") 'cthulhu-summon-function-call)
+           (dtrt-indent-mode t)
+           (with-eval-after-load "evil-surround"
+             ;; Use 7 to /* wrap */ a word
+             (push '(?7 . ("/* " . " */")) evil-surround-pairs-alist))
 
-            ;; Treat _ as PART_OF_A_WORD
-            (modify-syntax-entry ?_ "w")
-            ;; Indent case labels in switch-case statements
-            (c-set-offset 'case-label '+)
-            ;; Visual-line-mode slows down swiper
-            (setq visual-line-mode nil)
-            (setq c-auto-newline nil)
-            (setq c-default-style "linux"
-                  c-basic-offset 4)
-            (company-mode t)
-            ;; (lsp)
-            ;; (setq lsp-enable-on-type-formatting nil)
-            ;; (setq lsp-enable-indentation nil)
-            (local-set-key [tab] 'tab-indent-or-complete)))
+           ;; Treat _ as PART_OF_A_WORD
+           (modify-syntax-entry ?_ "w")
+           ;; Indent case labels in switch-case statements
+           (c-set-offset 'case-label '+)
+           ;; Visual-line-mode slows down swiper
+           (setq visual-line-mode nil)
+           (setq c-auto-newline nil)
+           (setq c-default-style "linux"
+                 c-basic-offset 4)
+           (company-mode t)
+           ;; (lsp)
+           ;; (setq lsp-enable-on-type-formatting nil)
+           ;; (setq lsp-enable-indentation nil)
+           (local-set-key [tab] 'tab-indent-or-complete))
 
 ;;; Function definitions
 ; Comment toggle
@@ -584,14 +557,24 @@
   (define-key ggtags-navigation-map (kbd "M-<down>") 'ggtags-navigation-next-file)
   (define-key evil-normal-state-map (kbd "M-<left>") 'ggtags-prev-mark)
   (define-key evil-normal-state-map (kbd "M-<right>") 'ggtags-next-mark)
+  (define-key ggtags-global-mode-map (kbd "o") 'ggtags-navigation-visible-mode)
   (add-hook! 'ggtags-global-mode-hook (lambda ()
-                                       (when (and (buffer-live-p ggtags-global-last-buffer)
-                                                  (with-current-buffer ggtags-global-last-buffer
-                                                    (derived-mode-p 'ggtags-global-mode)))
-                                         (ggtags-navigation-visible-mode t)))))
+                                        (when (and (buffer-live-p ggtags-global-last-buffer)
+                                                   (with-current-buffer ggtags-global-last-buffer
+                                                     (derived-mode-p 'ggtags-global-mode)))
+                                          (ggtags-navigation-visible-mode t))
+                                        (double-saber-mode)
+                                        (setq-local double-saber-start-line 5)
+                                        (setq-local double-saber-end-text "Global found"))))
+
 (after! ripgrep
   (define-key ripgrep-search-mode-map (kbd "M-<up>") 'compilation-previous-error)
-  (define-key ripgrep-search-mode-map (kbd "M-<down>") 'compilation-next-error))
+  (define-key ripgrep-search-mode-map (kbd "M-<down>") 'compilation-next-error)
+  (define-key ripgrep-search-mode-map (kbd "q") 'kill-current-buffer)
+  (add-hook! 'ripgrep-search-mode-hook
+    (double-saber-mode)
+    (setq-local double-saber-start-line 5)
+    (setq-local double-saber-end-text "Ripgrep finished") nil t))
 
 (after! evil-snipe
   (setq evil-snipe-repeat-keys t)
