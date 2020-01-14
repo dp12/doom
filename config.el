@@ -60,6 +60,7 @@
       :desc "unhighlight-regexp" "hr" #'unhighlight-regexp
       :desc "hexl-mode" "hx" #'hexl-mode
       :desc "counsel-recentf" "if" #'counsel-recentf
+      :desc "jump file" "jf" #'quick-file-hydra/body
       :desc "mu4e update mail cnt" "ma" #'mu4e-alert-update-mail-count-interactive
       :desc "evil-mc-mode" "mc" #'evil-mc-mode
       :desc "magit-find-file" "mf" #'magit-find-file
@@ -550,7 +551,14 @@
     ("s" symbol-overlay-isearch-literally "search")
     ("t" symbol-overlay-toggle-in-scope "scope")
     ("z" recenter-top-bottom "recenter")
-    ("q" nil "quit" :color blue)))
+    ("q" nil "quit" :color blue))
+
+  (defhydra quick-file-hydra ()
+    "Jump to file"
+    ("c" (find-file "~/.doom.d/config.el") "doom config" :color blue)
+    ("p" (find-file "~/.profile") ".profile" :color blue)
+    ("z" (find-file "~/.zshrc") "zshrc" :color blue)
+   ))
 
 (after! ggtags
   (define-key ggtags-navigation-map (kbd "M-<up>") 'ggtags-navigation-previous-file)
