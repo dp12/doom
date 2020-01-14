@@ -232,6 +232,14 @@
   (define-key evil-normal-state-map (kbd "[r") 'parrot-rotate-prev-word-at-point)
   (define-key evil-normal-state-map (kbd "]r") 'parrot-rotate-next-word-at-point))
 
+(use-package! evil-org
+  :config
+  (evil-org-set-key-theme '(textobjects navigation additional todo))
+  (evil-define-key 'normal evil-org-mode-map
+    (kbd "M-o") (evil-org-define-eol-command org-insert-subheading))
+  (evil-define-key 'normal evil-org-mode-map
+    (kbd "M-S-<return>") (evil-org-define-eol-command org-insert-todo-heading)))
+
 (use-package! double-saber
   :config
   (map!
@@ -482,14 +490,8 @@
                '("cpp" "#+BEGIN_SRC c++\n?\n#+END_SRC"))
   (add-to-list 'org-structure-template-alist
                '("py" "#+BEGIN_SRC python\n?\n#+END_SRC"))
-  (add-hook! 'evil-org-mode-hook
-            (lambda ()
-              (setq display-line-numbers nil)
-              (evil-org-set-key-theme '(textobjects navigation additional todo))
-              (evil-define-key 'normal evil-org-mode-map
-                (kbd "M-o") (evil-org-define-eol-command org-insert-subheading))
-              (evil-define-key 'normal evil-org-mode-map
-                (kbd "M-S-<return>") (evil-org-define-eol-command org-insert-todo-heading)))))
+  (add-hook! org-mode
+    (setq display-line-numbers nil)))
 
 (after! mu4e
   (setq mu4e-maildir "~/Maildir"
