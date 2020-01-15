@@ -8,6 +8,8 @@
   (setq doom-font (font-spec :family "Consolas" :size 20))
   (setq doom-theme 'gruvbox-light-soft))
 (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+;; (face-spec-set 'doom-dashboard-banner '((t (:inherit doom-modeline-evil-emacs-state))))
+(face-spec-set 'doom-dashboard-banner '((t (:inherit compilation-error))))
 
 ;;; System configuration
 (menu-bar-mode 0)
