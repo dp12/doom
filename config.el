@@ -153,7 +153,7 @@
         :n "a" #'ripgrep-regexp
         :n "W" #'wdired-change-to-wdired-mode
         "M-n" #'dired-narrow)
-  (add-hook! 'dired-mode (lambda () (dired-hide-details-mode t))))
+  (add-hook! dired-mode (dired-hide-details-mode t)))
 
 (map! :map magit-file-section-map
   :nv [S-return] (lambda ()
