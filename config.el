@@ -90,9 +90,13 @@
 ;;; Spacemacs keybindings
 (map! :leader
       :desc "open link" "al" #'link-hint-open-link ;; xo is illegal
+      :desc "delete trailing whitespace" "dtw" #'delete-trailing-whitespace
       :desc "fill column" "tf" #'fci-mode
       :desc "magit-status" "gs" #'magit-status
       :desc "magit-blame" "gb" #'magit-blame-addition
+      :desc "delete workspace" "ld" #'+workspace/delete
+      :desc "new workspace" "ln" #'+workspace/new-with-name
+      :desc "workspace" "lw" #'+workspace/display
       :desc "jump to line" "jl" #'evil-avy-goto-line
       :desc "narrow-to-defun" "nf" #'narrow-to-defun
       :desc "narrow-to-page" "np" #'narrow-to-page
@@ -101,6 +105,7 @@
       :desc "evil-iedit" "se" #'evil-iedit-state/iedit-mode
       :desc "truncate-lines" "tl" #'toggle-truncate-lines
       :desc "toggle-line-numbers" "tn" #'doom/toggle-line-numbers
+      :desc "toggle whitespace mode" "tw" #'whitespace-mode
       "0" #'winum-select-window-0
       "1" #'winum-select-window-1
       "2" #'winum-select-window-2
@@ -284,6 +289,11 @@
            (local-set-key [tab] 'tab-indent-or-complete))
 
 ;;; Function definitions
+;; Doom new workspace helper function
+(defun +workspace/new-with-name (name)
+  (interactive "sWorkspace name: ")
+  (+workspace/new name))
+
 ; Comment toggle
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
