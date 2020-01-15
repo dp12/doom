@@ -270,6 +270,8 @@
            (c-set-offset 'case-label '+)
            ;; Visual-line-mode slows down swiper
            (setq visual-line-mode nil)
+           (toggle-truncate-lines nil)
+           (setq word-wrap nil)
            (setq c-auto-newline nil)
            (setq c-default-style "linux"
                  c-basic-offset 4)
