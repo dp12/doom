@@ -20,6 +20,10 @@
 (defadvice async-shell-command (around hide-async-windows activate)
   (save-window-excursion ad-do-it))
 
+;; Evil configuration
+(setq evil-ex-search-highlight-all nil)
+(setq evil-ex-search-persistent-highlight nil)
+
 ;;; Package configuration
 (global-git-gutter+-mode)
 (setq dumb-jump-force-searcher 'rg)
