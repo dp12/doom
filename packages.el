@@ -39,6 +39,7 @@
 (package! source-peek :recipe (:host github :repo "iqbalansari/emacs-source-peek"))
 
 ;;; Visual
+(package! evil-fringe-mark)
 (package! fill-column-indicator)
 (package! symbol-overlay)
 

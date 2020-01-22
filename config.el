@@ -210,6 +210,12 @@
                                     (corral-at-point 'corral-single-quotes-forward)))))
 
 (use-package! evil-iedit-state)
+
+(use-package! evil-fringe-mark
+  :init
+  (global-evil-fringe-mark-mode)
+  (setq-default left-fringe-width 16))
+
 (use-package! key-chord
   :init
   (key-chord-mode 1)
