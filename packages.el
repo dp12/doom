@@ -11,6 +11,7 @@
 (package! dired-narrow)
 (package! frog-jump-buffer)
 (package! key-chord)
+(package! org-sidebar)
 (package! ox-hugo)
 (package! shell-pop)
 
