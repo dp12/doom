@@ -585,24 +585,25 @@
    ))
 
 (after! ggtags
-  (define-key ggtags-navigation-map (kbd "M-<up>") 'ggtags-navigation-previous-file)
-  (define-key ggtags-navigation-map (kbd "M-<down>") 'ggtags-navigation-next-file)
+  (map! :map ggtags-navigation-map
+        :nv (kbd "M-<up>") 'ggtags-navigation-previous-file
+        :nv (kbd "M-<down>") 'ggtags-navigation-next-file)
   (define-key evil-normal-state-map (kbd "M-<left>") 'ggtags-prev-mark)
   (define-key evil-normal-state-map (kbd "M-<right>") 'ggtags-next-mark)
   (define-key ggtags-global-mode-map (kbd "o") 'ggtags-navigation-visible-mode)
-  (add-hook! 'ggtags-global-mode-hook (lambda ()
-                                        (when (and (buffer-live-p ggtags-global-last-buffer)
+  (add-hook! 'ggtags-global-mode-hook (when (and (buffer-live-p ggtags-global-last-buffer)
                                                    (with-current-buffer ggtags-global-last-buffer
                                                      (derived-mode-p 'ggtags-global-mode)))
                                           (ggtags-navigation-visible-mode t))
                                         (double-saber-mode)
                                         (setq-local double-saber-start-line 5)
-                                        (setq-local double-saber-end-text "Global found"))))
+                                        (setq-local double-saber-end-text "Global found")))
 
 (after! ripgrep
-  (define-key ripgrep-search-mode-map (kbd "M-<up>") 'compilation-previous-error)
-  (define-key ripgrep-search-mode-map (kbd "M-<down>") 'compilation-next-error)
-  (define-key ripgrep-search-mode-map (kbd "q") 'kill-current-buffer)
+  (map! :map ripgrep-search-mode-map
+        :nv (kbd "M-<up>") 'compilation-previous-error
+        :nv (kbd "M-<down>") 'compilation-next-error
+        :nv "q" 'kill-current-buffer)
   (add-hook! 'ripgrep-search-mode-hook
     (double-saber-mode)
     (setq-local double-saber-start-line 5)
