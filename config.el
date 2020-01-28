@@ -20,14 +20,26 @@
 (defadvice async-shell-command (around hide-async-windows activate)
   (save-window-excursion ad-do-it))
 
+(add-hook! 'whitespace-mode-hook
+  (setq whitespace-style '(face tabs tab-mark spaces space-mark))
+  (setq whitespace-display-mappings
+        '(
+          (space-mark   ?\     [?·]     [?.])      ; space - middle dot
+          (space-mark   ?\xA0  [?¤]     [?_])      ; hard space - currency sign
+          (newline-mark ?\n    [?$ ?\n])           ; eol - dollar sign
+          (tab-mark     ?\t    [?» ?\t] [?\\ ?\t]) ; tab - right guillemet
+          )))
+
 ;; Evil configuration
 (setq evil-ex-search-highlight-all nil)
 (setq evil-ex-search-persistent-highlight nil)
 
 ;;; Package configuration
 (global-git-gutter+-mode)
+;;(highlight-tail-mode)
 (setq dumb-jump-force-searcher 'rg)
 (setq company-show-numbers t)
+(setq lsp-enable-on-type-formatting nil)
 
 ;;; Leader keybindings
 (map! :leader
