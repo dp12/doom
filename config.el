@@ -316,6 +316,45 @@
   (interactive "sWorkspace name: ")
   (+workspace/new name))
 
+;; From http://ergoemacs.org/emacs/emacs_switching_fonts.html
+(setq cycle-font-list
+      (cond
+       ((string-equal system-type "windows-nt")
+        '(
+          "Fixedsys Excelsior 301-16"
+          "Lucida Console-10"
+          ))
+       ((string-equal system-type "gnu/linux")
+        '(
+          "Fixedsys Excelsior 301-16"
+          "bitocra13full"
+          "GohuFont-24"
+          "sys-24"
+          "Dina-24"
+          "Ubuntu Mono-16"
+          ))))
+(defun cycle-font-select ()
+  (interactive)
+  (set-frame-font (completing-read "Select font: " cycle-font-list nil t)))
+(defun cycle-font (@n)
+  "Change font in current frame.
+Each time this is called, font cycles thru a predefined list of fonts in the variable `cycle-font-list' .
+If @n is 1, cycle forward.
+If @n is -1, cycle backward.
+
+URL `http://ergoemacs.org/emacs/emacs_switching_fonts.html'
+Version 2015-09-21"
+  (interactive "p")
+  ;; this function sets a property “state”. It is a integer. Possible values are any index to the fontList.
+  (let (cur-font prev-state next-state )
+    (setq prev-state (if (get 'cycle-font 'state) (get 'cycle-font 'state) 0))
+    (setq next-state (% (+ prev-state (length cycle-font-list) @n) (length cycle-font-list)))
+    (setq cur-font (nth next-state cycle-font-list))
+    (set-frame-font cur-font t)
+    ;; (set-frame-parameter nil 'font cur-font)
+    (message "Current font is: %s" cur-font )
+    (put 'cycle-font 'state next-state)))
+
 ; Comment toggle
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
