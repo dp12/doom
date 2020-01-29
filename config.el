@@ -50,6 +50,7 @@
       :desc "bookmark jump" "bj" #'counsel-bookmark
       :desc "list bookmarks" "bl" #'list-bookmarks
       :desc "swap windows" "bx" #'ace-swap-window
+      :desc "cycle font" "cf" #'cycle-font-select
       :desc "save and comment" "ck" #'evilnc-comment-and-kill-ring-save
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
@@ -631,6 +632,7 @@ Version 2015-09-21"
   (defhydra quick-file-hydra ()
     "Jump to file"
     ("c" (find-file "~/.doom.d/config.el") "doom config" :color blue)
+    ("d" (find-file "~/.doom.d/config.el") "doom config" :color blue)
     ("p" (find-file "~/.profile") ".profile" :color blue)
     ("z" (find-file "~/.zshrc") "zshrc" :color blue)
    ))
