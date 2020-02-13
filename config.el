@@ -635,7 +635,6 @@ Version 2015-09-21"
 
   (defhydra quick-file-hydra ()
     "Jump to file"
-    ("c" (find-file "~/.doom.d/config.el") "doom config" :color blue)
     ("d" (find-file "~/.doom.d/config.el") "doom config" :color blue)
     ("p" (find-file "~/.profile") ".profile" :color blue)
     ("z" (find-file "~/.zshrc") "zshrc" :color blue)
