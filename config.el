@@ -544,7 +544,8 @@ Version 2015-09-21"
   (add-to-list 'org-structure-template-alist
                '("py" "#+BEGIN_SRC python\n?\n#+END_SRC"))
   (add-hook! org-mode
-    (setq display-line-numbers nil)))
+    (setq display-line-numbers nil)
+    (auto-fill-mode -1)))
 
 (after! mu4e
   (setq mu4e-maildir "~/Maildir"
