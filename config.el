@@ -391,7 +391,9 @@ Version 2015-09-21"
 (defun gdb-get-breakpoint-str (breakpoint-type)
   "Return string of the form 'b foo.c:108'"
   (concat breakpoint-type " "
-          (uniquify-buffer-base-name) ":"
+          (if (uniquify-buffer-base-name)
+              (uniquify-buffer-base-name)
+            (buffer-name)) ":"
           (number-to-string (line-number-at-pos))))
 
 (defun gdb-set-fast-breakpoint ()
