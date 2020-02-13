@@ -98,6 +98,7 @@
       :desc "sort-lines" "sl" #'sort-lines
       :desc "symbol overlay" "so" #'hydra-symbol-overlay/symbol-overlay-put
       :desc "search online" "sO" #'+lookup/online
+      :desc "typing-of-emacs" "ty" #'typing-of-emacs
       )
 (map!
  (:when (featurep! :editor multiple-cursors)
