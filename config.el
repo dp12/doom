@@ -45,6 +45,7 @@
 (map! :leader
       :desc "avy-kill-whole-line" "ak" #'avy-kill-whole-line
       :desc "avy-kill-region" "aK" #'avy-kill-region
+      :desc "avy-copy-region" "ar" #'avy-copy-region
       :desc "avy-copy-line" "ay" #'avy-copy-line
       :desc "align-regexp" "ax" #'align-regexp
       :desc "bookmark jump" "bj" #'counsel-bookmark
