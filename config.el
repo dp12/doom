@@ -588,7 +588,16 @@ Version 2015-09-21"
   (define-key ivy-minibuffer-map (kbd "C-c h") (lambda () (interactive) (minibuffer-insert " \\.h\\(pp\\)*$" t)))
   (define-key ivy-minibuffer-map (kbd "C-c p") (lambda () (interactive) (minibuffer-insert " \\.py$" t)))
   (define-key ivy-minibuffer-map (kbd "C-c k") (lambda () (interactive) (minibuffer-munch)))
-  (define-key ivy-minibuffer-map (kbd "C-c K") (lambda () (interactive) (minibuffer-crunch))))
+  (define-key ivy-minibuffer-map (kbd "C-c K") (lambda () (interactive) (minibuffer-crunch)))
+(setq swiper-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-s") 'ivy-next-history-element)
+    (define-key map (kbd "M-q") 'swiper-query-replace)
+    (define-key map (kbd "C-l") 'swiper-recenter-top-bottom)
+    (define-key map (kbd "C-'") 'swiper-avy)
+    (define-key map (kbd "C-7") 'swiper-mc)
+    (define-key map (kbd "C-c C-f") 'swiper-toggle-face-matching)
+    map)))
 
 (after! hydra
   (defhydra hydra-git-gutter+ (global-map "C-c")
