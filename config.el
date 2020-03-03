@@ -5,6 +5,7 @@
 ;;; Doom configuration
 (if (not (string-equal system-type "windows-nt"))
     (setq doom-font (font-spec :family "Fixedsys Excelsior 301" :size 22))
+    (setq doom-font (font-spec :family "Fixedsys Excelsior 3.01" :size 20))
   (setq doom-font (font-spec :family "Consolas" :size 20))
   (setq doom-theme 'gruvbox-light-soft))
 (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
@@ -324,17 +325,19 @@
       (cond
        ((string-equal system-type "windows-nt")
         '(
-          "Fixedsys Excelsior 301-16"
+          "Fixedsys Excelsior 3.01-15"
           "Lucida Console-10"
           ))
        ((string-equal system-type "gnu/linux")
         '(
-          "Fixedsys Excelsior 301-16"
+          "Fixedsys Excelsior 3.01-15"
           "bitocra13full"
           "GohuFont-24"
           "sys-24"
           "Dina-24"
           "Ubuntu Mono-16"
+          "Tamsynmod-16"
+          "Consolas-14"
           ))))
 (defun cycle-font-select ()
   (interactive)
