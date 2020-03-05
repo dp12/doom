@@ -337,6 +337,7 @@
           "Dina-24"
           "Ubuntu Mono-16"
           "Tamsynmod-16"
+          "Terminus-16"
           "Consolas-14"
           ))))
 (defun cycle-font-select ()
