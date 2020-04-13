@@ -71,6 +71,11 @@
       :desc "dired-jump" "fj" #'dired-jump
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
       :desc "projectile-ripgrep-filename" "fN" #'projectile-ripgrep-filename
+      :desc "find other file" "fo" #'ff-find-other-file
+      :desc "find other file other window" "fO" (lambda ()
+                                                  (interactive)
+                                                  (let ((current-prefix-arg '(4)))
+                                                    (call-interactively 'ff-find-other-file)))
       :desc "frog-jump-buffer" "fb" #'frog-jump-buffer
       :desc "copy-file-basename-to-clipboard" "fn" #'copy-file-basename-to-clipboard
       :desc "fzf-git-files" "fz" #'fzf-git-files
