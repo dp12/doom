@@ -136,15 +136,17 @@
       "7" #'winum-select-window-7
       "8" #'winum-select-window-8
       "9" #'winum-select-window-9
-      "l1" #'+workspace/switch-to-0
-      "l2" #'+workspace/switch-to-1
-      "l3" #'+workspace/switch-to-2
-      "l4" #'+workspace/switch-to-3
-      "l5" #'+workspace/switch-to-4
-      "l6" #'+workspace/switch-to-5
-      "l7" #'+workspace/switch-to-6
-      "l8" #'+workspace/switch-to-7
-      "l9" #'+workspace/switch-to-7
+      "ll" #'+workspace/display
+      "l;" #'+workspace/cycle
+      "l1" (lambda () (interactive) (+workspace/switch-to-or-create 0))
+      "l2" (lambda () (interactive) (+workspace/switch-to-or-create 1))
+      "l3" (lambda () (interactive) (+workspace/switch-to-or-create 2))
+      "l4" (lambda () (interactive) (+workspace/switch-to-or-create 3))
+      "l5" (lambda () (interactive) (+workspace/switch-to-or-create 4))
+      "l6" (lambda () (interactive) (+workspace/switch-to-or-create 5))
+      "l7" (lambda () (interactive) (+workspace/switch-to-or-create 6))
+      "l8" (lambda () (interactive) (+workspace/switch-to-or-create 7))
+      "l9" (lambda () (interactive) (+workspace/switch-to-or-create 7))
       "Tm" #'menu-bar-mode
       "w|" #'split-window-horizontally
       "w-" #'split-window-vertically)
@@ -319,6 +321,12 @@
 (defun +workspace/new-with-name (name)
   (interactive "sWorkspace name: ")
   (+workspace/new name))
+
+(defun +workspace/switch-to-or-create (index)
+  (interactive)
+  (if (nth index (+workspace-list-names))
+    (+workspace/switch-to index)
+    (call-interactively #'+workspace/new-with-name)))
 
 ;; From http://ergoemacs.org/emacs/emacs_switching_fonts.html
 (setq cycle-font-list
