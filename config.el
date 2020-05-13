@@ -620,6 +620,9 @@ Version 2015-09-21"
     (define-key map (kbd "C-c C-f") 'swiper-toggle-face-matching)
     map)))
 
+(after! avy
+  (setq avy-all-windows t))
+
 (after! hydra
   (defhydra hydra-git-gutter+ (global-map "C-c")
     "git-gutter+"
