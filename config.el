@@ -667,6 +667,8 @@ Version 2015-09-21"
     ("S" magit-status "magit")
     ("c" git-gutter+-stage-and-commit "stage/commit" :color blue)
     ("C" git-gutter+-stage-and-commit-whole-buffer "stage/commit buffer" :color blue)
+    ("M" (lambda () (interactive) (async-shell-command "git commit --amend --no-edit")) "gcan" :color blue)
+    ("U" (lambda () (interactive) (async-shell-command "git add -u")) "git add -u" :color blue)
     ("l" recenter-top-bottom "recenter window")
     ("q" nil "quit"))
 
