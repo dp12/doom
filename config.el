@@ -49,6 +49,7 @@
       :desc "avy-copy-region" "ar" #'avy-copy-region
       :desc "avy-copy-line" "ay" #'avy-copy-line
       :desc "align-regexp" "ax" #'align-regexp
+      :desc "evil-avy-goto-char-timer" "at" #'evil-avy-goto-char-timer
       :desc "bookmark jump" "bj" #'counsel-bookmark
       :desc "list bookmarks" "bl" #'list-bookmarks
       :desc "swap windows" "bx" #'ace-swap-window
