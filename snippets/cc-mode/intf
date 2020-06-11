@@ -1,0 +1,7 @@
+# name: int function
+# key: intf
+# --
+int ${1:fn}()
+{
+$0
+}

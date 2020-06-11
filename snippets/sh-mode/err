@@ -1,0 +1,5 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: set error
+# key: err
+# --
+set -Eeuo pipefail  # exit on any errors$0

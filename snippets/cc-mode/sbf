@@ -1,0 +1,7 @@
+# name: static boolean function
+# key: sbf
+# --
+static bool ${1:fn}()
+{
+$0
+}

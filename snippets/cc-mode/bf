@@ -1,0 +1,7 @@
+# name: boolean function
+# key: bf
+# --
+bool ${1:fn}()
+{
+$0
+}

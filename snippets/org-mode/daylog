@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: daylog
+# key: dyl
+# binding: direct-keybinding
+# --
+** `(let ((x (org-time-stamp nil))))` 
+*** Tasks [/] $0

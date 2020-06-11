@@ -1,0 +1,7 @@
+# name: static void function
+# key: svf
+# --
+static void ${1:fn}()
+{
+$0
+}
