@@ -43,6 +43,7 @@
 (package! evil-fringe-mark)
 (package! fill-column-indicator)
 (package! symbol-overlay)
+(package! gruvbox-theme)
 
 ;;; Fun
 (package! nyan-mode)
