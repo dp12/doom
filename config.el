@@ -139,17 +139,7 @@
       "7" #'winum-select-window-7
       "8" #'winum-select-window-8
       "9" #'winum-select-window-9
-      "ll" #'+workspace/display
-      "l;" #'+workspace/cycle
-      "l1" (lambda () (interactive) (+workspace/switch-to-or-create 0))
-      "l2" (lambda () (interactive) (+workspace/switch-to-or-create 1))
-      "l3" (lambda () (interactive) (+workspace/switch-to-or-create 2))
-      "l4" (lambda () (interactive) (+workspace/switch-to-or-create 3))
-      "l5" (lambda () (interactive) (+workspace/switch-to-or-create 4))
-      "l6" (lambda () (interactive) (+workspace/switch-to-or-create 5))
-      "l7" (lambda () (interactive) (+workspace/switch-to-or-create 6))
-      "l8" (lambda () (interactive) (+workspace/switch-to-or-create 7))
-      "l9" (lambda () (interactive) (+workspace/switch-to-or-create 7))
+      "l" #'hydra-workspaces/body
       "Tm" #'menu-bar-mode
       "w|" #'split-window-horizontally
       "w-" #'split-window-vertically)
@@ -654,6 +644,25 @@ Version 2015-09-21"
   (setq avy-all-windows t))
 
 (after! hydra
+  (defhydra hydra-workspaces ()
+    "workspaces"
+    ("r" (call-interactively #'+workspace/rename) nil)
+    ("d" (call-interactively #'+workspace/delete) nil)
+    ("l" (call-interactively #'+workspace/cycle) nil)
+    ("1" (+workspace/switch-to-or-create 0) nil)
+    ("2" (+workspace/switch-to-or-create 1) nil)
+    ("3" (+workspace/switch-to-or-create 2) nil)
+    ("4" (+workspace/switch-to-or-create 3) nil)
+    ("5" (+workspace/switch-to-or-create 4) nil)
+    ("6" (+workspace/switch-to-or-create 5) nil)
+    ("7" (+workspace/switch-to-or-create 6) nil)
+    ("8" (+workspace/switch-to-or-create 7) nil)
+    ("9" (+workspace/switch-to-or-create 8) nil))
+  (setq hydra-workspaces/hint
+        '(prog1 (eval
+                 (hydra--format nil '(nil nil :hint nil)
+                                (+workspace/display) hydra-workspaces/heads))))
+
   (defhydra hydra-git-gutter+ (global-map "C-c")
     "git-gutter+"
     ("n" git-gutter+-next-hunk "next")
