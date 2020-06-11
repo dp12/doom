@@ -749,6 +749,7 @@ Version 2015-09-21"
   (setq nyan-bar-length 8))
 
 (after! yasnippet
+  (push "~/.doom.d/snippets" yas-snippet-dirs)
   (defun check-expansion ()
     (save-excursion
       (if (looking-at "\\_>") t
