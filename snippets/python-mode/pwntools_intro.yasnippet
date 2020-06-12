@@ -1,0 +1,11 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: pwntools intro
+# key: pwni
+# --
+from pwn import *
+import sys
+
+if len(sys.argv) > 1 and sys.argv[1] == 'd':
+    target = gdb.debug("$1")
+else:
+    target = process("$1")$0

