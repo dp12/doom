@@ -103,9 +103,9 @@
       :desc "sort-lines" "sl" #'sort-lines
       :desc "symbol overlay" "so" #'hydra-symbol-overlay/symbol-overlay-put
       :desc "search online" "sO" #'+lookup/online
-      :desc "tabify" "tu" #'tabify
+      :desc "tabify" "tt" #'tabify
+      :desc "untabify" "tu" #'untabify
       :desc "typing-of-emacs" "ty" #'typing-of-emacs
-      :desc "untabify" "ut" #'untabify
       )
 (map!
  (:when (featurep! :editor multiple-cursors)
