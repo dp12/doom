@@ -110,7 +110,9 @@
 (map!
  (:when (featurep! :editor multiple-cursors)
    :nv "C-n" #'evil-mc-make-and-goto-next-match
-   :nv "C-p" #'evil-mc-make-and-goto-prev-match))
+   :nv "C-p" #'evil-mc-make-and-goto-prev-match
+   :nv "C-S-n" #'evil-mc-skip-and-goto-next-match
+   :nv "C-S-p" #'evil-mc-skip-and-goto-prev-match))
 
 ;;; Spacemacs keybindings
 (map! :leader
