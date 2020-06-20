@@ -96,6 +96,7 @@
       :desc "counsel-org-goto" "og" #'counsel-org-goto
       :desc "org-toggle-heading" "oh" #'org-toggle-heading
       :desc "quick calc" "qc" #'quick-calc
+      :desc "quick run" "qr" #'quickrun
       :desc "counsel-rg" "rc" #'counsel-rg
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
