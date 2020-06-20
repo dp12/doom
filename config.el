@@ -668,6 +668,7 @@ Version 2015-09-21"
     ("r" git-gutter+-revert-hunk "revert")
     ("=" git-gutter+-show-hunk "show")
     ("i" git-gutter+-show-hunk-inline-at-point "show inline")
+    ("<tab>" git-gutter+-show-hunk-inline-at-point "show inline")
     ("m" git-messenger:popup-message "msgr")
     ("s" git-gutter+-stage-hunks "stage")
     ("S" magit-status "magit")
