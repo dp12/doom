@@ -153,7 +153,8 @@
 ;; TODO: get mu4e working
 (map!
   :nvi "M-D" #'company-dabbrev
-  :nvi "M-F" #'company-dabbrev-code
+  :nvi "C-M-D" #'company-dabbrev-code
+  :nvi "M-F" #'company-files
   :nvi "M-?" #'company-hippie
   :nvi "M-H" #'company-try-hard
   :nvi "C-c g" #'counsel-git
