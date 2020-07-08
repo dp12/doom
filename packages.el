@@ -26,6 +26,7 @@
 
 ;;; Emacs lisp development
 (package! elsa)
+(package! evil-lisp-state)
 (package! flycheck-elsa)
 (package! flycheck-package)
 (package! package-lint)

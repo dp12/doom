@@ -251,6 +251,10 @@
   (define-key evil-normal-state-map (kbd "[r") 'parrot-rotate-prev-word-at-point)
   (define-key evil-normal-state-map (kbd "]r") 'parrot-rotate-next-word-at-point))
 
+(use-package! evil-lisp-state
+  :config
+  (evil-lisp-state-leader "SPC k"))
+
 (use-package! evil-org
   :config
   (evil-org-set-key-theme '(textobjects navigation additional todo))
