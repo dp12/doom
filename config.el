@@ -717,6 +717,7 @@ Version 2015-09-21"
     ("d" (find-file "~/.doom.d/config.el") "doom config" :color blue)
     ("p" (find-file "~/.profile") ".profile" :color blue)
     ("z" (find-file "~/.zshrc") "zshrc" :color blue)
+    ("g" (find-file "~/.gdbinit") "gdbinit" :color blue)
    ))
 
 (after! ggtags
