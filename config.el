@@ -715,9 +715,12 @@ Version 2015-09-21"
   (defhydra quick-file-hydra ()
     "Jump to file"
     ("d" (find-file "~/.doom.d/config.el") "doom config" :color blue)
-    ("p" (find-file "~/.profile") ".profile" :color blue)
-    ("z" (find-file "~/.zshrc") "zshrc" :color blue)
     ("g" (find-file "~/.gdbinit") "gdbinit" :color blue)
+    ("p" (find-file "~/.profile") ".profile" :color blue)
+    ("p" (find-file "~/.pwn_funcs") "pwn_funcs" :color blue)
+    ("s" (find-file "~/.system_aliases") "system_aliases" :color blue)
+    ("f" (find-file "~/.system_funcs") "system_funcs" :color blue)
+    ("z" (find-file "~/.zshrc") "zshrc" :color blue)
    ))
 
 (after! ggtags
