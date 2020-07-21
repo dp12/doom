@@ -3,9 +3,13 @@
 # key: pwni
 # --
 from pwn import *
-import sys
 
-if len(sys.argv) > 1 and sys.argv[1] == 'd':
+if args.GDB:
     target = gdb.debug("$1")
+elif args.REMOTE:
+    target = remote("nc ", "port")
 else:
     target = process("$1")$0
+
+elf = context.binary = ELF("$1")
+# libc = ELF("libc-.so")
