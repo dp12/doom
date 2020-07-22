@@ -4,12 +4,17 @@
 # --
 from pwn import *
 
-if args.GDB:
-    target = gdb.debug("$1")
-elif args.REMOTE:
-    target = remote("nc ", "port")
-else:
-    target = process("$1")$0
+context.terminal = ['terminator', '-e']
 
 elf = context.binary = ELF("$1")
-# libc = ELF("libc-.so")
+libc = ELF("./`(yas-insert-libc-name)`")
+
+gs = '''
+continue
+'''
+if args.GDB:
+    target = gdb.debug("./$1", gdbscript=gs, env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
+elif args.REMOTE:
+    target = remote("nc $0", "port")
+else:
+    target = process("./$1", env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})

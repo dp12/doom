@@ -786,7 +786,10 @@ Version 2015-09-21"
               (null (do-yas-expand)))
           (if (check-expansion)
               (company-complete-common)
-            (indent-for-tab-command))))))
+            (indent-for-tab-command)))))
+
+  (defun yas-insert-libc-name ()
+    (insert (car (directory-files "\./" nil "libc.*\.so$" t)))))
 
 ;; FIXME: need this to get parrot working
 (after! doom-modeline
