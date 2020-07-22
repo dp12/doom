@@ -360,6 +360,14 @@
     (+workspace/switch-to index)
     (call-interactively #'+workspace/new-with-name)))
 
+;; e.g. Yank 0x4526a into calc without having to change it to 16#4526a
+(defun calc-yank-hex ()
+  (interactive)
+  (let* ((bounds (bounds-of-thing-at-point 'symbol))
+         (hex-num (buffer-substring-no-properties (car bounds) (cdr bounds))))
+    (setq hex-num (concat "16#" (string-remove-prefix "0x" hex-num)))
+    (calc-enter-result 0 "grab" (math-read-expr hex-num))))
+
 ;; From http://ergoemacs.org/emacs/emacs_switching_fonts.html
 (setq cycle-font-list
       (cond
