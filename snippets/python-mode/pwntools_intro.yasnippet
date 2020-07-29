@@ -4,7 +4,8 @@
 # --
 from pwn import *
 
-context.terminal = ['terminator', '-e']
+context.terminal = ['tmux', 'splitw', '-h']
+# context.terminal = ['terminator', '-e']
 
 elf = context.binary = ELF("$1")
 libc = ELF("./`(yas-insert-libc-name)`")
