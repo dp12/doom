@@ -53,6 +53,7 @@
       :desc "bookmark jump" "bj" #'counsel-bookmark
       :desc "list bookmarks" "bl" #'list-bookmarks
       :desc "swap windows" "bx" #'ace-swap-window
+      :desc "calc-yank-hex" "ch" #'calc-yank-hex
       :desc "cycle font" "cf" #'cycle-font-select
       :desc "save and comment" "ck" #'evilnc-comment-and-kill-ring-save
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
