@@ -201,14 +201,10 @@
 
 ;;; Package configuration
 (use-package! corral
-  :defer t
   :config
   (progn
     (defun corral-at-point (corral-command)
       (interactive)
-      (when (and (eq evil-move-cursor-back t) (eq evil-state 'insert))
-        (right-char))
-      (evil-escape)
       (setq current-prefix-arg '(4))
       (call-interactively corral-command))
 
@@ -220,11 +216,11 @@
           :nvi "M-}" #'corral-braces-forward
           :nvi "M-'" #'corral-single-quotes-forward
           :nvi "M-\"" #'corral-double-quotes-forward
-          :nvi "C-M-0" #'corral-parentheses-forward
-          :nvi "C-M-]" #'corral-brackets-forward
-          :nvi "C-M-}" #'corral-braces-forward
-          :nvi "C-M-\"" #'corral-double-quotes-forward
-          :nvi "C-M-'" #'corral-single-quotes-forward)))
+          :nvi "C-M-0" (lambda () (interactive) (corral-at-point 'corral-parentheses-forward))
+          :nvi "C-M-]" (lambda () (interactive) (corral-at-point 'corral-brackets-forward))
+          :nvi "C-M-}" (lambda () (interactive) (corral-at-point 'corral-braces-forward))
+          :nvi "C-M-\"" (lambda () (interactive) (corral-at-point 'corral-double-quotes-forward))
+          :nvi "C-M-'" (lambda () (interactive) (corral-at-point 'corral-single-quotes-forward)))))
 
 (use-package! evil-iedit-state)
 
