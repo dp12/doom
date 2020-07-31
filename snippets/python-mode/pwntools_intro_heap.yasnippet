@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: pwntools intro heap
+# key: pwnih
+# --
+from pwn import *
+
+context.terminal = ['tmux', 'splitw', '-h']
+# context.terminal = ['terminator', '-e']
+
+elf = context.binary = ELF("$1")
+libc = ELF("./`(yas-insert-libc-name)`")
+
+gs = '''
+continue
+'''
+if args.GDB:
+    target = gdb.debug("./$1", gdbscript=gs, env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
+elif args.REMOTE:
+    target = remote("nc $0", "port")
+else:
+    target = process("./$1", env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
+
+def malloc(size, data):
+    target.sendlineafter("cmd_prompt", "1")
+    target.sendlineafter("size_prompt", str(size))
+    target.sendlineafter("data_prompt", data)
+
+def edit(slot, size, data):
+    target.sendlineafter("cmd_prompt", "2")
+    target.sendlineafter("slot_prompt", str(slot))
+    target.sendlineafter("size_prompt", str(size))
+    target.sendlineafter("data_prompt", data)
+
+def delete(slot):
+    target.sendlineafter("cmd_prompt", "3")
+    target.sendlineafter("slot_prompt", str(slot))
+
+def view(slot):
+    target.sendlineafter("cmd_prompt", "4")
+    target.sendlineafter("slot_prompt", str(slot))
+    ret = target.recvline()
+    print(ret)
+    print(hexdump(ret))
