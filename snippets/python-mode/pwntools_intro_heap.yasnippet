@@ -1,6 +1,7 @@
 # -*- coding: utf-8; mode: snippet -*-
 # name: pwntools intro heap
 # key: pwnih
+# expand-env: ((yas-indent-line 'fixed))
 # --
 from pwn import *
 
@@ -41,3 +42,7 @@ def view(slot):
     ret = target.recvline()
     print(ret)
     print(hexdump(ret))
+
+
+
+target.interactive()

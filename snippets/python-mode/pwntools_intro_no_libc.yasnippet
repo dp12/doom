@@ -1,6 +1,7 @@
 # -*- coding: utf-8; mode: snippet -*-
 # name: pwntools intro
 # key: pwnii
+# expand-env: ((yas-indent-line 'fixed))
 # --
 from pwn import *
 
@@ -18,3 +19,7 @@ elif args.REMOTE:
     target = remote("nc ", "port")
 else:
     target = process("./$1")
+
+
+
+target.interactive()

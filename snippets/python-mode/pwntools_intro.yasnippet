@@ -1,6 +1,7 @@
 # -*- coding: utf-8; mode: snippet -*-
 # name: pwntools intro
 # key: pwni
+# expand-env: ((yas-indent-line 'fixed))
 # --
 from pwn import *
 
@@ -19,3 +20,7 @@ elif args.REMOTE:
     target = remote("nc $0", "port")
 else:
     target = process("./$1", env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
+
+
+
+target.interactive()
