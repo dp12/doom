@@ -230,6 +230,8 @@
   ;; (global-evil-fringe-mark-mode)
   (setq-default left-fringe-width 16))
 
+(use-package! ivy-avy :after ivy)
+
 (use-package! key-chord
   :init
   (key-chord-mode 1)

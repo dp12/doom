@@ -23,6 +23,7 @@
 (package! git-gutter+)
 (package! link-hint)
 (package! projectile-ripgrep)
+(package! ivy-avy)
 
 ;;; Emacs lisp development
 (package! elsa)
