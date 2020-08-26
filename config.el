@@ -81,6 +81,7 @@
       :desc "gdb-set-fast-breakpoint" "gd" #'gdb-set-fast-breakpoint
       :desc "counsel-ffap-git" "gff" #'counsel-ffap-git
       :desc "ggtags-find-reference" "gr" #'ggtags-find-reference
+      :desc "hex-subtract" "h-" #'hex-subtract
       :desc "highlight-symbol-at-point" "h." #'highlight-symbol-at-point
       :desc "unhighlight-regexp" "hr" #'unhighlight-regexp
       :desc "hexl-mode" "hx" #'hexl-mode
@@ -387,6 +388,31 @@
          (hex-num (buffer-substring-no-properties (car bounds) (cdr bounds))))
     (setq hex-num (concat "16#" (string-remove-prefix "0x" hex-num)))
     (calc-enter-result 0 "grab" (math-read-expr hex-num))))
+
+; libc base: 0xf7e1d000
+; leak: 0xf7e7cca0
+;; (string-to-number "f7e7cca0" 16)
+;; (format "%x" 11)
+(defun hex-subtract ()
+  (interactive)
+  (let ((hex-nums (buffer-substring-no-properties
+                   (region-beginning) (region-end))))
+    (setq hex-nums (remove-if-not (lambda (x)
+                                    (and (> (length x) 2)
+                                         (string= (substring x 0 2) "0x")))
+                                  (split-string hex-nums)))
+    (if (/= (length hex-nums) 2)
+        (message "error: two hex numbers required")
+
+      (setq hex-nums
+            (mapcar
+             (lambda (num)
+               (string-to-number (string-remove-prefix "0x" num) 16)) hex-nums))
+      (goto-char (region-end))
+      (end-of-line)
+      (back-to-indentation)
+      (insert
+       (concat "# offset: 0x" (format "%x" (abs (apply '- hex-nums))) "\n")))))
 
 ;; From http://ergoemacs.org/emacs/emacs_switching_fonts.html
 (setq cycle-font-list
