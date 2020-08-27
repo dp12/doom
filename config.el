@@ -381,6 +381,10 @@
     (+workspace/switch-to index)
     (call-interactively #'+workspace/new-with-name)))
 
+;;;;;;;;;;;;;;;
+;; PWN FUNCS ;;
+;;;;;;;;;;;;;;;
+
 ;; e.g. Yank 0x4526a into calc without having to change it to 16#4526a
 (defun calc-yank-hex ()
   (interactive)
@@ -392,7 +396,6 @@
     (calc-slow-wrapper
      (calc-enter-result 0 "grab" (math-read-expr hex-num)))
     (pop-to-buffer from-buffer)))
-
 
 ; libc base: 0xf7e1d000
 ; leak: 0xf7e7cca0
@@ -408,7 +411,6 @@
                                   (split-string hex-nums)))
     (if (/= (length hex-nums) 2)
         (message "error: two hex numbers required")
-
       (setq hex-nums
             (mapcar
              (lambda (num)
@@ -418,6 +420,17 @@
       (back-to-indentation)
       (insert
        (concat "# offset: 0x" (format "%x" (abs (apply '- hex-nums))) "\n")))))
+
+(defun insert-one-gadgets ()
+  (interactive)
+  (let ((one-gadget-cmd
+         "one_gadget %s 2>/dev/null | grep '/bin/sh' | cut -d' ' -f1 | while read addr; do echo 'one_gadget = libc.address + '${addr}; done")
+        (libc (car (directory-files "\./" nil "libc.*\.so" t))))
+    (insert (shell-command-to-string (format one-gadget-cmd libc)))))
+
+;;;;;;;;;;;;;;;;;;;
+;; END PWN FUNCS ;;
+;;;;;;;;;;;;;;;;;;;
 
 ;; From http://ergoemacs.org/emacs/emacs_switching_fonts.html
 (setq cycle-font-list
