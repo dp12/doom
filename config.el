@@ -44,6 +44,7 @@
 
 ;;; Leader keybindings
 (map! :leader
+      :desc "avy-goto-char-2" "SPC" #'avy-goto-char-2
       :desc "avy-kill-whole-line" "ak" #'avy-kill-whole-line
       :desc "avy-kill-region" "aK" #'avy-kill-region
       :desc "avy-copy-region" "ar" #'avy-copy-region
