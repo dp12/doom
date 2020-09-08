@@ -73,6 +73,7 @@
       :desc "evil-show-registers" "er" #'evil-show-registers
       :desc "dired-jump" "fj" #'dired-jump
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
+      :desc "fundamental-mode" "fm" #'fundamental-mode
       :desc "projectile-ripgrep-filename" "fN" #'projectile-ripgrep-filename
       :desc "find other file" "fo" #'ff-find-other-file
       :desc "find other file other window" "fO" #'ff-find-other-file-other-window
