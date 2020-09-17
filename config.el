@@ -10,7 +10,8 @@
   (setq doom-theme 'gruvbox-light-soft))
 (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
 ;; (face-spec-set 'doom-dashboard-banner '((t (:inherit doom-modeline-evil-emacs-state))))
-(face-spec-set 'doom-dashboard-banner '((t (:inherit compilation-error))))
+;; (face-spec-set 'doom-dashboard-banner '((t (:inherit default))))
+(face-spec-set 'doom-dashboard-banner '((t (:inherit hl-line))))
 
 ;;; System configuration
 (menu-bar-mode 0)
@@ -488,6 +489,63 @@ Version 2015-09-21"
     (next-line)))
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "C-M-;") 'comment-dwim)
+
+(defun doom-dashboard-widget-doge-banner ()
+  (let ((point (point)))
+    (mapc (lambda (line)
+            (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
+                                'face 'doom-dashboard-banner) " ")
+            (insert "\n"))
+'("
+                      ░░░░░░░░░▄░░░░░░░░░░░░░░▄░░░░
+                      ░░░░░░░░▌▒█░░░░░░░░░░░▄▀▒▌░░░
+     Such powerful    ░░░░░░░░▌▒▒█░░░░░░░░▄▀▒▒▒▐░░░
+                      ░░░░░░░▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐░░░
+                      ░░░░░▄▄▀▒░▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐░░░  Vim and Emacs
+                      ░░░▄▀▒▒▒░░░▒▒▒░░░▒▒▒▀██▀▒▌░░░    So love
+                      ░░▐▒▒▒▄▄▒▒▒▒░░░▒▒▒▒▒▒▒▀▄▒▒▌░░      Much forbidden
+                      ░░▌░░▌█▀▒▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐░░
+Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒░░░▒▒▒▀▄▌░
+                      ░▌░▒▄██▄▒▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▌░
+                      ▀▒▀▐▄█▄█▌▄░▀▒▒░░░░░░░░░░▒▒▒▐░
+                      ▐▒▒▐▀▐▀▒░▄▄▒▄▒▒▒▒▒▒░▒░▒░▒▒▒▒▌
+                      ▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒▒▒░▒░▒░▒▒▐░
+                      ░▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒░▒░▒░▒░▒▒▒▌░
+                      ░▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▒▄▒▒▐░░
+                      ░░▀▄▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▄▒▒▒▒▌░░
+                      ░░░░▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀░░░      Wow.
+                      ░░░░░░▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀░░░░░
+                      ░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▀▀░░░░░░░░
+
+  ██████╗  ██████╗  ██████╗ ███████╗███╗   ███╗ █████╗  ██████╗███████╗
+  ██╔══██╗██╔═══██╗██╔════╝ ██╔════╝████╗ ████║██╔══██╗██╔════╝██╔════╝
+  ██║  ██║██║   ██║██║  ███╗█████╗  ██╔████╔██║███████║██║     ███████╗
+  ██║  ██║██║   ██║██║   ██║██╔══╝  ██║╚██╔╝██║██╔══██║██║     ╚════██║
+  ██████╔╝╚██████╔╝╚██████╔╝███████╗██║ ╚═╝ ██║██║  ██║╚██████╗███████║
+  ╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
+"))
+    (when (and (display-graphic-p)
+               (stringp fancy-splash-image)
+               (file-readable-p fancy-splash-image))
+      (let ((image (create-image (fancy-splash-image-file))))
+        (add-text-properties
+         point (point) `(display ,image rear-nonsticky (display)))
+        (save-excursion
+          (goto-char point)
+          (insert (make-string
+                   (truncate
+                    (max 0 (+ 1 (/ (- +doom-dashboard--width
+                                      (car (image-size image nil)))
+                                   2))))
+                   ? ))))
+      (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0)
+                           ?\n)))))
+
+(setq +doom-dashboard-functions
+  '(doom-dashboard-widget-doge-banner
+    doom-dashboard-widget-shortmenu
+    doom-dashboard-widget-loaded
+    doom-dashboard-widget-footer))
 
 (defun flyspell-visible()
   (interactive)
