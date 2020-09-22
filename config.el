@@ -127,9 +127,6 @@
       :desc "fill column" "tf" #'fci-mode
       :desc "magit-status" "gs" #'magit-status
       :desc "magit-blame" "gb" #'magit-blame-addition
-      :desc "delete workspace" "ld" #'+workspace/delete
-      :desc "new workspace" "ln" #'+workspace/new-with-name
-      :desc "workspace" "lw" #'+workspace/display
       :desc "jump to line" "jl" #'evil-avy-goto-line
       :desc "narrow-to-defun" "nf" #'narrow-to-defun
       :desc "narrow-to-page" "np" #'narrow-to-page
