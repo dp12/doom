@@ -21,6 +21,7 @@
 (add-to-list 'auto-mode-alist '("\\.bin\\'" . hexl-mode))
 (defadvice async-shell-command (around hide-async-windows activate)
   (save-window-excursion ad-do-it))
+(defalias 'iedit-lib-cleanup 'iedit-cleanup)
 
 (add-hook! 'whitespace-mode-hook
   (setq whitespace-style '(face tabs tab-mark spaces space-mark))
