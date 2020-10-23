@@ -17,7 +17,7 @@ continue
 if args.GDB:
     target = gdb.debug("./$1", gdbscript=gs, env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
 elif args.REMOTE:
-    target = remote("nc $0", "port")
+    target = remote("host$0", "port")
 else:
     target = process("./$1", env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
 

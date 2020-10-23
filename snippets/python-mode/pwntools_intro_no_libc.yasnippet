@@ -16,7 +16,7 @@ continue
 if args.GDB:
     target = gdb.debug("./$1", gdbscript=gs)
 elif args.REMOTE:
-    target = remote("nc ", "port")
+    target = remote("host$0", "port")
 else:
     target = process("./$1")
 
