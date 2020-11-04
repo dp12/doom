@@ -232,6 +232,8 @@
   ;; (global-evil-fringe-mark-mode)
   (setq-default left-fringe-width 16))
 
+(use-package! isearch-prop)
+
 (use-package! ivy-avy :after ivy)
 
 (use-package! key-chord
@@ -317,6 +319,15 @@
            (local-set-key [tab] 'tab-indent-or-complete))
 
 ;;; Function definitions
+(defun hide/show-docx-metadata (&optional show)
+  "Remove <w:> and </w> tags and text within them.
+    With a prefix arg, show all invisible text."
+  (interactive "P")
+  (if show
+      (isearchp-make-zones-visible `((,(point-min) ,(point-max))))
+    (let ((isearchp-dim-outside-search-area-flag  nil))
+      (isearchp-regexp-define-contexts (point-min) (point-max) 'invisible "</*w:[^>]*>"))))
+
 (defvar parrot-hippie-trailing-text "")
 (defvar parrot-hippie-end-regexp "[[:space:]]\\|,\\|(\\|)\\|\\[\\|<\\|{\\|;")
 (defun parrot-hippie ()
