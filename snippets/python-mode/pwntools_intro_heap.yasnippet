@@ -10,16 +10,17 @@ context.terminal = ['tmux', 'splitw', '-h']
 
 elf = context.binary = ELF("$1")
 libc = ELF("./`(yas-insert-libc-name)`")
+ld = ELF("")
 
 gs = '''
 continue
 '''
 if args.GDB:
-    target = gdb.debug("./$1", gdbscript=gs, env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
+    target = gdb.debug(elf.path, gdbscript=gs, env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
 elif args.REMOTE:
     target = remote("host$0", "port")
 else:
-    target = process("./$1", env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
+    target = process(elf.path, env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
 
 def malloc(size, data):
     target.sendlineafter("cmd_prompt", "1")
