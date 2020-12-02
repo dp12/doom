@@ -62,6 +62,10 @@
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
+      :desc "refresh + counsel-locate" "Sf" (lambda ()
+                                              (interactive)
+                                              (async-shell-command "sudo updatedb")
+                                              (counsel-locate))
       :desc "dumb jump other" "dG" #'dumb-jump-go-other-window
       :desc "dumb jump" "dg" #'dumb-jump-go
       :desc "dired-jump" "dj" #'dired-jump
