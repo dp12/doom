@@ -9,18 +9,17 @@ context.terminal = ['tmux', 'splitw', '-h']
 # context.terminal = ['terminator', '-e']
 
 elf = context.binary = ELF("$1")
-libc = ELF("./`(yas-insert-libc-name)`")
-ld = ELF("")
+`(yas-insert-elfs)`
 
 gs = '''
 continue
 '''
 if args.GDB:
-    target = gdb.debug(elf.path, gdbscript=gs, env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
+    target = gdb.debug(`(yas-get-ld-elf-paths)`, gdbscript=gs`(yas-insert-ld-preload)`)
 elif args.REMOTE:
     target = remote("host$0", "port")
 else:
-    target = process(elf.path, env={"LD_PRELOAD":"./`(yas-insert-libc-name)`"})
+    target = process(`(yas-get-ld-elf-paths)``(yas-insert-ld-preload)`)
 
 
 

@@ -941,8 +941,40 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
               (company-complete-common)
             (indent-for-tab-command)))))
 
-  (defun yas-insert-libc-name ()
-    (car (directory-files "\./" nil "libc.*\.so" t))))
+  (defun yas-get-libc-name ()
+    (car (directory-files "\./" nil "libc.*\.so" t)))
+
+  (defun yas-get-ld-name ()
+    (car (directory-files "\./" nil "ld.*\.so" t)))
+
+  ;; Example:
+  ;; libc = ELF("./libc.so.6")
+  ;; ld = ELF("./ld-2.23.so")
+  (defun yas-get-elfs ()
+    (let ((libc-file (car (directory-files "\./" nil "libc.*\.so" t)))
+          (ld-file (car (directory-files "\./" nil "ld.*\.so" t)))
+          (outstring ""))
+      (when libc-file
+        (setq outstring (concat outstring "libc = ELF(\"./" libc-file "\")")))
+      (when ld-file
+        (unless (eq outstring "")
+          (setq outstring (concat outstring "\n")))
+        (setq outstring (concat outstring "ld = ELF(\"./" ld-file "\")")))))
+
+  ;; Return ld.path and elf.path if both exist, otherwise elf.path
+  (defun yas-get-ld-elf-paths ()
+    (let ((ld-file (car (directory-files "\./" nil "ld.*\.so" t))))
+      (if ld-file
+          "[ld.path, elf.path]"
+        "elf.path")))
+
+  ;; Example
+  ;; , env={"LD_PRELOAD":"./libc.so.6}"
+  (defun yas-get-ld-preload ()
+    (let ((libc-file (car (directory-files "\./" nil "libc.*\.so" t))))
+      (when libc-file
+        (concat ", env={\"LD_PRELOAD\":\"./" libc-file "}\""))))
+  )
 
 ;; FIXME: need this to get parrot working
 (after! doom-modeline
