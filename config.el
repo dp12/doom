@@ -108,6 +108,8 @@
       :desc "quick calc" "qc" #'quick-calc
       :desc "quick run" "qR" #'quickrun
       :desc "counsel-rg" "rc" #'counsel-rg
+      :desc "rax2" "rx" #'rax2
+      :desc "rax2 string" "rs" #'rax2-string
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
       :desc "counsel-yank-pop" "ry" #'counsel-yank-pop
@@ -443,6 +445,20 @@
          "one_gadget %s 2>/dev/null | grep '/bin/sh' | cut -d' ' -f1 | while read addr; do echo 'one_gadget = libc.address + '${addr}; done")
         (libc (car (directory-files "\./" nil "libc.*\.so" t))))
     (insert (shell-command-to-string (format one-gadget-cmd libc)))))
+
+(defun rax2 (arg)
+  (interactive "sRun: rax ")
+  (let ((result (shell-command-to-string (concat "rax2 " arg))))
+    (message result)
+    (when current-prefix-arg
+      (insert result))))
+
+(defun rax2-string (arg)
+  (interactive "sRun: rax -s ")
+  (let ((result (shell-command-to-string (concat "rax2 -s " arg))))
+    (message result)
+    (when current-prefix-arg
+      (insert result))))
 
 ;;;;;;;;;;;;;;;;;;;
 ;; END PWN FUNCS ;;
