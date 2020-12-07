@@ -969,11 +969,11 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
         "elf.path")))
 
   ;; Example
-  ;; , env={"LD_PRELOAD":"./libc.so.6}"
+  ;; , env={"LD_PRELOAD":"./libc.so.6"}
   (defun yas-get-ld-preload ()
     (let ((libc-file (car (directory-files "\./" nil "libc.*\.so" t))))
       (when libc-file
-        (concat ", env={\"LD_PRELOAD\":\"./" libc-file "}\""))))
+        (concat ", env={\"LD_PRELOAD\":\"./" libc-file "\"}"))))
   )
 
 ;; FIXME: need this to get parrot working
