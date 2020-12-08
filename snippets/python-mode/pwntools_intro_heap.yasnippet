@@ -9,17 +9,17 @@ context.terminal = ['tmux', 'splitw', '-h']
 # context.terminal = ['terminator', '-e']
 
 elf = context.binary = ELF("$1")
-`(yas-insert-elfs)`
+`(yas-get-elfs)`
 
 gs = '''
 continue
 '''
 if args.GDB:
-    target = gdb.debug(`(yas-get-ld-elf-paths)`, gdbscript=gs`(yas-insert-ld-preload)`)
+    target = gdb.debug(`(yas-get-ld-elf-paths)`, gdbscript=gs`(yas-get-ld-preload)`)
 elif args.REMOTE:
     target = remote("host$0", "port")
 else:
-    target = process(`(yas-get-ld-elf-paths)``(yas-insert-ld-preload)`)
+    target = process(`(yas-get-ld-elf-paths)``(yas-get-ld-preload)`)
 
 def malloc(size, data):
     target.sendlineafter("cmd_prompt", "1")
