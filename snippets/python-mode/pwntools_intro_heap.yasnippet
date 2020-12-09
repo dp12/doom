@@ -24,13 +24,13 @@ else:
 def malloc(size, data):
     target.sendlineafter("cmd_prompt", "1")
     target.sendlineafter("size_prompt", str(size))
-    target.sendlineafter("data_prompt", data)
+    target.sendafter("data_prompt", data)
 
 def edit(slot, size, data):
     target.sendlineafter("cmd_prompt", "2")
     target.sendlineafter("slot_prompt", str(slot))
     target.sendlineafter("size_prompt", str(size))
-    target.sendlineafter("data_prompt", data)
+    target.sendafter("data_prompt", data)
 
 def delete(slot):
     target.sendlineafter("cmd_prompt", "3")
