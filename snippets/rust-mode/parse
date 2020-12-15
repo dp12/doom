@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: parse
+# key: prs
+# condition: t
+# --
+parse()
