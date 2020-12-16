@@ -959,7 +959,8 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
       (when ld-file
         (unless (eq outstring "")
           (setq outstring (concat outstring "\n")))
-        (setq outstring (concat outstring "ld = ELF(\"./" ld-file "\")")))))
+        (setq outstring (concat outstring "ld = ELF(\"./" ld-file "\")")))
+      outstring))
 
   ;; Return ld.path and elf.path if both exist, otherwise elf.path
   (defun yas-get-ld-elf-paths ()
