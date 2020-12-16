@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: pwntools target init
+# key: tinit
+# condition: t
+# expand-env: ((yas-indent-line 'fixed))
+# --
+if args.GDB:
+    target = gdb.debug(`(yas-get-ld-elf-paths)`, gdbscript=gs`(yas-get-ld-preload)`)
+elif args.REMOTE:
+    target = remote("host$0", "port")
+else:
+    target = process(`(yas-get-ld-elf-paths)``(yas-get-ld-preload)`)
