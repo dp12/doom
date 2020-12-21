@@ -1,0 +1,6 @@
+# name: begin src rust
+# key: bsr
+# --
+#+begin_src rust
+$0
+#+end_src
