@@ -1,0 +1,5 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: from pwn import *
+# key: pall
+# --
+from pwn import *
