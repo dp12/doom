@@ -914,6 +914,12 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (setq evil-snipe-scope 'buffer)
   (setq evil-snipe-repeat-scope 'buffer))
 
+(after! magit
+  (transient-append-suffix 'magit-commit "c"
+    '("n" "Amend --no-edit" (lambda () (interactive) (async-shell-command "git commit --amend --no-edit"))))
+  (transient-append-suffix 'magit-commit "c"
+    '("u" "Unlock" (lambda () (interactive) (async-shell-command "$(git rev-parse --show-toplevel) && rm .git/index.lock")))))
+
 (after! nyan-mode
   (setq nyan-bar-length 8))
 
