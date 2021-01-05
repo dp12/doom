@@ -914,6 +914,15 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (setq evil-snipe-scope 'buffer)
   (setq evil-snipe-repeat-scope 'buffer))
 
+(after! evil-embrace
+  (add-hook! 'python-mode-hook
+    (embrace-add-pair ?6 "p64(" ")")
+    (embrace-add-pair ?3 "p32(" ")")
+    (embrace-add-pair ?^ "u64(" ")"))
+  (add-hook! 'c-mode-common-hook
+    (embrace-add-pair ?8 "/*" "*/")
+    (embrace-add-pair ?s "static_cast<>(" ")")))
+
 (after! magit
   (transient-append-suffix 'magit-commit "c"
     '("n" "Amend --no-edit" (lambda () (interactive) (async-shell-command "git commit --amend --no-edit"))))
