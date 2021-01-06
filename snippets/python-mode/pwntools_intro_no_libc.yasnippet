@@ -19,6 +19,8 @@ elif args.REMOTE:
     target = remote("host$0", "port")
 else:
     target = process(elf.path)
+    if args.GDB_ATTACH:
+        gdb.attach(target)
 
 
 
