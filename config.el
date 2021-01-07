@@ -97,6 +97,7 @@
       :desc "hexl-mode" "hx" #'hexl-mode
       :desc "counsel-recentf" "if" #'counsel-recentf
       :desc "jump file" "jf" #'quick-file-hydra/body
+      :desc "jump file" "jj" #'quick-file-hydra/body
       :desc "mu4e update mail cnt" "ma" #'mu4e-alert-update-mail-count-interactive
       :desc "evil-mc-mode" "mc" #'evil-mc-mode
       :desc "magit-find-file" "mf" #'magit-find-file
