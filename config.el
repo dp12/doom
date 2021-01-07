@@ -930,7 +930,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (transient-append-suffix 'magit-commit "c"
     '("n" "Amend --no-edit" (lambda () (interactive) (async-shell-command "git commit --amend --no-edit"))))
   (transient-append-suffix 'magit-commit "c"
-    '("u" "Unlock" (lambda () (interactive) (async-shell-command "$(git rev-parse --show-toplevel) && rm .git/index.lock")))))
+    '("u" "Unlock" (lambda () (interactive) (async-shell-command "cd $(git rev-parse --show-toplevel) && rm .git/index.lock")))))
 
 (after! nyan-mode
   (setq nyan-bar-length 8))
