@@ -789,6 +789,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (global-set-key (kbd "C-S-r") 'isearch-backward)
   (define-key ivy-minibuffer-map (kbd "C-w") 'ivy-next-history-element)
   (define-key ivy-minibuffer-map (kbd "C-s") 'ivy-next-history-element)
+  (define-key ivy-minibuffer-map (kbd "[") 'ivy-next-history-element)
   (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line-or-history)
   (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line-or-history)
   (define-key ivy-minibuffer-map (kbd "C-u") 'ivy-kill-line)
