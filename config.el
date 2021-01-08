@@ -64,7 +64,7 @@
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
-      :desc "refresh + counsel-locate" "Sf" (lambda ()
+      :desc "refresh + counsel-locate" "sF" (lambda ()
                                               (interactive)
                                               (async-shell-command "sudo updatedb")
                                               (counsel-locate))
