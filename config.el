@@ -87,6 +87,7 @@
       :desc "find other file other window" "fO" #'ff-find-other-file-other-window
       :desc "frog-jump-buffer" "fb" #'frog-jump-buffer
       :desc "copy-file-basename-to-clipboard" "fn" #'copy-file-basename-to-clipboard
+      :desc "copy-file-fullname-to-clipboard" "fw" #'copy-file-fullname-to-clipboard
       :desc "fzf-git-files" "fz" #'fzf-git-files
       :desc "gdb-set-fast-breakpoint" "gd" #'gdb-set-fast-breakpoint
       :desc "counsel-ffap-git" "gff" #'counsel-ffap-git
@@ -688,17 +689,27 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (let ((ivy-auto-select-single-candidate t))
     (counsel-git (ffap-string-at-point))))
 
-  (defun copy-file-basename-to-clipboard ()
-    "Copy the current buffer file name to the clipboard."
-    (interactive)
-    (let ((filename (if (equal major-mode 'dired-mode)
-                        default-directory
-                      (if (uniquify-buffer-base-name)
-                          (uniquify-buffer-base-name)
-                        (buffer-name)))))
-      (when filename
-        (kill-new filename)
-        (message "%s" filename))))
+(defun copy-file-basename-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (if (uniquify-buffer-base-name)
+                        (uniquify-buffer-base-name)
+                      (buffer-name)))))
+    (when filename
+      (kill-new filename)
+      (message "%s" filename))))
+
+(defun copy-file-fullname-to-clipboard (&optional linum)
+  (interactive "P")
+  (let ((filename (replace-regexp-in-string
+                   (concat "^/home/" user-login-name "/\\.*") ""
+                   (file-truename (buffer-file-name)))))
+    (when linum
+        (setq filename (concat filename ":" (number-to-string (line-number-at-pos)))))
+    (kill-new filename)
+    (message filename)))
 
   (defun projectile-ripgrep-filename ()
     "Search for the current filename"
