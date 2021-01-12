@@ -931,9 +931,13 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
 
 (after! evil-embrace
   (add-hook! 'python-mode-hook
-    (embrace-add-pair ?6 "p64(" ")")
     (embrace-add-pair ?3 "p32(" ")")
+    (embrace-add-pair ?6 "p64(" ")")
     (embrace-add-pair ?^ "u64(" ")"))
+    (embrace-add-pair ?i "int(" ")")
+    (embrace-add-pair ?# "int(" ", 16)")
+    (embrace-add-pair ?l "len(" ")")
+    (embrace-add-pair ?s "str(" ")")
   (add-hook! 'c-mode-common-hook
     (embrace-add-pair ?8 "/*" "*/")
     (embrace-add-pair ?s "static_cast<>(" ")")))
