@@ -46,8 +46,8 @@
 
 ;;; Leader keybindings
 (map! :leader
-      :desc "counsel-grep-or-swiper" "RET" #'counsel-grep-or-swiper
-      :desc "counsel-grep-or-swiper" "[" #'counsel-grep-or-swiper
+      :desc "+default/search-buffer" "RET" #'+default/search-buffer
+      :desc "+default/search-buffer" "[" #'+default/search-buffer
       :desc "avy-goto-char-2" "SPC" #'avy-goto-char-2
       :desc "avy-kill-whole-line" "ak" #'avy-kill-whole-line
       :desc "avy-kill-region" "aK" #'avy-kill-region
