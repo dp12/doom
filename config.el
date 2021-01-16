@@ -120,6 +120,7 @@
       :desc "sort-lines" "sl" #'sort-lines
       :desc "symbol overlay" "so" #'hydra-symbol-overlay/symbol-overlay-put
       :desc "search online" "sO" #'+lookup/online
+      :desc "yasnippet recompile/refresh" "sr" #'yas-recompile-and-reload-all
       :desc "tabify" "tt" #'tabify
       :desc "untabify" "tu" #'untabify
       :desc "typing-of-emacs" "ty" #'typing-of-emacs
@@ -452,14 +453,14 @@
 
 (defun rax2 (arg)
   (interactive "sRun: rax ")
-  (let ((result (shell-command-to-string (concat "rax2 " arg))))
+  (let ((result (string-trim (shell-command-to-string (concat "rax2 " arg)))))
     (message result)
     (when current-prefix-arg
       (insert result))))
 
 (defun rax2-string (arg)
   (interactive "sRun: rax -s ")
-  (let ((result (shell-command-to-string (concat "rax2 -s " arg))))
+  (let ((result (string-trim (shell-command-to-string (concat "rax2 -s " arg)))))
     (message result)
     (when current-prefix-arg
       (insert result))))
@@ -974,6 +975,12 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
           (if (check-expansion)
               (company-complete-common)
             (indent-for-tab-command)))))
+
+  (defun yas-get-bin-name ()
+    (let ((bin (string-trim
+                (shell-command-to-string
+                 "file * | grep ELF | cut -d':' -f1 | grep -vE 'ld|libc'"))))
+    (concat "\"./" bin "\"")))
 
   (defun yas-get-libc-name ()
     (car (directory-files "\./" nil "libc.*\.so" t)))

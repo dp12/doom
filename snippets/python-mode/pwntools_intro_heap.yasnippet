@@ -8,7 +8,7 @@ from pwn import *
 context.terminal = ['tmux', 'splitw', '-h']
 # context.terminal = ['terminator', '-e']
 
-elf = context.binary = ELF("$1")
+elf = context.binary = ELF(`(yas-get-bin-name)`)
 `(yas-get-elfs)`
 
 gs = '''
