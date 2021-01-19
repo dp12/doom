@@ -81,6 +81,7 @@
       :desc "evil-show-registers" "er" #'evil-show-registers
       :desc "dired-jump" "fj" #'dired-jump
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
+      :desc "flyspell-auto-correct-line" "fl" #'flyspell-auto-correct-line
       :desc "fundamental-mode" "fm" #'fundamental-mode
       :desc "projectile-ripgrep-filename" "fN" #'projectile-ripgrep-filename
       :desc "find other file" "fo" #'ff-find-other-file
@@ -584,6 +585,12 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
 (defun flyspell-visible()
   (interactive)
   (flyspell-region (window-start) (window-end)))
+
+(defun flyspell-auto-correct-line()
+  (interactive)
+  (flyspell-region (line-beginning-position) (line-end-position))
+  (flyspell-auto-correct-previous-word (point))
+  (goto-last-change 0))
 
 ;; yasnippet
 (defun yas-recompile-and-reload-all ()
