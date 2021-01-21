@@ -837,6 +837,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
     ("r" (call-interactively #'+workspace/rename) nil)
     ("d" (call-interactively #'+workspace/delete) nil)
     ("l" (call-interactively #'+workspace/cycle) nil :color blue)
+    ("L" (call-interactively #'+workspace/cycle) nil)
     ("1" (+workspace/switch-to-or-create 0) nil)
     ("2" (+workspace/switch-to-or-create 1) nil)
     ("3" (+workspace/switch-to-or-create 2) nil)
