@@ -187,6 +187,7 @@
   :nvi (kbd "C-c <right>") #'windmove-right
   :nvi (kbd "C-c <down>") #'windmove-down
   :nvi (kbd "C-c <up>") #'windmove-up
+  :nvi "C-7" #'+workspace/cycle
   :nv "gt" #'centaur-tabs-forward
   :nv "gT" #'centaur-tabs-backward
   :nv "]f" #'ff-find-other-file
@@ -835,7 +836,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
     "workspaces"
     ("r" (call-interactively #'+workspace/rename) nil)
     ("d" (call-interactively #'+workspace/delete) nil)
-    ("l" (call-interactively #'+workspace/cycle) nil)
+    ("l" (call-interactively #'+workspace/cycle) nil :color blue)
     ("1" (+workspace/switch-to-or-create 0) nil)
     ("2" (+workspace/switch-to-or-create 1) nil)
     ("3" (+workspace/switch-to-or-create 2) nil)
