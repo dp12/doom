@@ -949,7 +949,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
     (embrace-add-pair ?l "len(" ")")
     (embrace-add-pair ?s "str(" ")")
   (add-hook! 'c-mode-common-hook
-    (embrace-add-pair ?8 "/*" "*/")
+    (embrace-add-pair ?8 "/* " " */")
     (embrace-add-pair ?s "static_cast<>(" ")")))
 
 (after! magit
