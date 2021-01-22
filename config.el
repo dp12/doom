@@ -960,11 +960,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (transient-append-suffix 'magit-commit "c"
     '("g" "gsr" (lambda () (interactive)
                   (async-shell-command
-                       "if ! git diff-index --quiet HEAD --; then
-                        git stash save; git pull --rebase; git stash pop
-                        else
-                        git pull --rebase
-                        fi"))))
+                       "if ! git diff-index --quiet HEAD --; then git stash save; git pull --rebase; git stash pop; else git pull --rebase; fi"))))
   )
 
 (after! nyan-mode
