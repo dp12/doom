@@ -9,18 +9,23 @@
 ;;; Extensions for built-in tools
 (package! dired-git-info)
 (package! dired-narrow)
+(package! dired-subtree)
 (package! frog-jump-buffer)
 (package! key-chord)
 (package! org-sidebar)
 (package! ox-hugo)
 (package! shell-pop)
+(package! selectrum)
+(package! selectrum-prescient)
 
 ;;; Search
+(package! ctrlf)
 (package! deadgrep)
 (package! double-saber)
 (package! fzf)
 (package! ggtags)
 (package! git-gutter+)
+(package! gxref)
 (package! link-hint)
 (package! projectile-ripgrep)
 (package! ivy-avy)
@@ -34,6 +39,7 @@
 
 ;;; Programming tools
 (package! company-try-hard)
+(package! company-tabnine)
 (package! corral)
 (package! evil-iedit-state)
 (package! iedit)
