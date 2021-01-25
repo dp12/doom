@@ -990,6 +990,8 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
               (company-complete-common)
             (indent-for-tab-command)))))
 
+  ;; TODO: Add autodetector for context, e.g. context.arch = 'amd64'
+  ;; https://github.com/Gallopsled/pwntools-tutorial/blob/master/context.md
   (defun yas-get-bin-name ()
     (let ((bin (string-trim
                 (shell-command-to-string
