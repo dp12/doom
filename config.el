@@ -121,7 +121,7 @@
       :desc "sort-lines" "sl" #'sort-lines
       :desc "symbol overlay" "so" #'hydra-symbol-overlay/symbol-overlay-put
       :desc "search online" "sO" #'+lookup/online
-      :desc "yasnippet recompile/refresh" "sr" #'yas-recompile-and-reload-all
+      :desc "yasnippet recompile/refresh" "yr" #'yas-recompile-and-reload-all
       :desc "tabify" "tt" #'tabify
       :desc "untabify" "tu" #'untabify
       :desc "typing-of-emacs" "ty" #'typing-of-emacs
