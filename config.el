@@ -131,7 +131,9 @@
    :nv "C-n" #'evil-mc-make-and-goto-next-match
    :nv "C-p" #'evil-mc-make-and-goto-prev-match
    :nv "C-S-n" #'evil-mc-skip-and-goto-next-match
-   :nv "C-S-p" #'evil-mc-skip-and-goto-prev-match))
+   :nv "C-S-p" #'evil-mc-skip-and-goto-prev-match
+   :nv "gzi" #'evil-mc-make-cursor-in-visual-selection-beg
+   :nv "gza" #'evil-mc-make-cursor-in-visual-selection-end))
 
 ;;; Spacemacs keybindings
 (map! :leader
