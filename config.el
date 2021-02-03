@@ -204,6 +204,9 @@
         "M-n" #'dired-narrow)
   (add-hook! dired-mode (dired-hide-details-mode t)))
 
+(map! :map magit-status-mode-map
+  :nv "gz" #'magit-jump-to-stashes)
+
 (map! :map magit-file-section-map
   :nv [S-return] (lambda ()
                      (interactive)
