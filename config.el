@@ -189,7 +189,7 @@
   :nvi (kbd "C-c <right>") #'windmove-right
   :nvi (kbd "C-c <down>") #'windmove-down
   :nvi (kbd "C-c <up>") #'windmove-up
-  :nvi "C-7" #'+workspace/cycle
+  :nvi "C-7" #'+workspace/other
   :nv "gt" #'centaur-tabs-forward
   :nv "gT" #'centaur-tabs-backward
   :nv "]f" #'ff-find-other-file
