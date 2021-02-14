@@ -22,6 +22,7 @@
 (defadvice async-shell-command (around hide-async-windows activate)
   (save-window-excursion ad-do-it))
 (defalias 'iedit-lib-cleanup 'iedit-cleanup)
+(setq inhibit-compacting-font-caches t)
 
 (add-hook! 'whitespace-mode-hook
   (setq whitespace-style '(face tabs tab-mark spaces space-mark))
