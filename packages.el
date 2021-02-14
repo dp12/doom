@@ -51,6 +51,7 @@
 (package! isearch-prop)
 (package! evil-fringe-mark)
 (package! fill-column-indicator)
+(package! org-superstar)
 (package! symbol-overlay)
 (package! gruvbox-theme)
 

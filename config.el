@@ -760,7 +760,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
 (after! org
   (require 'org-mouse)
   (setq org-startup-indented t)
-  (setq org-bullets-bullet-list '("◎" "◉" "○" "✎" "†" "■"))
+  (setq org-superstar-headline-bullets-list '("◎" "◉" "○" "✎" "†" "⁖" "■" "▷"))
   (setq org-todo-keywords
         (quote ((sequence "☛ TODO(t)" "↻ PENDING(p)" "|" "✔ DONE(d!)")
                 (sequence "⚑ WAITING(w@/!)" "⚁ MAYBE(m)" "PROJECT(P@)" "|" "✘ CANCELLED(c@/!)"))))
@@ -790,6 +790,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (add-to-list 'org-structure-template-alist
                '("py" "#+BEGIN_SRC python\n?\n#+END_SRC"))
   (add-hook! org-mode
+    (org-superstar-mode 1)
     (setq display-line-numbers nil)
     (auto-fill-mode -1)))
 
