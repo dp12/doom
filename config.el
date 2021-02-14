@@ -1062,3 +1062,9 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (defun setup-custom-doom-modeline ()
     (doom-modeline-set-modeline 'my/modeline 'default))
   (add-hook! 'doom-modeline-mode-hook 'setup-custom-doom-modeline))
+
+;; Save off custom settings to custom.el
+(setq custom-file (expand-file-name "custom.el" doom-local-dir))
+(load custom-file 'no-error 'no-message)
+
+(put 'narrow-to-region 'disabled nil)
