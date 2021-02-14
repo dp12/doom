@@ -143,6 +143,7 @@
       :desc "fill column" "tf" #'fci-mode
       :desc "magit-status" "gs" #'magit-status
       :desc "magit-blame" "gb" #'magit-blame-addition
+      :desc "gdb-workspace" "gw" #'gdb-workspace
       :desc "jump to line" "jl" #'evil-avy-goto-line
       :desc "narrow-to-defun" "nf" #'narrow-to-defun
       :desc "narrow-to-page" "np" #'narrow-to-page
@@ -428,6 +429,12 @@
 ;; PWN FUNCS ;;
 ;;;;;;;;;;;;;;;
 
+(defun gdb-workspace ()
+  (interactive)
+  (unless (member "gdb" (+workspace-list-names))
+    (+workspace/new "gdb"))
+  (+workspace/switch-to "gdb")
+  (find-file "~/.gdbinit"))
 ;; e.g. Yank 0x4526a into calc without having to change it to 16#4526a
 (defun calc-yank-hex ()
   (interactive)
