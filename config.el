@@ -99,7 +99,9 @@
       :desc "highlight-symbol-at-point" "h." #'highlight-symbol-at-point
       :desc "unhighlight-regexp" "hr" #'unhighlight-regexp
       :desc "hexl-mode" "hx" #'hexl-mode
-      :desc "counsel-recentf" "if" #'counsel-recentf
+      :desc "insert libc base" "il" #'insert-libc-base
+      :desc "selectrum-recentf" "if" #'selectrum-recentf-open-files
+      :desc "counsel-recentf" "iF" #'counsel-recentf
       :desc "jump file" "jf" #'quick-file-hydra/body
       :desc "jump file" "jj" #'quick-file-hydra/body
       :desc "mu4e update mail cnt" "ma" #'mu4e-alert-update-mail-count-interactive
@@ -430,7 +432,6 @@
 ;; PWN FUNCS ;;
 ;;;;;;;;;;;;;;;
 
-;; TODO: libc address computation
 ;; 0x7ffff79e2000
 ;; 0x7ffff7a79070
 ;;
@@ -441,7 +442,28 @@
 ;; # offset: 0x97070
 ;; libc.address = libc_leak - 0x97070
 ;; log.info("libc.address: 0x%x" % libc.address)
-
+(defun insert-libc-base ()
+  (interactive)
+  (let (start-pt end-pt offset-bounds offset)
+    (back-to-indentation)
+    (setq start-pt (point))
+    (insert "# libc base: ")
+    (forward-line)
+    (insert "# libc leak: ")
+    (end-of-line)
+    (setq end-pt (point))
+    (goto-char start-pt)
+    (push-mark (1+ end-pt))
+    (hex-subtract)
+    (previous-line)
+    (end-of-line)
+    (setq offset-bounds (bounds-of-thing-at-point 'symbol))
+    (setq offset (buffer-substring-no-properties (car offset-bounds) (cdr offset-bounds)))
+    (forward-line)
+    (back-to-indentation)
+    (insert (concat "libc.address = libc_leak - " offset))
+    (forward-line)
+    (insert "log.info(\"libc.address: 0x%x\" % libc.address)\n")))
 
 ;; Deletes after and the first argument
 ;; target.sendlineafter(": ", "1") --> target.sendline("1")
