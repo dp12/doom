@@ -65,6 +65,7 @@
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
+      :desc "happily-ever-no-after" "da" #'happily-ever-no-after
       :desc "refresh + counsel-locate" "sF" (lambda ()
                                               (interactive)
                                               (async-shell-command "sudo updatedb")
@@ -442,11 +443,16 @@
 ;; log.info("libc.address: 0x%x" % libc.address)
 
 
+;; Deletes after and the first argument
 ;; target.sendlineafter(": ", "1") --> target.sendline("1")
 (defun happily-ever-no-after ()
   (interactive)
-
-)
+  (let (start-pt)
+    (replace-string "after" "" nil (line-beginning-position) (line-end-position))
+    (forward-char)
+    (setq start-pt (point))
+    (search-forward "," (line-end-position))
+    (delete-region start-pt (1+ (point)))))
 
 (defun gdb-workspace ()
   (interactive)
