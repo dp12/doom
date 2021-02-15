@@ -429,12 +429,32 @@
 ;; PWN FUNCS ;;
 ;;;;;;;;;;;;;;;
 
+;; TODO: libc address computation
+;; 0x7ffff79e2000
+;; 0x7ffff7a79070
+;;
+;; -->
+;;
+;; # libc base: 0x7ffff79e2000
+;; # libc leak: 0x7ffff7a79070
+;; # offset: 0x97070
+;; libc.address = libc_leak - 0x97070
+;; log.info("libc.address: 0x%x" % libc.address)
+
+
+;; target.sendlineafter(": ", "1") --> target.sendline("1")
+(defun happily-ever-no-after ()
+  (interactive)
+
+)
+
 (defun gdb-workspace ()
   (interactive)
   (unless (member "gdb" (+workspace-list-names))
     (+workspace/new "gdb"))
   (+workspace/switch-to "gdb")
   (find-file "~/.gdbinit"))
+
 ;; e.g. Yank 0x4526a into calc without having to change it to 16#4526a
 (defun calc-yank-hex ()
   (interactive)
