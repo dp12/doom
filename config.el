@@ -461,9 +461,7 @@
     (setq offset (buffer-substring-no-properties (car offset-bounds) (cdr offset-bounds)))
     (forward-line)
     (back-to-indentation)
-    (insert (concat "libc.address = libc_leak - " offset))
-    (forward-line)
-    (insert "log.info(\"libc.address: 0x%x\" % libc.address)\n")))
+    (insert (concat "libc.address = libc_leak - " offset))))
 
 ;; Deletes after and the first argument
 ;; target.sendlineafter(": ", "1") --> target.sendline("1")
