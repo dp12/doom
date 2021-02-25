@@ -100,8 +100,9 @@
       :desc "unhighlight-regexp" "hr" #'unhighlight-regexp
       :desc "hexl-mode" "hx" #'hexl-mode
       :desc "insert libc base" "il" #'insert-libc-base
-      :desc "selectrum-recentf" "if" #'selectrum-recentf-open-files
-      :desc "counsel-recentf" "iF" #'counsel-recentf
+      :desc "insert one gadgets" "i1" #'insert-one-gadgets
+      ;; :desc "selectrum-recentf" "if" #'selectrum-recentf-open-files
+      :desc "counsel-recentf" "if" #'counsel-recentf
       :desc "jump file" "jf" #'quick-file-hydra/body
       :desc "jump file" "jj" #'quick-file-hydra/body
       :desc "mu4e update mail cnt" "ma" #'mu4e-alert-update-mail-count-interactive
@@ -461,7 +462,8 @@
     (setq offset (buffer-substring-no-properties (car offset-bounds) (cdr offset-bounds)))
     (forward-line)
     (back-to-indentation)
-    (insert (concat "libc.address = libc_leak - " offset))))
+    (insert (concat "libc.address = libc_leak - " offset "\n"
+                    "log.info(\"libc.address: 0x%x\" % libc.address)\n"))))
 
 ;; Deletes after and the first argument
 ;; target.sendlineafter(": ", "1") --> target.sendline("1")
