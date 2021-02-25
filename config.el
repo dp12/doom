@@ -680,6 +680,16 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (sp-kill-sexp)
   (insert (format "%S" value)))
 
+;; TODO no after function, e.g. convert target.sendlineafter to sendline or sendafter to send
+(defun ghidra-get-gdb-breakpoint ()
+  (interactive)
+  (unless (or (= (char-before) 32)
+              (= (point) (line-beginning-position)))
+    (evil-backward-word-begin))
+  (insert "b *0x")
+  ;; (insert (concat "b *0x" (substring-no-properties (pop kill-ring))))
+  (call-interactively #'evil-indent-line))
+
 (defun gdb-get-breakpoint-str (breakpoint-type)
   "Return string of the form 'b foo.c:108'"
   (concat breakpoint-type " "
