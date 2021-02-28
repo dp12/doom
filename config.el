@@ -101,6 +101,7 @@
       :desc "hexl-mode" "hx" #'hexl-mode
       :desc "insert libc base" "il" #'insert-libc-base
       :desc "insert one gadgets" "i1" #'insert-one-gadgets
+      :desc "evil inc-at-pt" "in" #'evil-numbers/inc-at-pt-incremental
       ;; :desc "selectrum-recentf" "if" #'selectrum-recentf-open-files
       :desc "counsel-recentf" "if" #'counsel-recentf
       :desc "jump file" "jf" #'quick-file-hydra/body
