@@ -504,7 +504,7 @@
   (interactive)
   (let ((hex-nums (buffer-substring-no-properties
                    (region-beginning) (region-end))))
-    (setq hex-nums (remove-if-not (lambda (x)
+    (setq hex-nums (cl-remove-if-not (lambda (x)
                                     (and (> (length x) 2)
                                          (string= (substring x 0 2) "0x")))
                                   (split-string hex-nums)))
