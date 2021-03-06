@@ -56,6 +56,7 @@
       :desc "avy-copy-line" "ay" #'avy-copy-line
       :desc "align-regexp" "ax" #'align-regexp
       :desc "evil-avy-goto-char-timer" "at" #'evil-avy-goto-char-timer
+      :desc "breakpoint ghidra" "bg" #'ghidra-get-gdb-breakpoint
       :desc "bookmark jump" "bj" #'counsel-bookmark
       :desc "list bookmarks" "bl" #'list-bookmarks
       :desc "swap windows" "bx" #'ace-swap-window
