@@ -6,6 +6,7 @@
 from pwn import *
 
 context.terminal = ['tmux', 'splitw', '-h']
+context.log_level = "debug"
 
 elf = context.binary = ELF(`(yas-get-bin-name)`)
 
