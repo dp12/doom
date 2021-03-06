@@ -267,7 +267,7 @@
 
 (use-package! evil-fringe-mark
   :init
-  ;; (global-evil-fringe-mark-mode)
+  (global-evil-fringe-mark-mode)
   (setq-default left-fringe-width 16))
 
 (use-package! isearch-prop)
