@@ -227,6 +227,10 @@
                      (let ((current-prefix-arg '(4)))
                        (call-interactively 'magit-diff-visit-file))))
 
+(map! :after ccls
+      :map (c-mode-map c++-mode-map)
+      :n "C-l" #'recenter-top-bottom)
+
 ;; Ediff
 ;; From http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-changes-of-both-version
 (defun ediff-copy-both-to-C ()
