@@ -122,9 +122,11 @@
       :desc "quick calc" "qc" #'quick-calc
       :desc "quick run" "qR" #'quickrun
       :desc "counsel-rg" "rc" #'counsel-rg
+      :desc "rotate-layout" "" #'rotate-layout
       :desc "rax2" "rx" #'rax2
       :desc "rax2 string" "rs" #'rax2-string
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
+      :desc "run-python" "rp" #'run-python
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
       :desc "counsel-yank-pop" "ry" #'counsel-yank-pop
       :desc "sort-lines" "sl" #'sort-lines
