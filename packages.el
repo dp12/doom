@@ -48,12 +48,13 @@
 (package! source-peek :recipe (:host github :repo "iqbalansari/emacs-source-peek"))
 
 ;;; Visual
-(package! isearch-prop)
+(package! rotate)
 (package! evil-fringe-mark)
 (package! fill-column-indicator)
+(package! gruvbox-theme)
+(package! isearch-prop)
 (package! org-superstar)
 (package! symbol-overlay)
-(package! gruvbox-theme)
 
 ;;; Fun
 (package! nyan-mode)
