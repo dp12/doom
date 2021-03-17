@@ -122,7 +122,7 @@
       :desc "quick calc" "qc" #'quick-calc
       :desc "quick run" "qR" #'quickrun
       :desc "counsel-rg" "rc" #'counsel-rg
-      :desc "rotate-layout" "" #'rotate-layout
+      :desc "rotate-layout" "rl" #'rotate-layout
       :desc "rax2" "rx" #'rax2
       :desc "rax2 string" "rs" #'rax2-string
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
