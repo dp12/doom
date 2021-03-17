@@ -43,6 +43,8 @@
 ;;(highlight-tail-mode)
 (setq dumb-jump-force-searcher 'rg)
 (setq company-show-numbers t)
+(setq company-idle-delay 0.01)
+(setq company-dabbrev-downcase 0)
 (setq lsp-enable-on-type-formatting nil)
 
 ;;; Leader keybindings
