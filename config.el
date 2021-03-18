@@ -61,6 +61,7 @@
       :desc "breakpoint ghidra" "bg" #'ghidra-get-gdb-breakpoint
       :desc "bookmark jump" "bj" #'counsel-bookmark
       :desc "list bookmarks" "bl" #'list-bookmarks
+      :desc "bookmark save" "bs" #'bookmark-save
       :desc "swap windows" "bx" #'ace-swap-window
       :desc "calc-yank-hex" "ch" #'calc-yank-hex
       :desc "cycle font" "cf" #'cycle-font-select
@@ -82,9 +83,11 @@
       :desc "dired jump other" "do" #'dired-jump-other-window
       :desc "double-saber" "ds" #'double-saber-mode
       :desc "ediff-buffers" "ed" #'ediff-buffers
+      :desc "even horizontal" "eh" #'rotate:even-horizontal
       :desc "evil-show-marks" "em" #'evil-show-marks
       :desc "evil-show-registers" "er" #'evil-show-registers
       :desc "dired-jump" "fj" #'dired-jump
+      :desc "counsel-git" "fk" #'counsel-git
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
       :desc "flyspell-auto-correct-line" "fl" #'flyspell-auto-correct-line
       :desc "fundamental-mode" "fm" #'fundamental-mode
