@@ -70,6 +70,7 @@
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
       :desc "happily-ever-no-after" "da" #'happily-ever-no-after
+      :desc "remove ld path" "dl" #'remove-ld-path
       :desc "refresh + counsel-locate" "sF" (lambda ()
                                               (interactive)
                                               (async-shell-command "sudo updatedb")
@@ -79,7 +80,7 @@
       :desc "dired-jump" "dj" #'dired-jump
       :desc "kill dired" "dk" #'kill-dired-buffers
       :desc "delete-matching-lines" "dm" #'delete-matching-lines
-      :desc "dumb jump quick look" "dl" #'dumb-jump-quick-look
+      :desc "dumb jump quick look" "dq" #'dumb-jump-quick-look
       :desc "dired jump other" "do" #'dired-jump-other-window
       :desc "double-saber" "ds" #'double-saber-mode
       :desc "ediff-buffers" "ed" #'ediff-buffers
@@ -488,6 +489,12 @@
     (setq start-pt (point))
     (search-forward "," (line-end-position))
     (delete-region start-pt (1+ (point)))))
+
+;; gdb.debug([ld.path, elf.path]) --> gdb.debug(elf.path)
+(defun remove-ld-path ()
+  (interactive)
+  (replace-string "[ld.path, " "" nil (line-beginning-position) (line-end-position))
+  (replace-string "elf.path]" "elf.path" nil (line-beginning-position) (line-end-position)))
 
 (defun gdb-workspace ()
   (interactive)
