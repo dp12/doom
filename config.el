@@ -87,6 +87,7 @@
       :desc "even horizontal" "eh" #'rotate:even-horizontal
       :desc "evil-show-marks" "em" #'evil-show-marks
       :desc "evil-show-registers" "er" #'evil-show-registers
+      :desc "counsel-git" "fg" #'counsel-git
       :desc "dired-jump" "fj" #'dired-jump
       :desc "quick-file jump" "fk" #'quick-file-hydra/body
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
