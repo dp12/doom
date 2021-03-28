@@ -88,7 +88,7 @@
       :desc "evil-show-marks" "em" #'evil-show-marks
       :desc "evil-show-registers" "er" #'evil-show-registers
       :desc "dired-jump" "fj" #'dired-jump
-      :desc "counsel-git" "fk" #'counsel-git
+      :desc "quick-file jump" "fk" #'quick-file-hydra/body
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
       :desc "flyspell-auto-correct-line" "fl" #'flyspell-auto-correct-line
       :desc "fundamental-mode" "fm" #'fundamental-mode
