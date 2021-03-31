@@ -125,6 +125,10 @@
       :desc "counsel-org-goto" "og" #'counsel-org-goto
       :desc "org-toggle-heading" "oh" #'org-toggle-heading
       :desc "quick calc" "qc" #'quick-calc
+      :desc "quick calc insert" "qC" (lambda ()
+                                       (interactive)
+                                       (let ((current-prefix-arg '(4)))
+                                         (call-interactively 'quick-calc)))
       :desc "quick run" "qR" #'quickrun
       :desc "counsel-rg" "rc" #'counsel-rg
       :desc "rotate-layout" "rl" #'rotate-layout
