@@ -44,6 +44,7 @@
 (package! evil-iedit-state)
 (package! iedit)
 (package! imenu-list)
+(package! intel-hex-mode)
 (package! quickrun)
 (package! source-peek :recipe (:host github :repo "iqbalansari/emacs-source-peek"))
 
