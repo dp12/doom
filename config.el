@@ -143,6 +143,7 @@
       :desc "search online" "sO" #'+lookup/online
       :desc "yasnippet recompile/refresh" "yr" #'yas-recompile-and-reload-all
       :desc "tabify" "tt" #'tabify
+      :desc "toggle link display" "tL" #'org-toggle-link-display
       :desc "untabify" "tu" #'untabify
       :desc "typing-of-emacs" "ty" #'typing-of-emacs
       )
