@@ -87,9 +87,10 @@
       :desc "even horizontal" "eh" #'rotate:even-horizontal
       :desc "evil-show-marks" "em" #'evil-show-marks
       :desc "evil-show-registers" "er" #'evil-show-registers
+      :desc "quick-file jump" "fd" #'quick-file-hydra/body
+      :desc "quick-file jump" "fk" #'quick-file-hydra/body
       :desc "counsel-git" "fg" #'counsel-git
       :desc "dired-jump" "fj" #'dired-jump
-      :desc "quick-file jump" "fk" #'quick-file-hydra/body
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
       :desc "flyspell-auto-correct-line" "fl" #'flyspell-auto-correct-line
       :desc "fundamental-mode" "fm" #'fundamental-mode
@@ -133,7 +134,15 @@
       :desc "counsel-rg" "rc" #'counsel-rg
       :desc "rotate-layout" "rl" #'rotate-layout
       :desc "rax2" "rx" #'rax2
+      :desc "rax2" "rX" (lambda ()
+                          (interactive)
+                          (let ((current-prefix-arg '(4)))
+                            (call-interactively 'rax2)))
       :desc "rax2 string" "rs" #'rax2-string
+      :desc "rax2 string" "rS" (lambda ()
+                                 (interactive)
+                                 (let ((current-prefix-arg '(4)))
+                                   (call-interactively 'rax2-string)))
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
       :desc "run-python" "rp" #'run-python
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
