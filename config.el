@@ -92,11 +92,12 @@
       :desc "counsel-git" "fg" #'counsel-git
       :desc "dired-jump" "fj" #'dired-jump
       :desc "counsel-file-jump" "fJ" #'counsel-file-jump
+      :desc "counsel-file-jump" "fo" #'counsel-file-jump-orgnotes
       :desc "flyspell-auto-correct-line" "fl" #'flyspell-auto-correct-line
       :desc "fundamental-mode" "fm" #'fundamental-mode
       :desc "projectile-ripgrep-filename" "fN" #'projectile-ripgrep-filename
-      :desc "find other file" "fo" #'ff-find-other-file
-      :desc "find other file other window" "fO" #'ff-find-other-file-other-window
+      :desc "find other file" "fO" #'ff-find-other-file
+      :desc "find other file other window" "f0" #'ff-find-other-file-other-window
       :desc "frog-jump-buffer" "fb" #'frog-jump-buffer
       :desc "copy-file-basename-to-clipboard" "fn" #'copy-file-basename-to-clipboard
       :desc "copy-file-fullname-to-clipboard" "fw" #'copy-file-fullname-to-clipboard
@@ -600,6 +601,11 @@
           "Terminus-16"
           "Consolas-14"
           ))))
+
+(defun counsel-file-jump-orgnotes ()
+  (interactive)
+  (counsel-file-jump nil "/media/sf_Shared/orgnotes"))
+
 (defun cycle-font-select ()
   (interactive)
   (set-frame-font (completing-read "Select font: " cycle-font-list nil t)))
