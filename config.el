@@ -125,6 +125,7 @@
       :desc "toggle-org-checkbox" "oc" #'toggle-org-checkbox
       :desc "counsel-org-goto" "og" #'counsel-org-goto
       :desc "org-toggle-heading" "oh" #'org-toggle-heading
+      :desc "org-show-subtree" "os" #'org-show-subtree
       :desc "quick calc" "qc" #'quick-calc
       :desc "quick calc insert" "qC" (lambda ()
                                        (interactive)
