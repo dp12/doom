@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: snippet -*-
 # name: from pwn import *
-# key: pall
+# key: pwnn
 # --
 from pwn import *
