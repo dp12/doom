@@ -722,6 +722,19 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (sp-kill-sexp)
   (insert (format "%S" value)))
 
+;; e.g. "nc chall.tw 12374" --> target = remote("chall.tw", 12374)
+(defun insert-target-remote()
+  (interactive)
+  (let ((nc-line (split-string (substring-no-properties (pop kill-ring))))
+        (hostname nil)
+        (port nil))
+    (if (string-equal "nc" (car nc-line))
+        (progn
+          (setq hostname (nth 1 nc-line))
+          (setq port (nth 2 nc-line))
+          (insert (concat "target = remote(\"" hostname "\", " port ")")))
+      (message "error: must have nc command in kill-ring"))))
+
 ;; TODO no after function, e.g. convert target.sendlineafter to sendline or sendafter to send
 (defun ghidra-get-gdb-breakpoint ()
   (interactive)
