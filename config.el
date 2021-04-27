@@ -70,6 +70,7 @@
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
       :desc "happily-ever-no-after" "da" #'happily-ever-no-after
+      :desc "delete-to-bol" "db" #'delete-to-bol
       :desc "remove ld path" "dl" #'remove-ld-path
       :desc "refresh + counsel-locate" "sF" (lambda ()
                                               (interactive)
@@ -443,6 +444,12 @@
         (company-tooltip-limit 3))    (cl-case command      (interactive (company-begin-backend 'company-hippie))      (sorted t)      (prefix (company-grab-symbol))        ;; (candidates (subseq (my-hippie-expand-completions) 0 company-hippie-num-candidates)))))
       (candidates (my-hippie-expand-completions)))))
 ;; (candidates company-hippie-cands))))
+
+;; TODO: make it work on selected regions or anything with the same indentation
+(defun delete-to-bol ()
+  (interactive)
+  (back-to-indentation)
+  (kill-line 0))
 
 (defun ff-find-other-file-other-window ()
     (interactive)
