@@ -137,6 +137,7 @@
       :desc "counsel-rg" "rc" #'counsel-rg
       :desc "rotate-layout" "rl" #'rotate-layout
       :desc "rax2" "rx" #'rax2
+      :desc "rax2 h2d" "rh" #'rax2-hex-to-dec
       :desc "rax2" "rX" (lambda ()
                           (interactive)
                           (let ((current-prefix-arg '(4)))
@@ -573,6 +574,20 @@
 (defun rax2 (arg)
   (interactive "sRun: rax ")
   (let ((result (string-trim (shell-command-to-string (concat "rax2 " arg)))))
+    (message result)
+    (when current-prefix-arg
+      (insert result))))
+
+(defun rax2-hex-to-dec (arg)
+  (interactive "sRun: rax (prepend 0x) ")
+  (let* ((hex-nums (mapconcat (lambda (x)
+                                (if (string-equal (substring x 0 2) "0x")
+                                    x
+                                  (concat "0x" x))) (split-string arg) " "))
+         (do-join (> (length (split-string arg)) 1))
+         (result (string-trim (shell-command-to-string (concat "rax2 " hex-nums)))))
+    (when do-join
+      (setq result (string-replace "\n" " " result)))
     (message result)
     (when current-prefix-arg
       (insert result))))
