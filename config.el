@@ -138,6 +138,10 @@
       :desc "rotate-layout" "rl" #'rotate-layout
       :desc "rax2" "rx" #'rax2
       :desc "rax2 h2d" "rh" #'rax2-hex-to-dec
+      :desc "rax2 h2d" "rH" (lambda ()
+                              (interactive)
+                              (let ((current-prefix-arg '(4)))
+                                (call-interactively 'rax2-hex-to-dec)))
       :desc "rax2" "rX" (lambda ()
                           (interactive)
                           (let ((current-prefix-arg '(4)))
