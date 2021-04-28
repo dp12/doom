@@ -576,14 +576,14 @@
     (insert (shell-command-to-string (format one-gadget-cmd libc)))))
 
 (defun rax2 (arg)
-  (interactive "sRun: rax ")
+  (interactive "sRun: rax2 ")
   (let ((result (string-trim (shell-command-to-string (concat "rax2 " arg)))))
     (message result)
     (when current-prefix-arg
       (insert result))))
 
 (defun rax2-hex-to-dec (arg)
-  (interactive "sRun: rax (prepend 0x) ")
+  (interactive "sRun: rax2 (prepend 0x) ")
   (let* ((hex-nums (mapconcat (lambda (x)
                                 (if (string-equal (substring x 0 2) "0x")
                                     x
@@ -597,7 +597,7 @@
       (insert result))))
 
 (defun rax2-string (arg)
-  (interactive "sRun: rax -s ")
+  (interactive "sRun: rax2 -s ")
   (let ((result (string-trim (shell-command-to-string (concat "rax2 -s " arg)))))
     (message result)
     (when current-prefix-arg
