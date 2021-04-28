@@ -583,7 +583,7 @@
       (insert result))))
 
 (defun rax2-hex-to-dec (arg)
-  (interactive "sRun: rax2 (prepend 0x) ")
+  (interactive "sRun: rax2 (assume hex) ")
   (let* ((hex-nums (mapconcat (lambda (x)
                                 (if (string-equal (substring x 0 2) "0x")
                                     x
