@@ -326,7 +326,15 @@
   :config
   (add-hook! 'parrot-click-hook 'mu4e-update-mail-and-index-wrapper)
   (define-key evil-normal-state-map (kbd "[r") 'parrot-rotate-prev-word-at-point)
-  (define-key evil-normal-state-map (kbd "]r") 'parrot-rotate-next-word-at-point))
+  (define-key evil-normal-state-map (kbd "]r") 'parrot-rotate-next-word-at-point)
+
+  (dolist (entry '((:rot ("encrypt" "decrypt") :caps t :upcase t)
+                   (:rot ("encode" "decode") :caps t :upcase t)
+                   (:rot ("enable" "disable") :caps t :upcase t)
+                   (:rot ("unlock" "lock") :caps t :upcase t)
+                   (:rot ("read" "write") :caps t :upcase t)
+                   (:rot ("up" "down") :caps t :upcase t)))
+    (add-to-list 'parrot-rotate-dict entry)))
 
 (use-package! evil-lisp-state
   :config
@@ -806,7 +814,8 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
             ((string-match-p (regexp-quote "-") cur-string) (replace-regexp (regexp-quote "-") "- [ ]" nil start-point end-point))
             (t (progn
                  (goto-char start-point)
-                 (insert "- [ ] ")))))))
+                 (insert "- [ ] ")))))
+    (delete-to-bol)))
 
 (defun minibuffer-toggle (string &optional eol)
   (save-excursion
