@@ -41,6 +41,7 @@
 (package! company-try-hard)
 (package! company-tabnine)
 (package! corral)
+(package! drag-stuff)
 (package! evil-iedit-state)
 (package! iedit)
 (package! imenu-list)
