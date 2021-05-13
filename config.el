@@ -188,7 +188,18 @@
       :desc "narrow-widen" "nw" #'widen
       :desc "evil-iedit" "se" #'evil-iedit-state/iedit-mode
       :desc "truncate-lines" "tl" #'toggle-truncate-lines
-      :desc "toggle-line-numbers" "tn" #'doom/toggle-line-numbers
+      :desc "toggle-line-numbers" "tn" (lambda ()
+                                         (interactive)
+                                         (setq display-line-numbers
+                                               (not display-line-numbers)))
+      :desc "toggle-relative-numbers" "tr" (lambda ()
+                                             (interactive)
+                                             (setq display-line-numbers
+                                                   (if (or (eq display-line-numbers t)
+                                                           (eq display-line-numbers nil))
+                                                       (if visual-line-mode 'visual 'relative)
+                                                     t)))
+      :desc "toggle read-only" "tR" #'read-only-mode
       :desc "toggle whitespace mode" "tw" #'whitespace-mode
       "0" #'winum-select-window-0
       "1" #'winum-select-window-1
