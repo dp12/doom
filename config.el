@@ -473,11 +473,12 @@
       (candidates (my-hippie-expand-completions)))))
 ;; (candidates company-hippie-cands))))
 
-;; TODO: make it work on selected regions or anything with the same indentation
 (defun delete-to-bol ()
   (interactive)
-  (back-to-indentation)
-  (kill-line 0))
+  (if (region-active-p)
+      (indent-region (region-beginning) (region-end) 0)
+    (back-to-indentation)
+    (kill-line 0)))
 
 (defun ff-find-other-file-other-window ()
     (interactive)
