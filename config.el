@@ -348,6 +348,9 @@
                    (:rot ("enable" "disable") :caps t :upcase t)
                    (:rot ("unlock" "lock") :caps t :upcase t)
                    (:rot ("read" "write") :caps t :upcase t)
+                   (:rot ("tx" "rx") :caps t :upcase t)
+                   (:rot ("transmit" "receive") :caps t :upcase t)
+                   (:rot ("src" "dest") :caps t :upcase t)
                    (:rot ("up" "down") :caps t :upcase t)))
     (add-to-list 'parrot-rotate-dict entry)))
 
