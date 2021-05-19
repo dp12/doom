@@ -311,6 +311,10 @@
 
 (use-package! evil-iedit-state)
 
+(use-package! evil-lisp-state
+  :init
+  (setq evil-lisp-state-global t))
+
 (use-package! evil-fringe-mark
   :init
   (global-evil-fringe-mark-mode)
