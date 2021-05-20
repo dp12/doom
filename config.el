@@ -599,8 +599,10 @@
   (interactive)
   (let ((one-gadget-cmd
          "one_gadget %s 2>/dev/null | grep '/bin/sh' | cut -d' ' -f1 | while read addr; do echo 'one_gadget = libc.address + '${addr}; done")
-        (libc (car (directory-files "\./" nil "libc.*\.so" t))))
-    (insert (shell-command-to-string (format one-gadget-cmd libc)))))
+        (libc (car (directory-files "\./" nil "libc.*\.so" t)))
+
+        (log-info "log.info(\"one_gadget: 0x%x\" % one_gadget)"))
+    (insert (concat (shell-command-to-string (format one-gadget-cmd libc)) log-info))))
 
 (defun rax2 (arg)
   (interactive "sRun: rax2 ")
@@ -778,6 +780,8 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
 ;; e.g. "nc chall.tw 12374" --> target = remote("chall.tw", 12374)
 ;; 52.198.317.2 12374
 ;; 52.198.317.2:12374
+;; TODO: after pasting the nc line, have insert target remote just transform the
+;; line and delete the other line
 (defun insert-target-remote()
   (interactive)
   (let ((nc-line (split-string (thing-at-point 'line t)))
