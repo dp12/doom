@@ -99,6 +99,15 @@
       :desc "projectile-ripgrep-filename" "fN" #'projectile-ripgrep-filename
       :desc "find other file" "fO" #'ff-find-other-file
       :desc "find other file other window" "f0" #'ff-find-other-file-other-window
+      :desc "fastaction1" "f1" (lambda ()
+                                 (interactive)
+                                 (async-shell-command-no-window "bash -ic 'f1'"))
+      :desc "fastaction2" "f2" (lambda ()
+                                 (interactive)
+                                 (async-shell-command-no-window "bash -ic 'f2'"))
+      :desc "fastaction3" "f3" (lambda ()
+                                 (interactive)
+                                 (async-shell-command-no-window "bash -ic 'f3'"))
       :desc "frog-jump-buffer" "fb" #'frog-jump-buffer
       :desc "copy-file-basename-to-clipboard" "fn" #'copy-file-basename-to-clipboard
       :desc "copy-file-fullname-to-clipboard" "fw" #'copy-file-fullname-to-clipboard
@@ -418,6 +427,18 @@
            (local-set-key [tab] 'tab-indent-or-complete))
 
 ;;; Function definitions
+(defun async-shell-command-no-window
+    (command)
+  (interactive)
+  (let
+      ((display-buffer-alist
+        (list
+         (cons
+          "\\*Async Shell Command\\*.*"
+          (cons #'display-buffer-no-window nil)))))
+    (async-shell-command
+     command)))
+
 (defun hide/show-docx-metadata (&optional show)
   "Remove <w:> and </w> tags and text within them.
     With a prefix arg, show all invisible text."
