@@ -69,6 +69,15 @@
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
+      :desc "fastdirs1" "d1" (lambda ()
+                               (interactive)
+                               (dired-jump-to-fastdir "d1"))
+      :desc "fastdirs2" "d2" (lambda ()
+                               (interactive)
+                               (dired-jump-to-fastdir "d2"))
+      :desc "fastdirs3" "d3" (lambda ()
+                               (interactive)
+                               (dired-jump-to-fastdir "d3"))
       :desc "happily-ever-no-after" "da" #'happily-ever-no-after
       :desc "delete-to-bol" "db" #'delete-to-bol
       :desc "remove ld path" "dl" #'remove-ld-path
@@ -503,6 +512,10 @@
       (indent-region (region-beginning) (region-end) 0)
     (back-to-indentation)
     (kill-line 0)))
+
+(defun dired-jump-to-fastdir (fastdir)
+  (interactive)
+  (dired (shell-command-to-string (concat "cat ~/fastdirs | grep " fastdir " | cut -d'=' -f2 | cut -c 5- | head -c-2"))))
 
 (defun ff-find-other-file-other-window ()
     (interactive)
