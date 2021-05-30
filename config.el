@@ -515,7 +515,7 @@
 
 (defun dired-jump-to-fastdir (fastdir)
   (interactive)
-  (dired (shell-command-to-string (concat "cat ~/fastdirs | grep " fastdir " | cut -d'=' -f2 | cut -c 5- | head -c-2"))))
+  (dired (shell-command-to-string (concat "cat ~/fastdirs | grep " fastdir " | cut -d'=' -f2 | cut -c 2- | head -c-1"))))
 
 (defun ff-find-other-file-other-window ()
     (interactive)
