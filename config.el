@@ -409,6 +409,7 @@
            ;; ggtags breaks iedit unless the below is nil
            (setq ggtags-highlight-tag nil)
            (ggtags-mode t)
+           (yas-minor-mode)
            (setq semantic-stickyfunc-show-only-functions-p t)
            (local-set-key (kbd "C-M-.") 'insert-period)
            (local-set-key (kbd "C-M-,") 'cthulhu-summon-comma)
