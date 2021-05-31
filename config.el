@@ -80,6 +80,7 @@
                                (dired-jump-to-fastdir "d3"))
       :desc "happily-ever-no-after" "da" #'happily-ever-no-after
       :desc "delete-to-bol" "db" #'delete-to-bol
+      :desc "dired home" "dh" (lambda () (interactive) (dired "~"))
       :desc "remove ld path" "dl" #'remove-ld-path
       :desc "refresh + counsel-locate" "sF" (lambda ()
                                               (interactive)
