@@ -385,6 +385,18 @@
   (evil-define-key 'normal evil-org-mode-map
     (kbd "M-S-<return>") (evil-org-define-eol-command org-insert-todo-heading)))
 
+(use-package! org-roam-server
+  :init
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8080
+        org-roam-server-export-inline-images t
+        org-roam-server-authenticate nil
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
+
 (use-package! double-saber
   :config
   (map!

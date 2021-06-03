@@ -12,6 +12,7 @@
 (package! dired-subtree)
 (package! frog-jump-buffer)
 (package! key-chord)
+(package! org-roam-server)
 (package! org-sidebar)
 (package! ox-hugo)
 (package! shell-pop)
