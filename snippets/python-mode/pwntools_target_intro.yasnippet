@@ -4,6 +4,12 @@
 # condition: t
 # expand-env: ((yas-indent-line 'fixed))
 # --
+elf = context.binary = ELF(`(yas-get-bin-name)`)
+`(yas-get-elfs)`
+
+gs = '''
+continue
+'''
 if args.GDB:
     target = gdb.debug(`(yas-get-ld-elf-paths)`, gdbscript=gs`(yas-get-ld-preload)`)
 elif args.REMOTE:
