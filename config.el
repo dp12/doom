@@ -182,6 +182,7 @@
       :desc "toggle link display" "tL" #'org-toggle-link-display
       :desc "untabify" "tu" #'untabify
       :desc "typing-of-emacs" "ty" #'typing-of-emacs
+      :desc "var fstring= python" "vf" #'var-fstring=-python
       :desc "var log python" "vl" #'var-log-python
       )
 (map!
@@ -608,14 +609,24 @@
   (+workspace/switch-to "gdb")
   (find-file "~/.gdbinit"))
 
-(defun var-log-python ()
+(defun get-lvalue-at-point ()
+  (car (last (split-string
+              (car (split-string
+                    (thing-at-point 'line t) "="))))))
+
+(defun var-fstring=-python ()
   (interactive)
-  (let ((target_var (car (last (split-string
-                                (car (split-string
-                                      (thing-at-point 'line t) "=")))))))
+  (let ((target-var (get-lvalue-at-point)))
     (forward-line)
     (back-to-indentation)
-    (insert (concat "log.info(\"" target_var ": 0x%x\" % " target_var ")\n"))))
+    (insert (concat "print(f\"{" target-var "=}\")\n"))))
+
+(defun var-log-python ()
+  (interactive)
+  (let ((target-var (get-lvalue-at-point)))
+    (forward-line)
+    (back-to-indentation)
+    (insert (concat "log.info(\"" target-var ": 0x%x\" % " target-var ")\n"))))
 
 ;; e.g. Yank 0x4526a into calc without having to change it to 16#4526a
 (defun calc-yank-hex ()
