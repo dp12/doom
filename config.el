@@ -78,6 +78,12 @@
       :desc "fastdirs3" "d3" (lambda ()
                                (interactive)
                                (dired-jump-to-fastdir "d3"))
+      :desc "fastdirs4" "d4" (lambda ()
+                               (interactive)
+                               (dired-jump-to-fastdir "d4"))
+      :desc "fastdirs5" "d5" (lambda ()
+                               (interactive)
+                               (dired-jump-to-fastdir "d5"))
       :desc "happily-ever-no-after" "da" #'happily-ever-no-after
       :desc "delete-to-bol" "db" #'delete-to-bol
       :desc "dired home" "dh" (lambda () (interactive) (dired "~"))
@@ -118,6 +124,12 @@
       :desc "fastaction3" "f3" (lambda ()
                                  (interactive)
                                  (async-shell-command-no-window "bash -ic 'f3'"))
+      :desc "fastaction4" "f4" (lambda ()
+                                 (interactive)
+                                 (async-shell-command-no-window "bash -ic 'f4'"))
+      :desc "fastaction5" "f5" (lambda ()
+                                 (interactive)
+                                 (async-shell-command-no-window "bash -ic 'f5'"))
       :desc "frog-jump-buffer" "fb" #'frog-jump-buffer
       :desc "copy-file-basename-to-clipboard" "fn" #'copy-file-basename-to-clipboard
       :desc "copy-file-fullname-to-clipboard" "fw" #'copy-file-fullname-to-clipboard
