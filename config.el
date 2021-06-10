@@ -372,7 +372,7 @@
   :init
   (parrot-mode)
   :config
-  (add-hook! 'parrot-click-hook 'mu4e-update-mail-and-index-wrapper)
+  (add-hook! 'parrot-click-hook 'parrot-rotate-next-word-at-point)
   (define-key evil-normal-state-map (kbd "[r") 'parrot-rotate-prev-word-at-point)
   (define-key evil-normal-state-map (kbd "]r") 'parrot-rotate-next-word-at-point)
 
