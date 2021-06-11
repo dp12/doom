@@ -159,6 +159,7 @@
       :desc "counsel-org-goto" "og" #'counsel-org-goto
       :desc "org-toggle-heading" "oh" #'org-toggle-heading
       :desc "org-show-subtree" "os" #'org-show-subtree
+      :desc "org-babel-execute-src-block" "ox" #'org-babel-execute-src-block
       :desc "quick calc" "qc" #'quick-calc
       :desc "quick calc insert" "qC" (lambda ()
                                        (interactive)
