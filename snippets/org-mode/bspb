@@ -1,0 +1,6 @@
+# name: begin src python babel
+# key: bspb
+# --
+#+begin_src python :session :results output
+$0
+#+end_src
