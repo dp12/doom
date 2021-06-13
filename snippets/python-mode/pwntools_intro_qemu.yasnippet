@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: pwntools intro qemu
+# key: pwniq
+# expand-env: ((yas-indent-line 'fixed))
+# --
+from pwn import *
+
+context.log_level = "debug"
+
+elf = context.binary = ELF(`(yas-get-bin-name)`)
+`(yas-get-elfs)`
+
+gs = '''
+continue
+'''
+qemu = "$0"
+if args.GDB:
+    qemu += " -s -S"
+    target = qemu.split()
+elif args.REMOTE:
+    target = remote("host", "port")
+else:
+    target = qemu.split()
+
+target.interactive()
