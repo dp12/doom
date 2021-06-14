@@ -677,6 +677,41 @@
       (insert
        (concat "# offset: 0x" (format "%x" (abs (apply '- hex-nums))) "\n")))))
 
+;; https://stackoverflow.com/questions/23636226/how-to-round-all-the-numbers-in-a-region
+;; ;; (let ((pos 0)
+;;           matches)
+;;       (while (string-match regexp string pos)
+;;         (push (match-string 0 string) matches)
+;;         (setq pos (match-end 0)))
+;;       matches)))
+;; TODO: need to handle multiple matches on a single line
+;; re-search-forward:
+;; - keep searching until eol; process results by handing to rax2 one by one
+;; - if there is more space between region end and eol, keep searching
+;;
+;; read in entire buffer substring
+;; split by newlines
+;; loop over all lines
+;; find numbers in lines
+;; process results by handing to rax2
+;; (re-search-forward "0x[0-9a-zA-Z]+\\|[0-9]+" (line-end-position) t)
+(defun rax2-line ()
+  (interactive)
+  (let* ((line-items '())
+         (outstr ""))
+    (save-excursion
+      (beginning-of-line)
+      (while (re-search-forward "[-]?0x[0-9a-zA-Z]+\\|[-]?[0-9]+" (line-end-position) t)
+        (push (match-string-no-properties 0) line-items))
+      (mapcar (lambda (x)
+                (print x)
+                (setq outstr (concat (string-trim (shell-command-to-string (concat "rax2 " x))) " " outstr)))
+              line-items)
+      ;; (print line-items)
+      (print outstr)
+      (end-of-line)
+      (insert (concat " => " (string-trim outstr))))))
+
 (defun insert-one-gadgets ()
   (interactive)
   (let ((one-gadget-cmd
