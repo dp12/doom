@@ -153,6 +153,7 @@
       :desc "magit-find-file" "mf" #'magit-find-file
       :desc "mu4e-jump-to-mail" "mj" #'mu4e-jump-to-mail
       :desc "imenu-list" "ml" #'imenu-list-smart-toggle
+      :desc "make-nkp" "mn" #'make-nkp
       :desc "magit-file-popup" "mp" #'magit-file-dispatch
       :desc "mu4e-update-mail" "mu" #'mu4e-update-mail-and-index-wrapper
       :desc "toggle-org-checkbox" "oc" #'toggle-org-checkbox
@@ -614,6 +615,10 @@
   (interactive)
   (replace-string "[ld.path, " "" nil (line-beginning-position) (line-end-position))
   (replace-string "elf.path]" "elf.path" nil (line-beginning-position) (line-end-position)))
+
+(defun make-nkp ()
+  (interactive)
+  (find-file "./nkp.py"))
 
 (defun gdb-workspace ()
   (interactive)
