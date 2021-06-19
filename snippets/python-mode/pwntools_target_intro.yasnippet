@@ -8,7 +8,7 @@ elf = context.binary = ELF(`(yas-get-bin-name)`)
 `(yas-get-elfs)`
 
 gs = '''
-continue
+# continue
 '''
 if args.GDB:
     target = gdb.debug(`(yas-get-ld-elf-paths)`, gdbscript=gs`(yas-get-ld-preload)`)

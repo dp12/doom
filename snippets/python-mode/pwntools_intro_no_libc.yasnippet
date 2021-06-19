@@ -11,7 +11,7 @@ context.log_level = "debug"
 elf = context.binary = ELF(`(yas-get-bin-name)`)
 
 gs = '''
-continue
+# continue
 '''
 if args.GDB:
     target = gdb.debug(elf.path, gdbscript=gs)
