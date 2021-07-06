@@ -700,17 +700,26 @@
 ;; find numbers in lines
 ;; process results by handing to rax2
 ;; (re-search-forward "0x[0-9a-zA-Z]+\\|[0-9]+" (line-end-position) t)
-(defun rax2-line ()
+;;
+;; 0x23498+0x12+0x984 = 0x23e2e
+;; - insert the equals
+;; make configurable output format for every command
+(defun rax2-line (&optional input-arg)
   (interactive)
   (let* ((line-items '())
-         (outstr ""))
+         (outstr "")
+         (rax2-args ""))
+    (if input-arg
+        (setq rax2-args input-arg)
+      (when current-prefix-arg
+        (setq rax2-args (read-string "command: rax2 "))))
     (save-excursion
       (beginning-of-line)
       (while (re-search-forward "[-]?0x[0-9a-zA-Z]+\\|[-]?[0-9]+" (line-end-position) t)
         (push (match-string-no-properties 0) line-items))
       (mapcar (lambda (x)
                 (print x)
-                (setq outstr (concat (string-trim (shell-command-to-string (concat "rax2 " x))) " " outstr)))
+                (setq outstr (concat (string-trim (shell-command-to-string (concat "rax2 " rax2-args " " x))) " " outstr)))
               line-items)
       ;; (print line-items)
       (print outstr)
