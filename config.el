@@ -682,6 +682,29 @@
       (insert
        (concat "# offset: 0x" (format "%x" (abs (apply '- hex-nums))) "\n")))))
 
+;; 0x200d2cbc+0x5d4+0x50 => 0x200d32e0
+;; 0x200d2cbc + 0x5d4+0x50 => 0x200d32e0
+(defvar hx-forward-region-force-hex t)
+(defun hx-forward-region(start end)
+  (interactive "r")
+  (let ((region-str (buffer-substring-no-properties start end))
+        (rax2-cmd "rax2")
+        (rax2-args "")
+        (result ""))
+    (if (use-region-p)
+        (progn
+          (setq region-str (replace-regexp-in-string "[ \t\n]" "" region-str))
+          (message region-str)
+          (when hx-forward-region-force-hex
+            (setq rax2-cmd "rax2 -k"))
+          (setq result (concat (string-trim (shell-command-to-string (concat rax2-cmd " " rax2-args " " region-str))) " " result))
+          (print result)
+          (save-excursion
+            (end-of-line)
+            (insert (concat " => " (string-trim result)))))
+      (message "error: no region selected")
+      )))
+
 ;; https://stackoverflow.com/questions/23636226/how-to-round-all-the-numbers-in-a-region
 ;; ;; (let ((pos 0)
 ;;           matches)
