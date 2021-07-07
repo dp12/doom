@@ -977,6 +977,24 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
     (shell-command
      (format insert-br-cmd (gdb-get-breakpoint-str breakpoint-type)))))
 
+(defun get-rand-url ()
+  (interactive)
+  (let (start end result)
+  (beginning-of-buffer)
+  (re-search-forward "writeupqueue high priority")
+  (setq start (point))
+  (re-search-forward "^$")
+  (setq end (point))
+  (setq result (shell-command-on-region start end "grep \"^$((($RANDOM % 10) + 1))\""))
+  (print result)
+
+  (re-search-forward "Nice")
+  (setq start (point))
+  (re-search-forward "^$")
+  (setq end (point))
+  ;; (setq result (concat result (shell-command-on-region start end "grep \"$((($RANDOM % 10) + 1))\"")))
+  ))
+
 (defun toggle-org-checkbox ()
   (interactive)
   (save-excursion
