@@ -179,6 +179,11 @@
                           (interactive)
                           (let ((current-prefix-arg '(4)))
                             (call-interactively 'rax2)))
+      :desc "rax2 force hex" "rk" #'rax2-force-hex
+      :desc "rax2 force hex" "rK" (lambda ()
+                                 (interactive)
+                                 (let ((current-prefix-arg '(4)))
+                                   (call-interactively 'rax2-force-hex)))
       :desc "rax2 string" "rs" #'rax2-string
       :desc "rax2 string" "rS" (lambda ()
                                  (interactive)
@@ -682,6 +687,12 @@
       (insert
        (concat "# offset: 0x" (format "%x" (abs (apply '- hex-nums))) "\n")))))
 
+
+;; replace symbol:
+;; e.g. kinder + 0x802 = 0x1024
+;;      kinder + 0x128 = ???
+;;      kinder + 0x46 = ???
+;; (set kinder to 0x822, then compute the result)
 ;; 0x200d2cbc+0x5d4+0x50 => 0x200d32e0
 ;; 0x200d2cbc + 0x5d4+0x50 => 0x200d32e0
 (defvar hx-forward-region-force-hex t)
@@ -730,8 +741,8 @@
 (defun rax2-line (&optional input-arg)
   (interactive)
   (let* ((line-items '())
-         (outstr "")
-         (rax2-args ""))
+         (rax2-args "")
+         (result ""))
     (if input-arg
         (setq rax2-args input-arg)
       (when current-prefix-arg
@@ -742,12 +753,33 @@
         (push (match-string-no-properties 0) line-items))
       (mapcar (lambda (x)
                 (print x)
-                (setq outstr (concat (string-trim (shell-command-to-string (concat "rax2 " rax2-args " " x))) " " outstr)))
+                (setq result (concat (string-trim (shell-command-to-string (concat "rax2 " rax2-args " " x))) " " result)))
               line-items)
       ;; (print line-items)
-      (print outstr)
+      (print result)
       (end-of-line)
-      (insert (concat " => " (string-trim outstr))))))
+      (insert (concat " => " (string-trim result))))))
+
+(defun rax2-region-by-lines (start end)
+  (interactive "r")
+  (if (use-region-p)
+      (progn
+        (let ((start-marker (copy-marker (region-beginning)))
+              (end-marker (copy-marker (region-end)))
+              (rax2-args ""))
+          (when current-prefix-arg
+            (setq rax2-args (read-string "command: rax2 ")))
+          (goto-char (marker-position start-marker))
+          (while (< (point) (marker-position end-marker))
+                 (rax2-line rax2-args)
+                 (forward-line))))
+      (message "error: no region selected")))
+
+;; 0x5c;
+;; 0x52;
+;; 0x4f;
+;; 0x4f;
+;; 0x54;
 
 (defun insert-one-gadgets ()
   (interactive)
@@ -782,6 +814,13 @@
 (defun rax2-string (arg)
   (interactive "sRun: rax2 -s ")
   (let ((result (string-trim (shell-command-to-string (concat "rax2 -s " arg)))))
+    (message result)
+    (when current-prefix-arg
+      (insert result))))
+
+(defun rax2-force-hex (arg)
+  (interactive "sRun: rax2 -k ")
+  (let ((result (string-trim (shell-command-to-string (concat "rax2 -k " arg)))))
     (message result)
     (when current-prefix-arg
       (insert result))))
