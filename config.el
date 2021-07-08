@@ -203,6 +203,7 @@
       :desc "typing-of-emacs" "ty" #'typing-of-emacs
       :desc "var fstring= python" "vf" #'var-fstring=-python
       :desc "var log python" "vl" #'var-log-python
+      :desc "var print python" "vp" #'var-print-python
       )
 (map!
  (:when (featurep! :editor multiple-cursors)
@@ -650,6 +651,13 @@
     (forward-line)
     (back-to-indentation)
     (insert (concat "log.info(\"" target-var ": 0x%x\" % " target-var ")\n"))))
+
+(defun var-print-python ()
+  (interactive)
+  (let ((target-var (get-lvalue-at-point)))
+    (forward-line)
+    (back-to-indentation)
+    (insert (concat "print(\"" target-var ": 0x%x\" % " target-var ")\n"))))
 
 ;; e.g. Yank 0x4526a into calc without having to change it to 16#4526a
 (defun calc-yank-hex ()
