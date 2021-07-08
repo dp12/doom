@@ -63,7 +63,7 @@
       :desc "list bookmarks" "bl" #'list-bookmarks
       :desc "bookmark save" "bs" #'bookmark-save
       :desc "swap windows" "bx" #'ace-swap-window
-      :desc "calc-yank-hex" "ch" #'calc-yank-hex
+      :desc "calc-yank-hex" "ch" #'hexentanz-calc-yank-hex
       :desc "cycle font" "cf" #'cycle-font-select
       :desc "save and comment" "ck" #'evilnc-comment-and-kill-ring-save
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
@@ -137,7 +137,8 @@
       :desc "gdb-set-fast-breakpoint" "gd" #'gdb-set-fast-breakpoint
       :desc "counsel-ffap-git" "gff" #'counsel-ffap-git
       :desc "ggtags-find-reference" "gr" #'ggtags-find-reference
-      :desc "hex-subtract" "h-" #'hex-subtract
+      :desc "hex-subtract" "h-" #'hexentanz-subtract
+      :desc "hex-subtract" "Hr" #'hexentanz-forward-region-to-rax2
       :desc "highlight-symbol-at-point" "h." #'highlight-symbol-at-point
       :desc "unhighlight-regexp" "hr" #'unhighlight-regexp
       :desc "hexl-mode" "hx" #'hexl-mode
@@ -169,26 +170,26 @@
       :desc "quick run" "qR" #'quickrun
       :desc "counsel-rg" "rc" #'counsel-rg
       :desc "rotate-layout" "rl" #'rotate-layout
-      :desc "rax2" "rx" #'rax2
-      :desc "rax2 h2d" "rh" #'rax2-hex-to-dec
+      :desc "rax2" "rx" #'hexentanz-rax2
+      :desc "rax2 h2d" "rh" #'hexentanz-rax2-hex-to-dec
       :desc "rax2 h2d" "rH" (lambda ()
                               (interactive)
                               (let ((current-prefix-arg '(4)))
-                                (call-interactively 'rax2-hex-to-dec)))
+                                (call-interactively 'hexentanz-rax2-hex-to-dec)))
       :desc "rax2" "rX" (lambda ()
                           (interactive)
                           (let ((current-prefix-arg '(4)))
                             (call-interactively 'rax2)))
-      :desc "rax2 force hex" "rk" #'rax2-force-hex
+      :desc "rax2 force hex" "rk" #'hexentanz-rax2-force-hex
       :desc "rax2 force hex" "rK" (lambda ()
                                  (interactive)
                                  (let ((current-prefix-arg '(4)))
-                                   (call-interactively 'rax2-force-hex)))
-      :desc "rax2 string" "rs" #'rax2-string
+                                   (call-interactively 'hexentanz-rax2-force-hex)))
+      :desc "rax2 string" "rs" #'hexentanz-rax2-string
       :desc "rax2 string" "rS" (lambda ()
                                  (interactive)
                                  (let ((current-prefix-arg '(4)))
-                                   (call-interactively 'rax2-string)))
+                                   (call-interactively 'hexentanz-rax2-string)))
       :desc "projectile-ripgrep-custom" "rg" #'projectile-ripgrep-custom
       :desc "run-python" "rp" #'run-python
       :desc "parrot-start-animation" "rr" #'parrot-start-animation
@@ -431,6 +432,8 @@
      :nv "C-r" #'double-saber-redo
      :nv "C-_" #'double-saber-redo)))
 
+(use-package! hexentanz
+  :load-path "~/hexentanz")
 ;;; Hooks
 ;; Python
 (add-hook! 'python-mode-hook
@@ -659,136 +662,6 @@
     (back-to-indentation)
     (insert (concat "print(\"" target-var ": 0x%x\" % " target-var ")\n"))))
 
-;; e.g. Yank 0x4526a into calc without having to change it to 16#4526a
-(defun calc-yank-hex ()
-  (interactive)
-  (let* ((from-buffer (current-buffer))
-         (bounds (bounds-of-thing-at-point 'symbol))
-         (hex-num (buffer-substring-no-properties (car bounds) (cdr bounds))))
-    (setq hex-num (concat "16#" (string-remove-prefix "0x" hex-num)))
-    (calc)
-    (calc-slow-wrapper
-     (calc-enter-result 0 "grab" (math-read-expr hex-num)))
-    (pop-to-buffer from-buffer)))
-
-; libc base: 0xf7e1d000
-; leak: 0xf7e7cca0
-;; (string-to-number "f7e7cca0" 16)
-;; (format "%x" 11)
-(defun hex-subtract ()
-  (interactive)
-  (let ((hex-nums (buffer-substring-no-properties
-                   (region-beginning) (region-end))))
-    (setq hex-nums (cl-remove-if-not (lambda (x)
-                                    (and (> (length x) 2)
-                                         (string= (substring x 0 2) "0x")))
-                                  (split-string hex-nums)))
-    (if (/= (length hex-nums) 2)
-        (message "error: two hex numbers required")
-      (setq hex-nums
-            (mapcar
-             (lambda (num)
-               (string-to-number (string-remove-prefix "0x" num) 16)) hex-nums))
-      (goto-char (region-end))
-      (end-of-line)
-      (back-to-indentation)
-      (insert
-       (concat "# offset: 0x" (format "%x" (abs (apply '- hex-nums))) "\n")))))
-
-
-;; replace symbol:
-;; e.g. kinder + 0x802 = 0x1024
-;;      kinder + 0x128 = ???
-;;      kinder + 0x46 = ???
-;; (set kinder to 0x822, then compute the result)
-;; 0x200d2cbc+0x5d4+0x50 => 0x200d32e0
-;; 0x200d2cbc + 0x5d4+0x50 => 0x200d32e0
-(defvar hx-forward-region-force-hex t)
-(defun hx-forward-region(start end)
-  (interactive "r")
-  (let ((region-str (buffer-substring-no-properties start end))
-        (rax2-cmd "rax2")
-        (rax2-args "")
-        (result ""))
-    (if (use-region-p)
-        (progn
-          (setq region-str (replace-regexp-in-string "[ \t\n]" "" region-str))
-          (message region-str)
-          (when hx-forward-region-force-hex
-            (setq rax2-cmd "rax2 -k"))
-          (setq result (concat (string-trim (shell-command-to-string (concat rax2-cmd " " rax2-args " " region-str))) " " result))
-          (print result)
-          (save-excursion
-            (end-of-line)
-            (insert (concat " => " (string-trim result)))))
-      (message "error: no region selected")
-      )))
-
-;; https://stackoverflow.com/questions/23636226/how-to-round-all-the-numbers-in-a-region
-;; ;; (let ((pos 0)
-;;           matches)
-;;       (while (string-match regexp string pos)
-;;         (push (match-string 0 string) matches)
-;;         (setq pos (match-end 0)))
-;;       matches)))
-;; TODO: need to handle multiple matches on a single line
-;; re-search-forward:
-;; - keep searching until eol; process results by handing to rax2 one by one
-;; - if there is more space between region end and eol, keep searching
-;;
-;; read in entire buffer substring
-;; split by newlines
-;; loop over all lines
-;; find numbers in lines
-;; process results by handing to rax2
-;; (re-search-forward "0x[0-9a-zA-Z]+\\|[0-9]+" (line-end-position) t)
-;;
-;; 0x23498+0x12+0x984 = 0x23e2e
-;; - insert the equals
-;; make configurable output format for every command
-(defun rax2-line (&optional input-arg)
-  (interactive)
-  (let* ((line-items '())
-         (rax2-args "")
-         (result ""))
-    (if input-arg
-        (setq rax2-args input-arg)
-      (when current-prefix-arg
-        (setq rax2-args (read-string "command: rax2 "))))
-    (save-excursion
-      (beginning-of-line)
-      (while (re-search-forward "[-]?0x[0-9a-zA-Z]+\\|[-]?[0-9]+" (line-end-position) t)
-        (push (match-string-no-properties 0) line-items))
-      (mapcar (lambda (x)
-                (print x)
-                (setq result (concat (string-trim (shell-command-to-string (concat "rax2 " rax2-args " " x))) " " result)))
-              line-items)
-      ;; (print line-items)
-      (print result)
-      (end-of-line)
-      (insert (concat " => " (string-trim result))))))
-
-(defun rax2-region-by-lines (start end)
-  (interactive "r")
-  (if (use-region-p)
-      (progn
-        (let ((start-marker (copy-marker (region-beginning)))
-              (end-marker (copy-marker (region-end)))
-              (rax2-args ""))
-          (when current-prefix-arg
-            (setq rax2-args (read-string "command: rax2 ")))
-          (goto-char (marker-position start-marker))
-          (while (< (point) (marker-position end-marker))
-                 (rax2-line rax2-args)
-                 (forward-line))))
-      (message "error: no region selected")))
-
-;; 0x5c;
-;; 0x52;
-;; 0x4f;
-;; 0x4f;
-;; 0x54;
-
 ;; (defun rax2-region-by-lines ()
 ;;   (interactive)
 ;;   (let ((beg (copy-marker (region-beginning)))
@@ -830,41 +703,6 @@
 
         (log-info "log.info(\"one_gadget: 0x%x\" % one_gadget)"))
     (insert (concat (shell-command-to-string (format one-gadget-cmd libc)) log-info))))
-
-(defun rax2 (arg)
-  (interactive "sRun: rax2 ")
-  (let ((result (string-trim (shell-command-to-string (concat "rax2 " arg)))))
-    (message result)
-    (when current-prefix-arg
-      (insert result))))
-
-(defun rax2-hex-to-dec (arg)
-  (interactive "sRun: rax2 (assume hex) ")
-  (let* ((hex-nums (mapconcat (lambda (x)
-                                (if (string-equal (substring x 0 2) "0x")
-                                    x
-                                  (concat "0x" x))) (split-string arg) " "))
-         (do-join (> (length (split-string arg)) 1))
-         (result (string-trim (shell-command-to-string (concat "rax2 " hex-nums)))))
-    (when do-join
-      (setq result (string-replace "\n" " " result)))
-    (message result)
-    (when current-prefix-arg
-      (insert result))))
-
-(defun rax2-string (arg)
-  (interactive "sRun: rax2 -s ")
-  (let ((result (string-trim (shell-command-to-string (concat "rax2 -s " arg)))))
-    (message result)
-    (when current-prefix-arg
-      (insert result))))
-
-(defun rax2-force-hex (arg)
-  (interactive "sRun: rax2 -k ")
-  (let ((result (string-trim (shell-command-to-string (concat "rax2 -k " arg)))))
-    (message result)
-    (when current-prefix-arg
-      (insert result))))
 
 ;;;;;;;;;;;;;;;;;;;
 ;; END PWN FUNCS ;;
@@ -986,6 +824,26 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
     doom-dashboard-widget-shortmenu
     doom-dashboard-widget-loaded
     doom-dashboard-widget-footer))
+
+
+;; [9]
+;; [10]
+;; [10]
+;; [9]
+;; [9]
+(defun down-crementer (&optional stride)
+  (interactive)
+  (let ((current-number (thing-at-point 'number t)))
+    (next-line)
+    (while (thing-at-point 'number t)
+      ;; TODO: should be bounds of number?
+      (let ((bounds (bounds-of-thing-at-point 'symbol)))
+        (setq current-number (1+ current-number))
+       (save-excursion
+          (delete-region (car bounds) (cdr bounds))
+          (insert (number-to-string current-number))))
+      ;; (print current-number)
+      (next-line))))
 
 (defun flyspell-visible()
   (interactive)
