@@ -789,6 +789,39 @@
 ;; 0x4f;
 ;; 0x54;
 
+;; (defun rax2-region-by-lines ()
+;;   (interactive)
+;;   (let ((beg (copy-marker (region-beginning)))
+;;         (end (copy-marker (region-end))))
+;;   (goto-char (marker-position beg))
+;;   ;; (goto-char (region-end))
+;;   ;; (print (region-end))
+;;   ;; (while (< (point) (max (marker-position beg)
+;;   ;;                        (marker-position end)))
+;;   (while (< (point) (marker-position end))
+;;     (beginning-of-line)
+;;     ;; (message "calling rax2-line")
+;;     (rax2-line)
+;;     (forward-line)
+;;     ;; (message "point is: %d; region is %d %d" (point)
+;;     ;;          (marker-position beg)
+;;     ;;          (marker-position end))
+;;   )))
+
+;; 0x4029 + 0x100
+(defun rax2-region ()
+  (interactive)
+  (let ((instr (buffer-substring-no-properties
+                    (region-beginning) (region-end)))
+        (outstr ""))
+    (message instr)
+    (when (string-match-p "[+-/*%]" instr)
+      (setq instr (replace-regexp-in-string "[ \t\n]" "" instr)))
+    (setq outstr (string-trim (shell-command-to-string (concat "rax2 " instr))))
+      (print outstr)
+      (end-of-line)
+      (insert (concat " => " (string-trim outstr)))))
+
 (defun insert-one-gadgets ()
   (interactive)
   (let ((one-gadget-cmd
