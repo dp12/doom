@@ -16,10 +16,10 @@ gs = '''
 qemu = "$0"
 if args.GDB:
     qemu += " -s -S"
-    target = qemu.split()
+    target = process(qemu.split())
 elif args.REMOTE:
     target = remote("host", "port")
 else:
-    target = qemu.split()
+    target = process(qemu.split())
 
 target.interactive()
