@@ -1036,12 +1036,36 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
     (kill-new filename)
     (message filename)))
 
-  (defun projectile-ripgrep-filename ()
-    "Search for the current filename"
-    (interactive)
-    (projectile-ripgrep (if (uniquify-buffer-base-name)
-                            (uniquify-buffer-base-name)
-                          (buffer-name))))
+(defun frog-jump-fastdirs ()
+  "Present a `frog-menu' for jumping to a fastdir."
+  (interactive)
+  (let* ((frog-menu-avy-padding t)
+         (frog-menu-grid-column-function (lambda () 1))
+         (frog-menu-posframe-parameters frog-jump-buffer-posframe-parameters)
+         ;; (frog-jump-buffer-current-filter-function
+          ;; (or frog-jump-buffer-current-filter-function frog-jump-buffer-default-filter))
+         (frog-menu-display-option-alist `((avy-posframe . ,frog-jump-buffer-posframe-handler)))
+         ;; (frog-jump-buffer-include-virtual-buffers
+          ;; (eq frog-jump-buffer-current-filter-function 'frog-jump-buffer-filter-recentf))
+         ;; (frog-jump-buffer-current-ignore-buffers (frog-jump-buffer-current-ignore-buffers))
+         ;; (buffer-names (-take frog-jump-buffer-max-buffers (frog-jump-buffer-buffer-names)))
+         (buffer-names (list "hello" "world" "hi"))
+         (actions (frog-jump-buffer-actions))
+         (filter-keys (-map #'string-to-char (-map #'car actions)))
+         (frog-menu-avy-keys (-difference frog-menu-avy-keys filter-keys))
+         (prompt (frog-jump-buffer-prompt))
+         (res (frog-menu-read prompt buffer-names
+                              actions)))
+    (if res
+        (frog-jump-buffer-handle-result res)
+      (message "No action or candidate selected"))))
+
+(defun projectile-ripgrep-filename ()
+"Search for the current filename"
+(interactive)
+(projectile-ripgrep (if (uniquify-buffer-base-name)
+                        (uniquify-buffer-base-name)
+                        (buffer-name))))
 
 (defun add-minibuffer-ripgrep-keymap ()
   (define-key minibuffer-local-map (kbd "C-c C-p") (lambda ()
