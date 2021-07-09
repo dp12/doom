@@ -289,6 +289,8 @@
   :nv "[h" #'parrot-hippie
   )
 
+(map! :map evil-motion-state-map "$" #'evil-last-non-blank)
+
 (after! dired
   (map! :map dired-mode-map
         :n "a" #'ripgrep-regexp
@@ -403,6 +405,9 @@
 (use-package! evil-org
   :config
   (evil-org-set-key-theme '(textobjects navigation additional todo))
+
+  (evil-define-key 'motion evil-org-mode-map
+    (kbd "$") #'evil-last-non-blank)
   (evil-define-key 'normal evil-org-mode-map
     (kbd "M-o") (evil-org-define-eol-command org-insert-subheading))
   (evil-define-key 'normal evil-org-mode-map
