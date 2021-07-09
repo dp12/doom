@@ -836,18 +836,31 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
 ;; [10]
 ;; [9]
 ;; [9]
-(defun down-crementer (&optional stride)
-  (interactive)
-  (let ((current-number (thing-at-point 'number t)))
+;;
+;; VB1.DMP
+;; VB2.DMP
+;; VB1.DMP
+;; VB1.DMP
+(defun down-crementer (&optional prefix-arg)
+  (interactive "P")
+  (let ((current-number (thing-at-point 'number t))
+        (stride 1))
+    (when prefix-arg
+      (setq stride (string-to-number (read-string "Enter stride: "))))
     (next-line)
     (while (thing-at-point 'number t)
-      ;; TODO: should be bounds of number?
-      (let ((bounds (bounds-of-thing-at-point 'symbol)))
-        (setq current-number (1+ current-number))
+      (let ((num-start nil)
+            (num-end nil))
+        (save-excursion
+          (skip-chars-backward "0-9")
+          (setq num-start (point)))
+        (save-excursion
+          (skip-chars-forward "0-9")
+          (setq num-end (point)))
        (save-excursion
-          (delete-region (car bounds) (cdr bounds))
+          (delete-region num-start num-end)
+          (setq current-number (+ current-number stride))
           (insert (number-to-string current-number))))
-      ;; (print current-number)
       (next-line))))
 
 (defun flyspell-visible()
