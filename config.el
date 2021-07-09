@@ -841,6 +841,8 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
 ;; VB2.DMP
 ;; VB1.DMP
 ;; VB1.DMP
+;; unlike evil-numbers/inc-at-pt-incremental, it always increments the next
+;; number to 1+ the previous one
 (defun down-crementer (&optional prefix-arg)
   (interactive "P")
   (let ((current-number (thing-at-point 'number t))
@@ -857,7 +859,7 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
         (save-excursion
           (skip-chars-forward "0-9")
           (setq num-end (point)))
-       (save-excursion
+        (save-excursion
           (delete-region num-start num-end)
           (setq current-number (+ current-number stride))
           (insert (number-to-string current-number))))
