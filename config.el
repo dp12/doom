@@ -69,6 +69,7 @@
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
+      :desc "frog-jump-fastdirs" "df" #'frog-jump-fastdirs
       :desc "fastdirs1" "d1" (lambda ()
                                (interactive)
                                (dired-jump-to-fastdir "d1"))
@@ -1056,23 +1057,12 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
   (interactive)
   (let* ((frog-menu-avy-padding t)
          (frog-menu-grid-column-function (lambda () 1))
-         (frog-menu-posframe-parameters frog-jump-buffer-posframe-parameters)
-         ;; (frog-jump-buffer-current-filter-function
-          ;; (or frog-jump-buffer-current-filter-function frog-jump-buffer-default-filter))
-         (frog-menu-display-option-alist `((avy-posframe . ,frog-jump-buffer-posframe-handler)))
-         ;; (frog-jump-buffer-include-virtual-buffers
-          ;; (eq frog-jump-buffer-current-filter-function 'frog-jump-buffer-filter-recentf))
-         ;; (frog-jump-buffer-current-ignore-buffers (frog-jump-buffer-current-ignore-buffers))
-         ;; (buffer-names (-take frog-jump-buffer-max-buffers (frog-jump-buffer-buffer-names)))
-         (buffer-names (list "hello" "world" "hi"))
-         (actions (frog-jump-buffer-actions))
-         (filter-keys (-map #'string-to-char (-map #'car actions)))
-         (frog-menu-avy-keys (-difference frog-menu-avy-keys filter-keys))
-         (prompt (frog-jump-buffer-prompt))
-         (res (frog-menu-read prompt buffer-names
-                              actions)))
+         (frog-menu-display-option-alist `((avy-posframe . posframe-poshandler-point-bottom-left-corner)))
+         (buffer-names (split-string (shell-command-to-string "cat ~/fastdirs | cut -d '=' -f2 | xargs") " "))
+         (frog-menu-avy-keys (number-sequence ?1 (string-to-char (number-to-string (length buffer-names)))))
+         (res (frog-menu-read "Choose a fastdir to jump to:" buffer-names)))
     (if res
-        (frog-jump-buffer-handle-result res)
+        (dired res)
       (message "No action or candidate selected"))))
 
 (defun projectile-ripgrep-filename ()
