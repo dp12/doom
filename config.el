@@ -365,6 +365,8 @@
   (global-evil-fringe-mark-mode)
   (setq-default left-fringe-width 16))
 
+(use-package! frog-menu)
+
 (use-package! isearch-prop)
 
 (use-package! ivy-avy :after ivy)

@@ -11,6 +11,7 @@
 (package! dired-narrow)
 (package! dired-subtree)
 (package! frog-jump-buffer)
+(package! frog-menu)
 (package! key-chord)
 (package! org-roam-server)
 (package! org-sidebar)
