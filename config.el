@@ -69,7 +69,7 @@
       :desc "centaur-tabs-mode" "ct" #'centaur-tabs-mode
       :desc "copy and comment" "cy" #'evilnc-copy-and-comment-lines
       :desc "dired-omit-mode" "d." #'dired-omit-mode
-      :desc "frog-jump-fastdirs" "df" #'frog-jump-fastdirs
+      :desc "frog-jump-fastdirs" "fd" #'frog-jump-fastdirs
       :desc "fastdirs1" "d1" (lambda ()
                                (interactive)
                                (dired-jump-to-fastdir "d1"))
@@ -105,7 +105,7 @@
       :desc "even horizontal" "eh" #'rotate:even-horizontal
       :desc "evil-show-marks" "em" #'evil-show-marks
       :desc "evil-show-registers" "er" #'evil-show-registers
-      :desc "quick-file jump" "fd" #'quick-file-hydra/body
+      :desc "quick-file jump" "df" #'quick-file-hydra/body
       :desc "quick-file jump" "fk" #'quick-file-hydra/body
       :desc "counsel-git" "fg" #'counsel-git
       :desc "dired-jump" "fj" #'dired-jump
@@ -116,6 +116,7 @@
       :desc "projectile-ripgrep-filename" "fN" #'projectile-ripgrep-filename
       :desc "find other file" "fO" #'ff-find-other-file
       :desc "find other file other window" "f0" #'ff-find-other-file-other-window
+      :desc "frog-jump-fastactions" "fa" #'frog-jump-fastactions
       :desc "fastaction1" "f1" (lambda ()
                                  (interactive)
                                  (async-shell-command-no-window "bash -ic 'f1'"))
@@ -1055,16 +1056,25 @@ Very modes            ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒�
     (message filename)))
 
 (defun frog-jump-fastdirs ()
-  "Present a `frog-menu' for jumping to a fastdir."
   (interactive)
   (let* ((frog-menu-avy-padding t)
          (frog-menu-grid-column-function (lambda () 1))
-         (frog-menu-display-option-alist `((avy-posframe . posframe-poshandler-point-bottom-left-corner)))
-         (buffer-names (split-string (shell-command-to-string "cat ~/fastdirs | cut -d '=' -f2 | xargs") " "))
-         (frog-menu-avy-keys (number-sequence ?1 (string-to-char (number-to-string (length buffer-names)))))
-         (res (frog-menu-read "Choose a fastdir to jump to:" buffer-names)))
+         (fastdirs (split-string (shell-command-to-string "cat ~/fastdirs | cut -d '=' -f2 | xargs") " "))
+         (frog-menu-avy-keys (number-sequence ?1 (string-to-char (number-to-string (length fastdirs)))))
+         (res (frog-menu-read "Choose a fastdir to jump to:" fastdirs)))
     (if res
         (dired res)
+      (message "No action or candidate selected"))))
+
+(defun frog-jump-fastactions ()
+  (interactive)
+  (let* ((frog-menu-avy-padding t)
+         (frog-menu-grid-column-function (lambda () 1))
+         (fastactions (butlast (split-string (shell-command-to-string "cat ~/fastactions | cut -d '=' -f2") "\n")))
+         (frog-menu-avy-keys (number-sequence ?1 (string-to-char (number-to-string (length fastactions)))))
+         (res (frog-menu-read "Choose a fastaction to execute:" fastactions)))
+    (if res
+        (async-shell-command res)
       (message "No action or candidate selected"))))
 
 (defun projectile-ripgrep-filename ()
