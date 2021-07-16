@@ -89,6 +89,7 @@
       :desc "delete-to-bol" "db" #'delete-to-bol
       :desc "dired home" "dh" (lambda () (interactive) (dired "~"))
       :desc "remove ld path" "dl" #'remove-ld-path
+      :desc "doom/reload" "dr" #'doom/reload
       :desc "refresh + counsel-locate" "sF" (lambda ()
                                               (interactive)
                                               (async-shell-command "sudo updatedb")
